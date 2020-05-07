@@ -1,7 +1,7 @@
-package anonor.mapper;
+package room.mapper;
 
-import anonor.pojo.Pension;
-import com.mymapper.MyMapper;
+import room.pojo.Pension;
+import room.mymapper.MyMapper;
 
 public interface PensionMapper extends MyMapper<Pension> {
 }

@@ -1,7 +1,7 @@
-package anonor.mapper;
+package room.mapper;
 
-import anonor.pojo.Merchant;
-import com.mymapper.MyMapper;
+import room.pojo.Merchant;
+import room.mymapper.MyMapper;
 
 public interface MerchantMapper extends MyMapper<Merchant> {
 }

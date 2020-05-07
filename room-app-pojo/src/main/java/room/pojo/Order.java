@@ -1,7 +1,7 @@
-package anonor.pojo;
+package room.pojo;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 public class Order {
     @Id

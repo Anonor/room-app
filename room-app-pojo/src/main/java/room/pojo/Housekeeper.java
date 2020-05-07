@@ -1,4 +1,4 @@
-package anonor.pojo;
+package room.pojo;
 
 import javax.persistence.*;
 

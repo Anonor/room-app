@@ -1,7 +1,7 @@
-package anonor.mapper;
+package room.mapper;
 
-import anonor.pojo.Housekeeper;
-import com.mymapper.MyMapper;
+import room.pojo.Housekeeper;
+import room.mymapper.MyMapper;
 
 public interface HousekeeperMapper extends MyMapper<Housekeeper> {
 }
