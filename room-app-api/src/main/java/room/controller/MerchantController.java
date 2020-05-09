@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import room.pojo.Merchant;
 import room.service.MerchantService;
-import room.service.impl.MerchantServiceImpl;
 
 import javax.servlet.http.HttpSession;
 
