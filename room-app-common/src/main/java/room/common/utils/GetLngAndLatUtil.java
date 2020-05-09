@@ -1,4 +1,4 @@
-package room.controller;
+package room.common.utils;
 
 import org.apache.commons.lang.StringUtils;
 
