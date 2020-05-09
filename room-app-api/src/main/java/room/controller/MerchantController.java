@@ -1,19 +1,25 @@
 package room.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import room.pojo.Merchant;
+import room.service.MerchantService;
 import room.service.impl.MerchantServiceImpl;
 
 import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/pms")
-
 public class MerchantController {
 
+    //注意：这里要这样引入，并且是接口Service，不是ServiceImpl，看完请删除该注释
+    @Autowired
+    private MerchantService merchantService;
+
+    //一个接口测试成功以后，删除System打印相关，看完请删除该注释~~~~~~~
     @GetMapping("/register")
     public int register(@RequestParam(value = "account") int account,
                         @RequestParam(value = "password") String  password,
@@ -21,8 +27,7 @@ public class MerchantController {
 
         System.out.println(account+","+password+","+brand_name);
 
-        MerchantServiceImpl merchantServiceImp = new MerchantServiceImpl();
-        if(merchantServiceImp.isAccountExist(account)) {
+        if(merchantService.isAccountExist(account)) {
             System.out.println("账号已存在，注册失败!");
             return 0;//账号已存在，注册失败
         }else{
@@ -30,7 +35,7 @@ public class MerchantController {
             merchant.setAccount(account);
             merchant.setPassword(password);
             merchant.setBrandName(brand_name);
-            merchantServiceImp.createMerchant(merchant);
+            merchantService.createMerchant(merchant);
             System.out.println("账号注册成功!");
             return 1;//账号注册成功
         }
@@ -43,9 +48,8 @@ public class MerchantController {
 
         System.out.println(account+","+password);
 
-        MerchantServiceImpl merchantServiceImp = new MerchantServiceImpl();
-        if(merchantServiceImp.isAccountExist(account)) {
-            Merchant merchant = merchantServiceImp.queryMerchantByAccount(account);
+        if(merchantService.isAccountExist(account)) {
+            Merchant merchant = merchantService.queryMerchantByAccount(account);
             String pwd = merchant.getPassword();
             if (pwd.equals(password)){
                 System.out.println("登录成功！");
