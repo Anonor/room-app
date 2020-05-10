@@ -74,8 +74,20 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void updateMerchant(Merchant merchant) {
+    public void updateMerchantById(Merchant merchant) {
         merchantMapper.updateByPrimaryKeySelective(merchant);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public boolean updateMerchantPassword(Integer merchantId, String oldPassword, String newPasseord) {
+        Merchant merchant = queryMerchantById(merchantId);
+        if (!merchant.getPassword().equals(oldPassword)) {
+            return false;
+        }
+        merchant.setPassword(newPasseord);
+        updateMerchantById(merchant);
+        return true;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

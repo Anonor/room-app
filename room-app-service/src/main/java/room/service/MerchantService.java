@@ -23,7 +23,10 @@ public interface MerchantService {
     public boolean queryMerchantForLogin(Integer account, String password);
 
     //根据商家id修改商家信息（选择性修改，需要有商家id）
-    public void updateMerchant(Merchant merchant);
+    public void updateMerchantById(Merchant merchant);
+
+    ////根据商家id修改商家密码（true：修改成功，false：旧密码不一致）
+    public boolean updateMerchantPassword(Integer id, String oldPassword, String newPasseord);
 
     //根据商家id删除商家信息
     public void deleteMerchant(Integer merchantId);
