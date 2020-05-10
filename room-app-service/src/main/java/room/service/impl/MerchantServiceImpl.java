@@ -1,5 +1,6 @@
 package room.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,7 +30,6 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public Merchant queryMerchantById(Integer merchantId) {
         Merchant merchant = merchantMapper.selectByPrimaryKey(merchantId);
-        merchant.setPassword(null);
         return merchant;
     }
 
@@ -40,7 +40,6 @@ public class MerchantServiceImpl implements MerchantService {
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);
         Merchant merchant = merchantMapper.selectOneByExample(merchantExample);
-        merchant.setPassword(null);
         return merchant;
     }
 
@@ -82,7 +81,7 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public boolean updateMerchantPassword(Integer merchantId, String oldPassword, String newPasseord) {
         Merchant merchant = queryMerchantById(merchantId);
-        if (!merchant.getPassword().equals(oldPassword)) {
+        if (!StringUtils.equals(merchant.getPassword(), oldPassword)) {
             return false;
         }
         merchant.setPassword(newPasseord);
