@@ -28,7 +28,7 @@ public class TestController {
     @GetMapping("/getLongAndLati")
     public Object getLongAndLati(@RequestParam(value = "address") String address) throws Exception {
         Map<String, Double> map = new HashMap<String, Double>();
-        System.out.println("getlong");
+        //System.out.println("getlong");
         map = GetLngAndLatUtil.getLngAndLat(address);
         return map;
     }
