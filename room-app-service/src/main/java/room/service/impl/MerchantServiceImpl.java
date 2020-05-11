@@ -18,7 +18,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public Integer queryIdByAccount(Integer account) {
+    public Integer queryIdByAccount(String account) {
         Example merchantExample = new Example(Merchant.class);
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);
@@ -35,7 +35,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public Merchant queryMerchantByAccount(Integer account) {
+    public Merchant queryMerchantByAccount(String account) {
         Example merchantExample = new Example(Merchant.class);
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);
@@ -45,7 +45,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public boolean isAccountExist(Integer account) {
+    public boolean isAccountExist(String account) {
         Example merchantExample = new Example(Merchant.class);
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);
@@ -62,7 +62,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public boolean queryMerchantForLogin(Integer account, String password) {
+    public boolean queryMerchantForLogin(String account, String password) {
         Example merchantExample = new Example(Merchant.class);
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);

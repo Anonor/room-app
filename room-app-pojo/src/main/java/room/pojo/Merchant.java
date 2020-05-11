@@ -7,7 +7,7 @@ public class Merchant {
     @Column(name = "merchant_id")
     private Integer merchantId;
 
-    private Integer account;
+    private String account;
 
     private String password;
 
@@ -31,14 +31,14 @@ public class Merchant {
     /**
      * @return account
      */
-    public Integer getAccount() {
+    public String getAccount() {
         return account;
     }
 
     /**
      * @param account
      */
-    public void setAccount(Integer account) {
+    public void setAccount(String account) {
         this.account = account;
     }
 
