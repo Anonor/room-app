@@ -16,6 +16,11 @@ public class Pension {
     private String name;
 
     /**
+     * 房间是否被入住，默认为0，即未被入住；1表示已入住
+     */
+    private Integer status;
+
+    /**
      * 民宿一天的价格
      */
     private Float price;
@@ -98,6 +103,24 @@ public class Pension {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * 获取房间是否被入住，默认为0，即未被入住；1表示已入住
+     *
+     * @return status - 房间是否被入住，默认为0，即未被入住；1表示已入住
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置房间是否被入住，默认为0，即未被入住；1表示已入住
+     *
+     * @param status 房间是否被入住，默认为0，即未被入住；1表示已入住
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     /**
