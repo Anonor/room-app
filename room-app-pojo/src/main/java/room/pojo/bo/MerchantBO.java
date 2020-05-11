@@ -11,7 +11,7 @@ public class MerchantBO {
 
     private String newPwd;
 
-    private String brand_name;
+    private String brandName;
 
     public Integer getId() {
         return id;
@@ -37,12 +37,12 @@ public class MerchantBO {
         this.pwd = pwd;
     }
 
-    public String getBrand_name() {
-        return brand_name;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setBrand_name(String brand_name) {
-        this.brand_name = brand_name;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getOldPwd() {

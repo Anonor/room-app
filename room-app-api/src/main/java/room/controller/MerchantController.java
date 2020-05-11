@@ -38,7 +38,7 @@ public class MerchantController {
             //相关账号密码有效性验证，看前端如何验证（待补）
             Merchant merchant = new Merchant();
             merchant.setAccount(merchantBO.getAccount());
-            merchant.setBrandName(merchantBO.getBrand_name());
+            merchant.setBrandName(merchantBO.getBrandName());
             merchant.setPassword(merchantBO.getPwd());
             merchantService.createMerchant(merchant);
             JSONObject result = new JSONObject();
@@ -102,23 +102,23 @@ public class MerchantController {
         }
     }
 
-    //商家修改brand_name
+    //商家修改brandName
     @RequestMapping(value = "updateBrandName", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String updateBrandName(@RequestBody MerchantBO merchantBO,
                                   HttpServletRequest request){
         int id = Integer.parseInt(request.getSession().getAttribute("id").toString());
         Merchant merchant = merchantService.queryMerchantById(id);
-        if(merchantBO.getBrand_name().equals(merchant.getBrandName())){
+        if(merchantBO.getBrandName().equals(merchant.getBrandName())){
             JSONObject result = new JSONObject();
             result.put("status", "failure");
-            result.put("detail","与brand_name一致，修改失败！");
+            result.put("detail","与brandName一致，修改失败！");
             return result.toJSONString();
         }else {
-            merchant.setBrandName(merchantBO.getBrand_name());
+            merchant.setBrandName(merchantBO.getBrandName());
             merchantService.updateMerchantById(merchant);
             JSONObject result = new JSONObject();
             result.put("status", "success");
-            result.put("detail","修改brand_name成功！");
+            result.put("detail","修改brandName成功！");
             return result.toJSONString();
         }
     }
