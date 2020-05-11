@@ -3,7 +3,7 @@ package room.pojo.bo;
 public class MerchantBO {
     private Integer id;
 
-    private Integer account;
+    private String account;
 
     private String pwd;
 
@@ -21,11 +21,11 @@ public class MerchantBO {
         this.id = id;
     }
 
-    public Integer getAccount() {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(Integer account) {
+    public void setAccount(String account) {
         this.account = account;
     }
 

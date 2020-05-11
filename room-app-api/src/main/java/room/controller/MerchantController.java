@@ -65,7 +65,7 @@ public class MerchantController {
             }else{
                 JSONObject result = new JSONObject();
                 result.put("status", "failure");
-                result.put("detail","密码错误，登陆失败！");
+                result.put("detail","密码错误，登录失败！");
                 return result.toJSONString();
             }
         }else{
@@ -85,14 +85,14 @@ public class MerchantController {
         if (!merchantService.updateMerchantPassword(id,merchantBO.getOldPwd(),merchantBO.getNewPwd())){ //不正确
             JSONObject result = new JSONObject();
             result.put("status", "failure");
-            result.put("detail","用户输入的旧密码错误，修改不成功！");
+            result.put("detail","用户输入的旧密码错误，修改失败！");
             return result.toJSONString();
         }
         //2.再判断两次输入的密码是否一致
         else if(StringUtils.equals(merchantBO.getOldPwd(),merchantBO.getNewPwd())){
             JSONObject result = new JSONObject();
             result.put("status", "failure");
-            result.put("detail","与原密码一致，修改不成功！");
+            result.put("detail","与原密码一致，修改失败！");
             return result.toJSONString();
         }else {
             JSONObject result = new JSONObject();
@@ -105,13 +105,13 @@ public class MerchantController {
     //商家修改brand_name
     @RequestMapping(value = "updateBrandName", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String updateBrandName(@RequestBody MerchantBO merchantBO,
-                               HttpServletRequest request){
+                                  HttpServletRequest request){
         int id = Integer.parseInt(request.getSession().getAttribute("id").toString());
         Merchant merchant = merchantService.queryMerchantById(id);
         if(merchantBO.getBrand_name().equals(merchant.getBrandName())){
             JSONObject result = new JSONObject();
             result.put("status", "failure");
-            result.put("detail","与brand_name一致，修改不成功！");
+            result.put("detail","与brand_name一致，修改失败！");
             return result.toJSONString();
         }else {
             merchant.setBrandName(merchantBO.getBrand_name());
