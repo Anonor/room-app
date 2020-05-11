@@ -16,20 +16,12 @@ import java.util.Enumeration;
 public class MerchantController {
     @Autowired
     private MerchantService merchantService;
-    private boolean status = false;//检测商家是否为登录状态
 
     //商家注册账号
     @RequestMapping(value = "register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String  register(@RequestBody MerchantBO merchantBO){
-        //安全验证（避免通过修改浏览器地址直接注册）
-        //先判断用户是否尚为登录状态
-        if (status){
-            JSONObject result = new JSONObject();
-            result.put("status","failure");
-            result.put("detail","请先退出登录，再进行注册！");
-            return result.toJSONString();
-        }
-        else if(merchantService.isAccountExist(merchantBO.getAccount())) {
+
+        if(merchantService.isAccountExist(merchantBO.getAccount())) {
             JSONObject result = new JSONObject();
             result.put("status","failure");
             result.put("detail","账号已存在，请直接返回首页登录!");
@@ -57,7 +49,6 @@ public class MerchantController {
                 Merchant merchant = merchantService.queryMerchantByAccount(merchantBO.getAccount());
                 //将id存入session
                 request.getSession().setAttribute("id",merchant.getMerchantId());
-                status = true;//置登录状态量为真
                 JSONObject result = new JSONObject();
                 result.put("status", "success");
                 result.put("detail","登录成功！");
@@ -131,7 +122,6 @@ public class MerchantController {
         while(em.hasMoreElements()){
             request.getSession().removeAttribute(em.nextElement().toString());
         }
-        status = false;//置登录状态量为假
         System.out.println("商家已退出登录！");
     }
 
@@ -150,7 +140,6 @@ public class MerchantController {
         while(em.hasMoreElements()){
             request.getSession().removeAttribute(em.nextElement().toString());
         }
-        status = false;//置登录状态量为假
         System.out.println("注销成功！");
     }
 }
