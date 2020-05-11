@@ -93,6 +93,22 @@ public class MerchantController {
         }
     }
 
+    //商家修改密码（忘记了旧密码，直接修改为新密码）
+    @RequestMapping(value = "updatePwdForget", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String updatePwdForget(@RequestBody MerchantBO merchantBO,
+                                  HttpServletRequest request){
+        String pwd = merchantBO.getPwd();
+        int id = Integer.parseInt(request.getSession().getAttribute("id").toString());
+        Merchant merchant = merchantService.queryMerchantById(id);
+        merchant.setPassword(pwd);
+        merchantService.updateMerchantById(merchant);
+        JSONObject result = new JSONObject();
+        result.put("status", "success");
+        result.put("detail","修改密码成功！");
+        return result.toJSONString();
+    }
+
+
     //商家修改brandName
     @RequestMapping(value = "updateBrandName", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String updateBrandName(@RequestBody MerchantBO merchantBO,
