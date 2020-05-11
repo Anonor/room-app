@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 @RestController
-@RequestMapping("/pms")
+@RequestMapping("/merchant")
 public class MerchantController {
     @Autowired
     private MerchantService merchantService;

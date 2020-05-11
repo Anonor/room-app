@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/pms")
+@RequestMapping("/test")
 public class TestController {
 
     @GetMapping("/hello")
