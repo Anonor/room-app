@@ -1,12 +1,11 @@
 package room.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import room.pojo.Merchant;
+import room.pojo.bo.MerchantBO;
 import room.service.MerchantService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,94 +19,112 @@ public class MerchantController {
     private boolean status = false;//检测商家是否为登录状态
 
     //商家注册账号
-    @GetMapping("/register")
-    public int register(@RequestParam(value = "account") int account,
-                        @RequestParam(value = "password") String  password,
-                        @RequestParam(value = "brand_name") String  brand_name){
+    @RequestMapping(value = "register", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String  register(@RequestBody MerchantBO merchantBO){
+        //安全验证（避免通过修改浏览器地址直接注册）
         //先判断用户是否尚为登录状态
         if (status){
-            System.out.println("请先退出登录，再进行注册！");
-            return 2;
+            JSONObject result = new JSONObject();
+            result.put("status","failure");
+            result.put("detail","请先退出登录，再进行注册！");
+            return result.toJSONString();
         }
-        else if(merchantService.isAccountExist(account)) {
-            System.out.println("账号已存在，请直接返回首页登录!");
-            return 0;//账号已存在，注册失败
+        else if(merchantService.isAccountExist(merchantBO.getAccount())) {
+            JSONObject result = new JSONObject();
+            result.put("status","failure");
+            result.put("detail","账号已存在，请直接返回首页登录!");
+            return result.toJSONString();
         }else{
             //相关账号密码有效性验证，看前端如何验证（待补）
             Merchant merchant = new Merchant();
-            merchant.setAccount(account);
-            merchant.setBrandName(brand_name);
-            merchant.setPassword(password);
+            merchant.setAccount(merchantBO.getAccount());
+            merchant.setBrandName(merchantBO.getBrand_name());
+            merchant.setPassword(merchantBO.getPwd());
             merchantService.createMerchant(merchant);
-            System.out.println("账号注册成功!");
-            return 1;//账号注册成功
+            JSONObject result = new JSONObject();
+            result.put("status", "success");
+            result.put("detail","账号注册成功！");
+            return result.toJSONString();
         }
     }
 
     //商家登录
-    @GetMapping("/login")
-    public int login(@RequestParam(value = "account") int account,
-                     @RequestParam(value = "password") String password,
-                     HttpServletRequest request){
-
-        if(merchantService.isAccountExist(account)) {
-            if (merchantService.queryMerchantForLogin(account,password)){
-                Merchant merchant = merchantService.queryMerchantByAccount(account);
+    @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String login(@RequestBody MerchantBO merchantBO,
+                        HttpServletRequest request){
+        if(merchantService.isAccountExist(merchantBO.getAccount())) {
+            if (merchantService.queryMerchantForLogin(merchantBO.getAccount(),merchantBO.getPwd())){
+                Merchant merchant = merchantService.queryMerchantByAccount(merchantBO.getAccount());
+                //将id存入session
                 request.getSession().setAttribute("id",merchant.getMerchantId());
-                System.out.println("登录成功！");
                 status = true;//置登录状态量为真
-                return 1;//登录成功
+                JSONObject result = new JSONObject();
+                result.put("status", "success");
+                result.put("detail","登录成功！");
+                return result.toJSONString();
             }else{
-                System.out.println("密码错误，登陆失败！");
-                return 0;//密码错误，登陆失败
+                JSONObject result = new JSONObject();
+                result.put("status", "failure");
+                result.put("detail","密码错误，登陆失败！");
+                return result.toJSONString();
             }
         }else{
-            System.out.println("账号不存在，请先注册账号！");
-            return 2;//账号不存在，请先注册账号
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail","账号不存在，请先注册账号！");
+            return result.toJSONString();
         }
     }
 
     //商家修改账号密码
-    @GetMapping("/updatePassword")
-    public int update(HttpServletRequest request,
-                      @RequestParam(value = "oldPassword") String oldPassword,
-                      @RequestParam(value = "newPassword") String newPassword){
+    @RequestMapping(value = "updatePwd", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String update(@RequestBody MerchantBO merchantBO,
+                         HttpServletRequest request){
         //1.先判断用户的oldPassword是否正确
         int id = Integer.parseInt(request.getSession().getAttribute("id").toString());
-        //String correctPwd = merchantService.queryMerchantById(id).getPassword();
-        if (!merchantService.updateMerchantPassword(id,oldPassword,newPassword)){ //不正确
-            System.out.println("用户输入的旧密码错误，修改不成功！");
-            return 2;
+        if (!merchantService.updateMerchantPassword(id,merchantBO.getOldPwd(),merchantBO.getNewPwd())){ //不正确
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail","用户输入的旧密码错误，修改不成功！");
+            return result.toJSONString();
         }
         //2.再判断两次输入的密码是否一致
-        else if(StringUtils.equals(oldPassword,newPassword)){
-            System.out.println("与原密码一致，修改不成功！");
-            return 0;
+        else if(StringUtils.equals(merchantBO.getOldPwd(),merchantBO.getNewPwd())){
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail","与原密码一致，修改不成功！");
+            return result.toJSONString();
         }else {
-            System.out.println("修改密码成功！");
-            return 1;
+            JSONObject result = new JSONObject();
+            result.put("status", "success");
+            result.put("detail","修改密码成功！");
+            return result.toJSONString();
         }
     }
 
     //商家修改brand_name
-    @GetMapping("/updateBrandName")
-    public int updateBrandName(HttpServletRequest request,
-                      @RequestParam(value = "brand_name") String brand_name){
+    @RequestMapping(value = "updateBrandName", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String updateBrandName(@RequestBody MerchantBO merchantBO,
+                               HttpServletRequest request){
         int id = Integer.parseInt(request.getSession().getAttribute("id").toString());
         Merchant merchant = merchantService.queryMerchantById(id);
-        if(brand_name.equals(merchant.getBrandName())){
-            System.out.println("与brand_name一致，修改不成功！");
-            return 0;
+        if(merchantBO.getBrand_name().equals(merchant.getBrandName())){
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail","与brand_name一致，修改不成功！");
+            return result.toJSONString();
         }else {
-            merchant.setBrandName(brand_name);
+            merchant.setBrandName(merchantBO.getBrand_name());
             merchantService.updateMerchantById(merchant);
-            System.out.println("修改brand_name成功！");
-            return 1;
+            JSONObject result = new JSONObject();
+            result.put("status", "success");
+            result.put("detail","修改brand_name成功！");
+            return result.toJSONString();
         }
     }
 
     //商家退出登录
-    @GetMapping("/logout")
+    @RequestMapping(value = "logout", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public void logout(HttpServletRequest request){
         //清空session
         Enumeration em = request.getSession().getAttributeNames();
@@ -119,7 +136,7 @@ public class MerchantController {
     }
 
     //商家注销账号
-    @GetMapping("/logoff")
+    @RequestMapping(value = "logoff", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public void logoff(HttpServletRequest request){
         //删除merchant表中该商家账号
         int id = Integer.parseInt(request.getSession().getAttribute("id").toString());
@@ -136,7 +153,4 @@ public class MerchantController {
         status = false;//置登录状态量为假
         System.out.println("注销成功！");
     }
-
-
-
 }
