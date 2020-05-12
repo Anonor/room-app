@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import room.common.utils.GetLngAndLatUtil;
 import room.pojo.Pension;
+import room.pojo.bo.MerchantBO;
 import room.pojo.bo.PensionBO;
 import room.service.PensionService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,16 +30,12 @@ public class PensionController {
     public String add(@RequestBody PensionBO pensionBO,
                       HttpServletRequest request){
         int merchantId = Integer.parseInt(request.getSession().getAttribute("id").toString());
-        System.out.println("merchantID:"+merchantId);
-        System.out.println("pensionName:"+pensionBO.getName());
         if(pensionService.isPensionExist(merchantId,pensionBO.getName())){
-            System.out.println("民宿存在");
             JSONObject result = new JSONObject();
             result.put("status", "failure");
             result.put("detail","民宿已存在，增加民宿失败！");
             return result.toJSONString();
         }
-        System.out.println("民宿不存在");
         Pension pension = new Pension();
         pension.setMerchantId(merchantId);
         pension.setName(pensionBO.getName());
@@ -52,7 +50,6 @@ public class PensionController {
         Map<String, Double> map = new HashMap<String, Double>();
         try {
             map = GetLngAndLatUtil.getLngAndLat(address);
-            System.out.println("map:"+map);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,4 +61,30 @@ public class PensionController {
         result.put("detail","添加民宿成功！");
         return result.toJSONString();
     }
+
+
+    //显示该商家拥有的所有民宿的信息
+    @RequestMapping(value = "showAllPensionInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String showAllPensionInfo(HttpServletRequest request){
+        int merchantId = Integer.parseInt(request.getSession().getAttribute("id").toString());
+        List<Pension> pensions = pensionService.queryByMerchantId(merchantId);
+        JSONObject result = new JSONObject();
+        if (pensions.size()==0){
+            result.put("status","failure");
+            result.put("detail","您还没有民宿！");
+            return result.toJSONString();
+        }
+        result.put("status", "success");
+        result.put("detail",pensions);
+        return result.toJSONString();
+    }
+
+    //显示这个民宿的信息
+    @RequestMapping(value = "showPensionInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String add(@RequestBody MerchantBO merchantBO,
+                      @RequestBody PensionBO pensionBO,
+                      HttpServletRequest request){
+        return "ok";
+    }
+
 }

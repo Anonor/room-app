@@ -121,5 +121,18 @@
             <version>1.2.68</version>
         </dependency>
 
+        <!--榛子云短信验证码平台-->
+        <dependency>
+            <groupId>com.zhenzikj</groupId>
+            <artifactId>zhenzisms</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!--发送邮箱验证码-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

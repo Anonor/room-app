@@ -13,6 +13,11 @@ public class MerchantBO {
 
     private String brandName;
 
+    //邮箱验证码
+    private String code;
+    //获取邮箱验证码事务类型（注册、通过邮箱验证码登录、重置密码）
+    private String type;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +64,21 @@ public class MerchantBO {
 
     public void setNewPwd(String newPwd) {
         this.newPwd = newPwd;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

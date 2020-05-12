@@ -32,4 +32,8 @@ public class TestController {
         map = GetLngAndLatUtil.getLngAndLat(address);
         return map;
     }
+
+    public void main(){}
+
+
 }

@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import room.common.interceptor.LoginHandlerInterceptor;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //放行路径
         List<String> patterns = new ArrayList();
-        patterns.add("/merchant/login");
-        patterns.add("/merchant/register");
+        patterns.add("/merchant/login");//通过账号密码登录
+        patterns.add("/test/**");
+        patterns.add("/merchant/getEmailVerificationCode");
 
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns(patterns);
     }
