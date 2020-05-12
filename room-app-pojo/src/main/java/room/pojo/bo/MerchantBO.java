@@ -17,6 +17,8 @@ public class MerchantBO {
     private String code;
     //获取邮箱验证码事务类型（注册、通过邮箱验证码登录、重置密码）
     private String type;
+    //请求的sessionId，防止session失效
+    private String sessionId;
 
     public Integer getId() {
         return id;
@@ -80,5 +82,13 @@ public class MerchantBO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

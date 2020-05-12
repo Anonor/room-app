@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import room.common.interceptor.LoginHandlerInterceptor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +25,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
         patterns.add("/merchant/login");//通过账号密码登录
         patterns.add("/test/**");
         patterns.add("/merchant/getEmailVerificationCode");
+        //patterns.add("/merchant/**");
 
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns(patterns);
+        //registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns(patterns);
     }
 }
 
