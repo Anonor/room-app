@@ -2,14 +2,13 @@ package room.common.utils;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MySessionContext {
 
-    private static HashMap<String,Object> sessionIdMap = new HashMap<String,Object>();
+    private static HashMap<String,Object> sessionIdMap = new HashMap<>();
     public static synchronized void addSession(HttpSession session) {
         if (session != null) {
-            sessionIdMap.put(session.getId(), session);
+            sessionIdMap.put(session.getId(),session);
         }
     }
 
@@ -30,16 +29,5 @@ public class MySessionContext {
         }else{
             return null;
         }
-    }
-
-    public static synchronized String getSessionId(){
-        String sessionId = null;
-        for (Map.Entry<String, Object> entry : sessionIdMap.entrySet()) {
-            sessionId = entry.getKey();
-            if (sessionId != null) {
-                break;
-            }
-        }
-        return  sessionId;
     }
 }

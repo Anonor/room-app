@@ -39,7 +39,6 @@ public class PensionController {
         Pension pension = new Pension();
         pension.setMerchantId(merchantId);
         pension.setName(pensionBO.getName());
-        pension.setPrice(pensionBO.getPrice());
         pension.setAddressProvince(pensionBO.getAddressProvince());
         pension.setAddressCity(pensionBO.getAddressCity());
         pension.setAddressDistrict(pensionBO.getAddressDistrict());

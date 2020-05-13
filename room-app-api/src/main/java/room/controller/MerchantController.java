@@ -40,8 +40,8 @@ public class MerchantController {
                     return result.toJSONString();
                 }else { //账号不存在
                     //注册必须通过邮箱验证码验证，故将注册页面添加进了拦截页面防止恶意注册，只有通过邮箱验证码才可注册账号
-                    //设置session中id不为空，以免即便通过邮箱验证了的用户注册页面还被拦截下来
-                    session.setAttribute("id",1);//注册用户没有id，只需设不为空即可
+                    //设置session中id不为空，以免即便通过邮箱验证了的用户注册页面还被拦截下来，此处在web中使用（web有拦截器了)
+                    //session.setAttribute("id",1);//注册用户没有id，只需设不为空即可
                     //保存注册账号，register函数会使用
                     session.setAttribute("account",merchantBO.getAccount());
                 }
@@ -54,9 +54,9 @@ public class MerchantController {
                     MySessionContext.delSession(session);
                     return result.toJSONString();
                 }else {     //账号存在
-                    //以防通过了邮箱验证的用户上述界面仍被拦截，故将id存入session
-                    int id = merchantService.queryIdByAccount(merchantBO.getAccount());
-                    session.setAttribute("id",id);
+                    //以防通过了邮箱验证的用户上述界面仍被拦截，故将id存入session，web时使用拦截器
+                    //int id = merchantService.queryIdByAccount(merchantBO.getAccount());
+                    //session.setAttribute("id",id);
                     session.setAttribute("account",merchantBO.getAccount());
                 }
                 break;
@@ -74,6 +74,7 @@ public class MerchantController {
         result.put("detail","验证码已发送请注意查收，开始进行"+type+"操作的邮箱验证！");
         //存session
         MySessionContext.addSession(session);
+        result.put("sessionId",session.getId());
         return result.toJSONString();
     }
 
@@ -84,7 +85,7 @@ public class MerchantController {
         //用户输入的验证码
         String codeMerchant = merchantBO.getCode();
         JSONObject result = new JSONObject();
-        HttpSession session = MySessionContext.getSession(MySessionContext.getSessionId());
+        HttpSession session = MySessionContext.getSession(merchantBO.getSessionId());
         Long codeTime = Long.parseLong(session.getAttribute("createTime").toString());
         //验证用户输入的验证码是否正确
         if (validateCode(session.getAttribute("code").toString(),session.getAttribute("createTime").toString(),codeMerchant)){
@@ -93,11 +94,12 @@ public class MerchantController {
             merchant.setAccount(account);
             merchant.setBrandName(merchantBO.getBrandName());
             merchant.setPassword(merchantBO.getPwd());
+            merchant.setMerchantStatus(1);
             merchantService.createMerchant(merchant);
             result.put("status", "success");
             result.put("detail","账号注册成功！");
             //注册成功，清空session
-            MySessionContext.delSessionById(MySessionContext.getSessionId());
+            MySessionContext.delSessionById(merchantBO.getSessionId());
             /*Enumeration em = session.getAttributeNames();
             while(em.hasMoreElements()){
                 session.removeAttribute(em.nextElement().toString());
@@ -121,31 +123,35 @@ public class MerchantController {
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String login(@RequestBody MerchantBO merchantBO,
                         HttpSession session){
+        //先判断该用户之前是否有sessionId
+        if (merchantBO.getSessionId()!=null){       //说明该用户之前已有session
+            MySessionContext.delSessionById(merchantBO.getSessionId());
+        }
+        //该用户之前没有session
         if(merchantService.isAccountExist(merchantBO.getAccount())) {
             if (merchantService.queryMerchantForLogin(merchantBO.getAccount(),merchantBO.getPwd())){
                 Merchant merchant = merchantService.queryMerchantByAccount(merchantBO.getAccount());
                 //将id存入session
                 session.setAttribute("id",merchant.getMerchantId());
-                //防止以前存在有session，删除之前的session
-                MySessionContext.delSessionById(MySessionContext.getSessionId());
-                //存新的session
+                //存session
                 MySessionContext.addSession(session);
                 JSONObject result = new JSONObject();
                 result.put("status", "success");
                 result.put("detail","登录成功！");
+                result.put("sessionId",session.getId());
                 return result.toJSONString();
             }else{
                 JSONObject result = new JSONObject();
                 result.put("status", "failure");
                 result.put("detail","密码错误，登录失败！");
-                MySessionContext.delSessionById(MySessionContext.getSessionId());
+                MySessionContext.delSession(session);
                 return result.toJSONString();
             }
         }else{
             JSONObject result = new JSONObject();
             result.put("status", "failure");
             result.put("detail","账号不存在，请先注册账号！");
-            MySessionContext.delSessionById(MySessionContext.getSessionId());
+            MySessionContext.delSession(session);
             return result.toJSONString();
         }
     }
@@ -155,7 +161,7 @@ public class MerchantController {
     public String loginViaEmailCode(@RequestBody MerchantBO merchantBO){
         //用户输入的验证码
         String codeMerchant = merchantBO.getCode();
-        HttpSession session = MySessionContext.getSession(MySessionContext.getSessionId());
+        HttpSession session = MySessionContext.getSession(merchantBO.getSessionId());
         JSONObject result = new JSONObject();
         Long codeTime = Long.parseLong(session.getAttribute("createTime").toString());
         //验证用户输入的验证码是否正确
@@ -179,7 +185,7 @@ public class MerchantController {
     @RequestMapping(value = "updatePwd", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String update(@RequestBody MerchantBO merchantBO){
         //1.先判断用户的oldPassword是否正确
-        HttpSession session = MySessionContext.getSession(MySessionContext.getSessionId());
+        HttpSession session = MySessionContext.getSession(merchantBO.getSessionId());
         int id = Integer.parseInt(session.getAttribute("id").toString());
         if (!merchantService.updateMerchantPassword(id,merchantBO.getOldPwd(),merchantBO.getNewPwd())){ //不正确
             JSONObject result = new JSONObject();
@@ -206,7 +212,7 @@ public class MerchantController {
     public String  forgetPwd(@RequestBody MerchantBO merchantBO){
         //用户输入的验证码
         String codeMerchant = merchantBO.getCode();
-        HttpSession session = MySessionContext.getSession(MySessionContext.getSessionId());
+        HttpSession session = MySessionContext.getSession(merchantBO.getSessionId());
         JSONObject result = new JSONObject();
         Long codeTime = Long.parseLong(session.getAttribute("createTime").toString());
         //验证用户输入的验证码是否正确
@@ -262,7 +268,7 @@ public class MerchantController {
     //商家修改brandName，必须在登录状态下
     @RequestMapping(value = "updateBrandName", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String updateBrandName(@RequestBody MerchantBO merchantBO){
-        HttpSession session = MySessionContext.getSession(MySessionContext.getSessionId());
+        HttpSession session = MySessionContext.getSession(merchantBO.getSessionId());
         int id = Integer.parseInt(session.getAttribute("id").toString());
         Merchant merchant = merchantService.queryMerchantById(id);
         if(merchantBO.getBrandName().equals(merchant.getBrandName())){
@@ -282,43 +288,30 @@ public class MerchantController {
 
     //商家退出登录
     @RequestMapping(value = "logout", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public void logout(){
-        HttpSession session=MySessionContext.getSession(MySessionContext.getSessionId());
+    public void logout(@RequestBody MerchantBO merchantBO){
         //清空session
-        Enumeration em = session.getAttributeNames();
-        while(em.hasMoreElements()){
-            session.removeAttribute(em.nextElement().toString());
-        }
+        MySessionContext.delSessionById(merchantBO.getSessionId());
         System.out.println("商家已退出登录！");
     }
 
     //商家注销账号
     @RequestMapping(value = "logoff", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public void logoff(){
-        HttpSession session=MySessionContext.getSession(MySessionContext.getSessionId());
-        //删除merchant表中该商家账号
+    public void logoff(@RequestBody MerchantBO merchantBO){
+        HttpSession session=MySessionContext.getSession(merchantBO.getSessionId());
+        //置merchant表中该商家账号状态为0
         int id = Integer.parseInt(session.getAttribute("id").toString());
-        merchantService.deleteMerchant(id);
-        //删除order表中该商家所属订单（待补）
+        Merchant merchant = merchantService.queryMerchantById(id);
+        merchant.setMerchantStatus(0);
+        merchantService.updateMerchantById(merchant);
+        //置order表中该商家所属订单状态为0（待补）
 
-        //删除pension表中该商家所属民宿（待补）
+        //置pension表中该商家所属门店状态为0（待补）
+
+        //置room表中该商家所属房间状态为0（待补）
 
         //清空session
-        Enumeration em = session.getAttributeNames();
-        while(em.hasMoreElements()){
-            session.removeAttribute(em.nextElement().toString());
-        }
+        MySessionContext.delSession(session);
         System.out.println("注销成功！");
-    }
-
-    //获取sessionId
-    @GetMapping("/getSessionId")
-    public String getSessionId(){
-        String sessionId = MySessionContext.getSessionId();
-        JSONObject result = new JSONObject();
-        result.put("status", "success");
-        result.put("sessionId",sessionId);
-        return result.toJSONString();
     }
 
 }
