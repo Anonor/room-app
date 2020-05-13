@@ -28,7 +28,7 @@ public interface MerchantService {
     //根据商家id修改商家密码（true：修改成功，false：旧密码不一致）
     public boolean updateMerchantPassword(Integer id, String oldPassword, String newPasseord);
 
-    //根据商家id删除商家信息
-    public void deleteMerchant(Integer merchantId);
+    //根据商家id更改商家状态（禁用->正常     正常->禁用）
+    public void updateMerchantStatus(Integer merchantId);
 
 }

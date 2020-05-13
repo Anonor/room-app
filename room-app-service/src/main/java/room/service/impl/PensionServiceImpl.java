@@ -27,7 +27,7 @@ public class PensionServiceImpl implements PensionService {
 
     @Override
     public void createPension(Pension pension) {
-        pension.setStatus(0);
+        pension.setPensionStatus(1);
         pensionMapper.insert(pension);
     }
 
@@ -70,13 +70,12 @@ public class PensionServiceImpl implements PensionService {
     @Override
     public void updatePensionStatus(Integer pensionId) {
         Pension pension = queryByPensionId(pensionId);
-        int status = pension.getStatus();
+        int status = pension.getPensionStatus();
         if (status == 0) {
-            pension.setStatus(1);
-            updatePension(pension);
+            pension.setPensionStatus(1);
         } else if (status == 1) {
-            pension.setStatus(0);
-            updatePension(pension);
+            pension.setPensionStatus(0);
         }
+        updatePension(pension);
     }
 }

@@ -10,6 +10,8 @@ import room.pojo.Merchant;
 import room.service.MerchantService;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
+
 @Service
 public class MerchantServiceImpl implements MerchantService {
 
@@ -56,6 +58,8 @@ public class MerchantServiceImpl implements MerchantService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Merchant createMerchant(Merchant merchant) {
+        merchant.setCreateTime(new Date());
+        merchant.setUpdateTime(new Date());
         merchantMapper.insert(merchant);
         return queryMerchantByAccount(merchant.getAccount());
     }
@@ -74,6 +78,7 @@ public class MerchantServiceImpl implements MerchantService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void updateMerchantById(Merchant merchant) {
+        merchant.setUpdateTime(new Date());
         merchantMapper.updateByPrimaryKeySelective(merchant);
     }
 
@@ -91,8 +96,16 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void deleteMerchant(Integer merchantId) {
-        merchantMapper.deleteByPrimaryKey(merchantId);
+    public void updateMerchantStatus(Integer merchantId) {
+        Merchant merchant = queryMerchantById(merchantId);
+        if (merchant.getMerchantStatus() == 0) {
+            //转换正常
+            merchant.setMerchantStatus(1);
+        } else if (merchant.getMerchantStatus() == 1) {
+            //转换禁用
+            merchant.setMerchantStatus(0);
+        }
+        updateMerchantById(merchant);
     }
 
 }
