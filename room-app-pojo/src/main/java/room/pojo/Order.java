@@ -49,6 +49,18 @@ public class Order {
     private Date checkOutDate;
 
     /**
+     * 房客姓名
+     */
+    @Column(name = "guest_name")
+    private String guestName;
+
+    /**
+     * 房客手机号
+     */
+    @Column(name = "guest_phone")
+    private String guestPhone;
+
+    /**
      * 订单收入
      */
     private Float income;
@@ -183,6 +195,42 @@ public class Order {
      */
     public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
+    }
+
+    /**
+     * 获取房客姓名
+     *
+     * @return guest_name - 房客姓名
+     */
+    public String getGuestName() {
+        return guestName;
+    }
+
+    /**
+     * 设置房客姓名
+     *
+     * @param guestName 房客姓名
+     */
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
+    }
+
+    /**
+     * 获取房客手机号
+     *
+     * @return guest_phone - 房客手机号
+     */
+    public String getGuestPhone() {
+        return guestPhone;
+    }
+
+    /**
+     * 设置房客手机号
+     *
+     * @param guestPhone 房客手机号
+     */
+    public void setGuestPhone(String guestPhone) {
+        this.guestPhone = guestPhone;
     }
 
     /**

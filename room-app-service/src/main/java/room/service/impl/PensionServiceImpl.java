@@ -68,14 +68,9 @@ public class PensionServiceImpl implements PensionService {
     }
 
     @Override
-    public void updatePensionStatus(Integer pensionId) {
+    public void updatePensionStatus(Integer pensionId, Integer pensionStatus) {
         Pension pension = queryByPensionId(pensionId);
-        int status = pension.getPensionStatus();
-        if (status == 0) {
-            pension.setPensionStatus(1);
-        } else if (status == 1) {
-            pension.setPensionStatus(0);
-        }
+        pension.setPensionStatus(pensionStatus);
         updatePension(pension);
     }
 }

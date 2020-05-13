@@ -24,7 +24,7 @@ public class Pension {
     private String name;
 
     /**
-     * 民宿状态  0：禁用   1：正常
+     * 民宿状态  0：禁用   1：正常   2：关闭
      */
     @Column(name = "pension_status")
     private Integer pensionStatus;

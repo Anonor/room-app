@@ -30,8 +30,8 @@ public interface PensionService {
     //修改民宿信息（民宿id必须存在，其它的选择性存在，要改的存在，注意商家id不能修改）
     public void updatePension(Pension pension);
 
-    //根据民宿Id修改民宿状态（正常->禁用     禁用->正常）
-    public void updatePensionStatus(Integer pensionId);
+    //根据民宿Id修改民宿状态（0：禁用   1：正常   2：关闭）
+    public void updatePensionStatus(Integer pensionId, Integer pensionStatus);
 
 
 }
