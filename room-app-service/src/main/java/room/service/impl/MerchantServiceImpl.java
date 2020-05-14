@@ -96,15 +96,8 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void updateMerchantStatus(Integer merchantId) {
+    public void updateMerchantStatus(Integer merchantId, Integer status) {
         Merchant merchant = queryMerchantById(merchantId);
-        if (merchant.getMerchantStatus() == 0) {
-            //转换正常
-            merchant.setMerchantStatus(1);
-        } else if (merchant.getMerchantStatus() == 1) {
-            //转换禁用
-            merchant.setMerchantStatus(0);
-        }
         updateMerchantById(merchant);
     }
 

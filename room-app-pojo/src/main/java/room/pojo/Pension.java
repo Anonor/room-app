@@ -24,6 +24,11 @@ public class Pension {
     private String name;
 
     /**
+     * 民宿图片地址
+     */
+    private String image;
+
+    /**
      * 民宿状态  0：禁用   1：正常   2：关闭
      */
     @Column(name = "pension_status")
@@ -118,6 +123,24 @@ public class Pension {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * 设置民宿图片地址
+     *
+     * @param image 民宿图片地址
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     * 获取民宿图片地址
+     *
+     * @return image - 民宿图片地址
+     */
+    public String getImage() {
+        return image;
     }
 
     /**

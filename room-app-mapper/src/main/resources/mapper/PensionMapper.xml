@@ -8,6 +8,7 @@
     <id column="pension_id" property="pensionId" jdbcType="INTEGER" />
     <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
     <result column="pension_status" property="pensionStatus" jdbcType="INTEGER" />
     <result column="longitude" property="longitude" jdbcType="VARCHAR" />
     <result column="latitude" property="latitude" jdbcType="VARCHAR" />
