@@ -3,12 +3,16 @@ package room.controller;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import room.common.utils.MySessionContext;
 import room.common.utils.SendEmail;
 import room.pojo.Merchant;
 import room.pojo.bo.MerchantBO;
 import room.service.MerchantService;
+import room.service.OrderService;
 
 import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
@@ -20,6 +24,8 @@ public class MerchantController {
 
     @Autowired
     private MerchantService merchantService;
+    @Autowired
+    private OrderService orderService;
 
     //获取邮箱验证码
     @RequestMapping(value = "getEmailVerificationCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

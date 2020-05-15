@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import room.common.utils.GetLngAndLatUtil;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,12 @@ public class TestController {
         //System.out.println("getlong");
         map = GetLngAndLatUtil.getLngAndLat(address);
         return map;
+    }
+    @GetMapping("/getSessionId")
+    public Object getSessionId(HttpSession session){
+        ServletContext servletContext = session.getServletContext();
+        System.out.println("session过期时间："+servletContext.getSessionTimeout());
+        return session.getId();
     }
 
     public void main(){}

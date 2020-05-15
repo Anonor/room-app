@@ -1,0 +1,4 @@
+package room.controller;
+
+public class RoomController {
+}
