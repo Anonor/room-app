@@ -17,7 +17,6 @@ import java.util.Map;
 public class GetLngAndLatUtil {
 
     public static Map<String, Double> getLngAndLat(String address) throws Exception {
-        System.out.println(address);
         Map<String, Double> map = new HashMap<String, Double>();
         String url = "http://api.map.baidu.com/geocoder/v2/?address=" + address
                 + "&output=json&ak=5bSX6lqF6irleeYplWXQVTFYz4tgw2Is";
@@ -45,7 +44,6 @@ public class GetLngAndLatUtil {
                 Double lat = Double.parseDouble(str.substring(lngEnd + 7, latEnd));
                 map.put("lng", lng);
                 map.put("lat", lat);
-                System.out.println("经度：" + lng + "---纬度：" + lat);
                 return map;
             }
         }

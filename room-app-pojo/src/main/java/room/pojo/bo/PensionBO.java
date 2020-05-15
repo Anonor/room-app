@@ -2,6 +2,9 @@ package room.pojo.bo;
 
 public class PensionBO {
 
+    //民宿图片
+    private String pensionImg;
+    private String sessionId;
     private Integer pensionId;
 
     /**
@@ -15,12 +18,6 @@ public class PensionBO {
      * 房间是否被入住，默认为0，即未被入住；1表示已入住
      */
     private Integer status;
-
-    /**
-     * 民宿一天的价格
-     */
-    private Float price;
-
     /**
      * 经度
      */
@@ -50,6 +47,23 @@ public class PensionBO {
      * 详细地址
      */
     private String addressDetail;
+
+
+    public String getPensionImg() {
+        return pensionImg;
+    }
+
+    public void setPensionImg(String pensionImg) {
+        this.pensionImg = pensionImg;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 
     public Integer getPensionId() {
         return pensionId;
@@ -81,14 +95,6 @@ public class PensionBO {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
     }
 
     public String getLongitude() {
