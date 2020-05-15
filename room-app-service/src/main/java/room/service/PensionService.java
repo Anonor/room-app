@@ -15,6 +15,9 @@ public interface PensionService {
     //获取所有民宿信息
     public List<Pension> queryAll();
 
+    //根据民宿状态获取民宿
+    public List<Pension> queryByStatus(Integer pensionStatus);
+
     //根据商家Id获取所有民宿信息
     public List<Pension> queryByMerchantId(Integer merchantId);
 

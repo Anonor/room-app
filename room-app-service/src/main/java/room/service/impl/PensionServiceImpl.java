@@ -37,6 +37,15 @@ public class PensionServiceImpl implements PensionService {
     }
 
     @Override
+    public List<Pension> queryByStatus(Integer pensionStatus) {
+        Example pansionExample = new Example(Pension.class);
+        Example.Criteria criteria = pansionExample.createCriteria();
+        criteria.andEqualTo("pensionStatus", pensionStatus);
+        List<Pension> result = pensionMapper.selectByExample(pansionExample);
+        return result;
+    }
+
+    @Override
     public List<Pension> queryByMerchantId(Integer merchantId) {
         Example pansionExample = new Example(Pension.class);
         Example.Criteria criteria = pansionExample.createCriteria();
