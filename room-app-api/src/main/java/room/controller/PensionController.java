@@ -32,7 +32,7 @@ public class PensionController {
     private FileUpload fileUpload;
 
     //上传图片接口
-    @RequestMapping(value = "uploadImage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "uploadImage", method = RequestMethod.POST)
     public String uploadImage(MultipartFile file) {
         String fileSpace = fileUpload.getImageUserFaceLocation();
 
@@ -107,10 +107,7 @@ public class PensionController {
         String imageServerUrl = fileUpload.getImageServerUrl();
         String finalUserFaceUrl = imageServerUrl + uploadPathPrefix
                 + "?t=" + System.currentTimeMillis();
-        JSONObject result = new JSONObject();
-        result.put("status", "success");
-        result.put("pensionImage", finalUserFaceUrl);
-        return result.toJSONString();
+        return finalUserFaceUrl;
     }
 
     //商家增加民宿
