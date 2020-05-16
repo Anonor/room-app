@@ -59,6 +59,19 @@ public class MerchantServiceImpl implements MerchantService {
         return merchantMapper.selectByExample(merchantExample);
     }
 
+    @Override
+    public boolean isMerchantValid(Integer merchantId) {
+        Example merchantExample = new Example(Merchant.class);
+        Example.Criteria merchantCriteria = merchantExample.createCriteria();
+        merchantCriteria.andEqualTo("merchantId", merchantId);
+        Merchant merchant = merchantMapper.selectOneByExample(merchantExample);
+        if (merchant.getMerchantStatus() == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public boolean isAccountExist(String account) {

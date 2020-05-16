@@ -21,6 +21,8 @@ public interface MerchantService {
     //根据状态查找所有的商家信息
     public List<Merchant> queryByMerchantStatus(Integer merchantStatus);
 
+    //查询商家是否可以正常登录（true：正常   false：不正常，不能登录）
+    public boolean isMerchantValid(Integer merchantId);
 
     //判断account是否存在（true：存在）
     public boolean isAccountExist(String account);
