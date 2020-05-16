@@ -8,7 +8,6 @@ public class OrderVO {
     /**
      * 订单id
      */
-    @Id
     private Integer orderId;
 
     /**

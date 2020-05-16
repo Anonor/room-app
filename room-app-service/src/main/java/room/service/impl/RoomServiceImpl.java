@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import room.mapper.RoomMapper;
 import room.pojo.Room;
 import room.pojo.vo.RoomGroupVO;
+import room.pojo.vo.RoomVO;
 import room.service.RoomService;
 import tk.mybatis.mapper.entity.Example;
 
@@ -47,5 +48,10 @@ public class RoomServiceImpl implements RoomService {
         criteria.andEqualTo("fatherId", groupId);
         criteria.andEqualTo("roomStatus", roomStatus);
         return roomMapper.selectByExample(example);
+    }
+
+    @Override
+    public RoomVO queryRoomInfoByRoomId(Integer roomId) {
+        return roomMapper.selectRoomInfoByRoomId(roomId);
     }
 }

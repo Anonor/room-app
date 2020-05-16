@@ -291,7 +291,7 @@ public class PensionController {
     public String getRoomsByGroupId(@RequestBody PensionBO pensionBO){
         int groupId = pensionBO.getGroupId();
         List<RoomGroupVO> roomVOS=new ArrayList<>();
-        for (Room room : roomService.queryRoomsByGroupId(groupId)){
+        for (Room room : roomService.queryRoomsByGroupIdAndRoomStatus(groupId, 0)){
             RoomGroupVO roomVO=new RoomGroupVO();
             roomVO.setName(room.getName());
             roomVO.setGroupId(room.getRoomId());

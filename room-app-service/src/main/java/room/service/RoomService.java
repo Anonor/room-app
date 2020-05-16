@@ -2,6 +2,7 @@ package room.service;
 
 import room.pojo.Room;
 import room.pojo.vo.RoomGroupVO;
+import room.pojo.vo.RoomVO;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface RoomService {
     public List<RoomGroupVO> queryValidRoomGroupsByPensionId(Integer pensionId);
 
     //根据分组Id和房间状态获取其下房间信息
-    public List<Room> queryRoomsByGroupIdAndRoomStatus(Integer groupId, Integer roomStatsu);
+    public List<Room> queryRoomsByGroupIdAndRoomStatus(Integer groupId, Integer roomStatus);
+
+    //根据房间Id获取分组和房间信息
+    public RoomVO queryRoomInfoByRoomId(Integer roomId);
 }

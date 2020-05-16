@@ -24,4 +24,21 @@
     WHERE
         room.room_id = sub.father_id;
   </select>
+
+  <select id="selectRoomInfoByRoomId" resultType="room.pojo.vo.RoomVO" parameterType="Integer">
+    SELECT
+        r.room_id AS roomId,
+        pension_id AS pensionId,
+        father_id AS groupId,
+        sub.name AS groupName,
+        r.name AS roomName,
+        price AS price,
+        room_status AS roomStatus
+    FROM
+        room r,
+        ( SELECT room_id, name FROM room ) sub
+    WHERE
+        r.room_id = 2
+        AND r.father_id = sub.room_id;
+  </select>
 </mapper>
