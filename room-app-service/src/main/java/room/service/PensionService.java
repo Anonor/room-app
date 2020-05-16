@@ -36,5 +36,8 @@ public interface PensionService {
     //根据民宿Id修改民宿状态（0：禁用   1：正常   2：关闭）
     public void updatePensionStatus(Integer pensionId, Integer pensionStatus);
 
+    //根据商家Id和民宿名称获取民宿Id
+    public Integer getPensionId(Integer merchantId, String pensionName);
+
 
 }

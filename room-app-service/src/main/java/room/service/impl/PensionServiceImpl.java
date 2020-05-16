@@ -82,4 +82,13 @@ public class PensionServiceImpl implements PensionService {
         pension.setPensionStatus(pensionStatus);
         updatePension(pension);
     }
+
+    @Override
+    public Integer getPensionId(Integer merchantId, String pensionName) {
+        Example pansionExample = new Example(Pension.class);
+        Example.Criteria criteria = pansionExample.createCriteria();
+        criteria.andEqualTo("merchantId", merchantId);
+        criteria.andEqualTo("pensionName", pensionName);
+        return pensionMapper.selectOneByExample(pansionExample).getPensionId();
+    }
 }
