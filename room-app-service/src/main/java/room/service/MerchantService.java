@@ -28,7 +28,7 @@ public interface MerchantService {
     //根据商家id修改商家密码（true：修改成功，false：旧密码不一致）
     public boolean updateMerchantPassword(Integer id, String oldPassword, String newPasseord);
 
-    //根据商家id更改商家状态（status：需要更改为的状态码）
+    //根据商家id更改商家状态（status：需要更改为的状态码  0：禁用   1：正常）
     public void updateMerchantStatus(Integer merchantId, Integer status);
 
 }
