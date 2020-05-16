@@ -35,6 +35,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<RoomGroupVO> queryValidRoomGroupsByPensionId(Integer pensionId) {
+
+        return null;
+    }
+
+    @Override
     public List<Room> queryRoomsByGroupId(Integer groupId) {
         Example example = new Example(Room.class);
         Example.Criteria criteria = example.createCriteria();

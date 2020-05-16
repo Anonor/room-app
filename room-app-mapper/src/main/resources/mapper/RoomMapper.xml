@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="anonor.mapper.RoomMapper" >
+<mapper namespace="room.mapper.RoomMapper" >
   <resultMap id="BaseResultMap" type="room.pojo.Room" >
     <!--
       WARNING - @mbg.generated
@@ -12,4 +12,16 @@
     <result column="price" property="price" jdbcType="REAL" />
     <result column="room_status" property="roomStatus" jdbcType="INTEGER" />
   </resultMap>
+
+  <select id="queryValidRoomGroupsByPensionId" resultType="room.pojo.vo.RoomGroupVO" parameterType="Integer">
+      SELECT
+          room_id AS roomId,
+          pension_id AS pensionId,
+          name AS name
+      FROM
+          room,
+          ( SELECT father_id, count( * ) FROM room WHERE pension_id = 1 AND father_id != 0 GROUP BY father_id ) sub
+      WHERE
+          room.room_id = sub.father_id;
+  </select>
 </mapper>
