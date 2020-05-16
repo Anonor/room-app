@@ -13,14 +13,14 @@
     <result column="room_status" property="roomStatus" jdbcType="INTEGER" />
   </resultMap>
 
-  <select id="queryValidRoomGroupsByPensionId" resultType="room.pojo.vo.RoomGroupVO" parameterType="Integer">
+  <select id="selectValidRoomGroupsByPensionId" resultType="room.pojo.vo.RoomGroupVO" parameterType="Integer">
       SELECT
           room_id AS roomId,
           pension_id AS pensionId,
           name AS name
       FROM
           room,
-          ( SELECT father_id, count( * ) FROM room WHERE pension_id = 1 AND father_id != 0 GROUP BY father_id ) sub
+          ( SELECT father_id, count( * ) FROM room WHERE pension_id = #{pensionId} AND father_id != 0 GROUP BY father_id ) sub
       WHERE
           room.room_id = sub.father_id;
   </select>

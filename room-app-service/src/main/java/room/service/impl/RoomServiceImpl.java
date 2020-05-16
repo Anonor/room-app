@@ -29,6 +29,7 @@ public class RoomServiceImpl implements RoomService {
         for (Room room : rooms) {
             RoomGroupVO roomGroupVO = new RoomGroupVO();
             BeanUtils.copyProperties(room, roomGroupVO);
+            roomGroupVO.setRoomList(queryRoomsByGroupId(roomGroupVO.getRoomId()));
             groups.add(roomGroupVO);
         }
         return groups;
@@ -36,8 +37,11 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public List<RoomGroupVO> queryValidRoomGroupsByPensionId(Integer pensionId) {
-
-        return null;
+        List<RoomGroupVO> result = roomMapper.selectValidRoomGroupsByPensionId(pensionId);
+        for (RoomGroupVO roomGroupVO : result) {
+            roomGroupVO.setRoomList(queryRoomsByGroupId(roomGroupVO.getRoomId()));
+        }
+        return result;
     }
 
     @Override

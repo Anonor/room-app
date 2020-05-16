@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RoomMapper extends MyMapper<Room> {
 
-    public List<RoomGroupVO> queryValidRoomGroupsByPensionId(Integer pensionId);
+    public List<RoomGroupVO> selectValidRoomGroupsByPensionId(Integer pensionId);
 
 }
