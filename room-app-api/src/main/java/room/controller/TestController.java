@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import room.common.utils.GetLngAndLatUtil;
+import room.common.utils.MySessionContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -40,8 +41,13 @@ public class TestController {
         System.out.println("session过期时间："+servletContext.getSessionTimeout());
         return session.getId();
     }
+    @GetMapping("/delSession")
+    public Object delSession(HttpSession session){
+        MySessionContext.delSession(session);
+        return "ok";
+    }
 
-    public void main(){}
+
 
 
 }

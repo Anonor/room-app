@@ -13,10 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import room.common.utils.GetLngAndLatUtil;
 import room.common.utils.MySessionContext;
 import room.pojo.Pension;
+import room.pojo.Room;
 import room.pojo.bo.PensionBO;
 import room.pojo.vo.PensionVO;
+import room.pojo.vo.RoomGroupVO;
 import room.resource.FileUpload;
 import room.service.PensionService;
+import room.service.RoomService;
 
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -28,6 +31,8 @@ public class PensionController {
 
     @Autowired
     private PensionService pensionService;
+    @Autowired
+    private RoomService roomService;
     @Autowired
     private FileUpload fileUpload;
 
@@ -115,7 +120,7 @@ public class PensionController {
     public String add(@RequestBody PensionBO pensionBO){
         HttpSession session = MySessionContext.getSession(pensionBO.getSessionId());
         int merchantId = Integer.parseInt(session.getAttribute("id").toString());
-        if(pensionService.isPensionExist(merchantId,pensionBO.getName())){
+        if(pensionService.isPensionExist(merchantId,pensionBO.getPensionName())){
             JSONObject result = new JSONObject();
             result.put("status", "failure");
             result.put("detail","民宿已存在，增加民宿失败！");
@@ -123,7 +128,7 @@ public class PensionController {
         }
         Pension pension = new Pension();
         pension.setMerchantId(merchantId);
-        pension.setName(pensionBO.getName());
+        pension.setName(pensionBO.getPensionName());
         pension.setAddressProvince(pensionBO.getAddressProvince());
         pension.setAddressCity(pensionBO.getAddressCity());
         pension.setAddressDistrict(pensionBO.getAddressDistrict());
@@ -147,9 +152,11 @@ public class PensionController {
         pension.setCreateTime(createTime);
         pension.setUpdateTime(createTime);
         pensionService.createPension(pension);
+        int pensionId = pensionService.getPensionId(Integer.parseInt(session.getAttribute("id").toString()),pensionBO.getPensionName());
         JSONObject result = new JSONObject();
         result.put("status", "success");
         result.put("detail","添加民宿成功！");
+        result.put("pensionId",pensionId);
         return result.toJSONString();
     }
 
@@ -163,18 +170,22 @@ public class PensionController {
 
         ArrayList<PensionVO> pensionVOs = new ArrayList();
         for (int i=0; i<pensions.size(); i++){
-            //去掉已经关闭的民宿（pensionStatus=2)
-            if (pensions.get(i).getPensionStatus()==2){
-                break;
+            //只返回未关闭的民宿（pensionStatus！=2)
+            if (pensions.get(i).getPensionStatus()!=2){
+                PensionVO pensionVO = new PensionVO();
+                pensionVO.setPensionId(pensions.get(i).getPensionId());
+                pensionVO.setName(pensions.get(i).getName());
+                String address = pensions.get(i).getAddressProvince()+pensions.get(i).getAddressCity()
+                        +pensions.get(i).getAddressDistrict()+pensions.get(i).getAddressDetail();
+                pensionVO.setAddress(address);
+                pensionVO.setPensionStatus(pensions.get(i).getPensionStatus());
+                String location=pensions.get(i).getAddressProvince()+pensions.get(i).getAddressCity()
+                        +pensions.get(i).getAddressDistrict();
+                String detail = pensions.get(i).getAddressDetail();
+                pensionVO.setLocation(location);
+                pensionVO.setDetail(detail);
+                pensionVOs.add(pensionVO);
             }
-            PensionVO pensionVO = new PensionVO();
-            pensionVO.setPensionId(pensions.get(i).getPensionId());
-            pensionVO.setName(pensions.get(i).getName());
-            String address = pensions.get(i).getAddressProvince()+pensions.get(i).getAddressCity()
-                    +pensions.get(i).getAddressDistrict()+pensions.get(i).getAddressDetail();
-            pensionVO.setAddress(address);
-            pensionVO.setPensionStatus(pensions.get(i).getPensionStatus());
-            pensionVOs.add(pensionVO);
         }
         JSONObject result = new JSONObject();
         if (pensionVOs.size()==0){
@@ -207,7 +218,7 @@ public class PensionController {
         //查询该商家修改后的民宿信息是否存在
         HttpSession session = MySessionContext.getSession(pensionBO.getSessionId());
         int merchantId = Integer.parseInt(session.getAttribute("id").toString());
-        if (pensionService.isPensionExist(merchantId,pensionBO.getName())){     //存在
+        if (pensionService.isPensionExist(merchantId,pensionBO.getPensionName())){     //存在
             JSONObject result = new JSONObject();
             result.put("status", "failure");
             result.put("detail","修改后的民宿信息已存在，修改民宿信息失败！");
@@ -215,7 +226,7 @@ public class PensionController {
         }
         int pensionId = pensionBO.getPensionId();
         Pension pension = pensionService.queryByPensionId(pensionId);
-        pension.setName(pensionBO.getName());
+        pension.setName(pensionBO.getPensionName());
         pension.setAddressProvince(pensionBO.getAddressProvince());
         pension.setAddressCity(pensionBO.getAddressCity());
         pension.setAddressDistrict(pensionBO.getAddressDistrict());
@@ -244,13 +255,57 @@ public class PensionController {
     @RequestMapping(value = "deletePensionById", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String deletePensionById(@RequestBody PensionBO pensionBO){
         int pensionId = pensionBO.getPensionId();
-        Pension pension = pensionService.queryByPensionId(pensionId);
         //置该民宿状态为2，即关闭状态
-        pension.setPensionStatus(2);
-        pensionService.updatePension(pension);
+        pensionService.updatePensionStatus(pensionId,2);
         JSONObject result = new JSONObject();
         result.put("status", "success");
         result.put("detail","删除民宿信息成功！");
+        return result.toJSONString();
+    }
+
+    //根据民宿Id获得分组列表
+    @RequestMapping(value = "getGroupsByPensionId", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String getGroupsByPensionId(@RequestBody PensionBO pensionBO){
+        int pensionId = pensionBO.getPensionId();
+        List<RoomGroupVO> roomGroupVOS=new ArrayList<>();
+        for (RoomGroupVO roomGroupVO : roomService.queryRoomGroupsByPensionId(pensionId)){
+            RoomGroupVO groupVO=new RoomGroupVO();
+            groupVO.setGroupName(roomGroupVO.getName());
+            groupVO.setGroupId(roomGroupVO.getRoomId());
+            roomGroupVOS.add(groupVO);
+        }
+        if (roomGroupVOS.isEmpty()){
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail","您还没有分组信息！");
+            return result.toJSONString();
+        }
+        JSONObject result = new JSONObject();
+        result.put("status", "success");
+        result.put("detail",roomGroupVOS);
+        return result.toJSONString();
+    }
+
+    //根据组Id获得房间列表
+    @RequestMapping(value = "getRoomsByGroupId", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String getRoomsByGroupId(@RequestBody PensionBO pensionBO){
+        int groupId = pensionBO.getGroupId();
+        List<RoomGroupVO> roomVOS=new ArrayList<>();
+        for (Room room : roomService.queryRoomsByGroupId(groupId)){
+            RoomGroupVO roomVO=new RoomGroupVO();
+            roomVO.setRoomName(room.getName());
+            roomVO.setRoomId(room.getRoomId());
+            roomVOS.add(roomVO);
+        }
+        if (roomVOS.isEmpty()){
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail","该分组下还没有房间！");
+            return result.toJSONString();
+        }
+        JSONObject result = new JSONObject();
+        result.put("status", "success");
+        result.put("detail",roomVOS);
         return result.toJSONString();
     }
 

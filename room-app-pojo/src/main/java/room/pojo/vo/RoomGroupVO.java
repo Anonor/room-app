@@ -4,7 +4,7 @@ package room.pojo.vo;
 public class RoomGroupVO {
 
     /**
-     * id
+     * 房间Id
      */
     private Integer roomId;
 
@@ -15,9 +15,50 @@ public class RoomGroupVO {
 
 
     /**
-     * 分组名称
+     * 名称
      */
     private String name;
+
+    /*
+    * 分组Id
+    * */
+    private int groupId;
+
+    /*
+    * 分组name
+    * */
+    private String groupName;
+
+
+    /*
+    * 分组下的房间name
+    * */
+    private String roomName;
+
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
     public Integer getRoomId() {
         return roomId;

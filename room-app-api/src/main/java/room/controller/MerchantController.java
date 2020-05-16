@@ -248,7 +248,6 @@ public class MerchantController {
         result.put("detail","验证码错误或超过了2分钟才输入验证码,请在两分钟内重新输入验证码或重新获取验证码！");
         return result.toJSONString();
 
-
         //进行短信验证（充值榛子云即可用hhhh，现余额不足）
         /*CodeController codeController = new CodeController();
         codeController.getCode(merchantBO.getAccount(),httpSession);
@@ -304,11 +303,9 @@ public class MerchantController {
     @RequestMapping(value = "logoff", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public void logoff(@RequestBody MerchantBO merchantBO){
         HttpSession session=MySessionContext.getSession(merchantBO.getSessionId());
-        //置merchant表中该商家账号状态为0
+        //置merchant表中该商家账号状态为2
         int id = Integer.parseInt(session.getAttribute("id").toString());
-        Merchant merchant = merchantService.queryMerchantById(id);
-        merchant.setMerchantStatus(0);
-        merchantService.updateMerchantById(merchant);
+        merchantService.updateMerchantStatus(id,2);
         //置order表中该商家所属订单状态为0（待补）
 
         //置pension表中该商家所属门店状态为0（待补）

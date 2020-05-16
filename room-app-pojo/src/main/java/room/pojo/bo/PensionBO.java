@@ -4,15 +4,29 @@ public class PensionBO {
 
     //民宿图片
     private String pensionImg;
+    /*
+    * seesionId
+    * */
     private String sessionId;
+    /*
+    * 门店Id
+    * */
     private Integer pensionId;
+
+    /*
+    * 组Id
+    * */
+    private Integer groupId;
 
     /**
      * 该民宿的商家id
      */
     private Integer merchantId;
 
-    private String name;
+    /*
+    * 民宿民族
+    * */
+    private String pensionName;
 
     /**
      * 房间是否被入住，默认为0，即未被入住；1表示已入住
@@ -49,6 +63,14 @@ public class PensionBO {
     private String addressDetail;
 
 
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
     public String getPensionImg() {
         return pensionImg;
     }
@@ -81,12 +103,12 @@ public class PensionBO {
         this.merchantId = merchantId;
     }
 
-    public String getName() {
-        return name;
+    public String getPensionName() {
+        return pensionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPensionName(String pensionName) {
+        this.pensionName = pensionName;
     }
 
     public Integer getStatus() {

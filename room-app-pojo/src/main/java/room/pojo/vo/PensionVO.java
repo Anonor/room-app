@@ -37,6 +37,33 @@ public class PensionVO {
      */
     private String address;
 
+    /*
+    * 省市区
+    * */
+    private String location;
+
+    /*
+    * 详细地址（address-location)
+    * */
+    private String detail;
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     public Integer getPensionId() {
         return pensionId;
     }

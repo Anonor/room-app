@@ -2,6 +2,7 @@ package room.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import room.mapper.RoomMapper;
 import room.pojo.Room;
 import room.pojo.vo.RoomGroupVO;
@@ -11,6 +12,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class RoomServiceImpl implements RoomService {
 
     @Autowired
