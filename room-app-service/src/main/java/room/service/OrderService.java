@@ -1,6 +1,6 @@
 package room.service;
 
-import room.pojo.Order;
+import room.pojo.Orders;
 import room.pojo.vo.OrderVO;
 
 import java.util.List;
@@ -28,9 +28,9 @@ public interface OrderService {
     public void updateOrderStatus(Integer orderId, Integer orderStatus);
 
     //创建订单（设置订单状态为1：待退房（入住中））
-    public void createOrder(Order order);
+    public void createOrder(Orders order);
 
     //修改订单信息
-    public void updateOrder(Order order);
+    public void updateOrder(Orders order);
 
 }

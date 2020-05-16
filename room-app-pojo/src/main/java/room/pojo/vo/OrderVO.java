@@ -26,9 +26,29 @@ public class OrderVO {
     private Integer roomId;
 
     /**
+     * 订单房间name
+     */
+    private String roomName;
+
+    /**
+     * 订单房间分组id
+     */
+    private Integer groupId;
+
+    /**
+     * 订单房间分组name
+     */
+    private String groupName;
+
+    /**
      * 客源id
      */
     private Integer sourceId;
+
+    /**
+     * 客源name
+     */
+    private String sourceName;
 
     /**
      * 保洁人员id
@@ -75,255 +95,171 @@ public class OrderVO {
      */
     private Integer orderStatus;
 
-    /**
-     * 获取订单id
-     *
-     * @return order_id - 订单id
-     */
     public Integer getOrderId() {
         return orderId;
     }
 
-    /**
-     * 设置订单id
-     *
-     * @param orderId 订单id
-     */
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    /**
-     * 获取订单商家id
-     *
-     * @return merchant_id - 订单商家id
-     */
     public Integer getMerchantId() {
         return merchantId;
     }
 
-    /**
-     * 设置订单商家id
-     *
-     * @param merchantId 订单商家id
-     */
     public void setMerchantId(Integer merchantId) {
         this.merchantId = merchantId;
     }
 
-    /**
-     * 获取订单民宿id
-     *
-     * @return pension_id - 订单民宿id
-     */
     public Integer getPensionId() {
         return pensionId;
     }
 
-    /**
-     * 设置订单民宿id
-     *
-     * @param pensionId 订单民宿id
-     */
     public void setPensionId(Integer pensionId) {
         this.pensionId = pensionId;
     }
 
-    /**
-     * 获取订单房间id
-     *
-     * @return room_id - 订单房间id
-     */
     public Integer getRoomId() {
         return roomId;
     }
 
-    /**
-     * 设置订单房间id
-     *
-     * @param roomId 订单房间id
-     */
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
     }
 
-    /**
-     * 获取客源id
-     *
-     * @return source_id - 客源id
-     */
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
     public Integer getSourceId() {
         return sourceId;
     }
 
-    /**
-     * 设置客源id
-     *
-     * @param sourceId 客源id
-     */
     public void setSourceId(Integer sourceId) {
         this.sourceId = sourceId;
     }
 
-    /**
-     * 获取保洁人员id
-     *
-     * @return housekeeper_id - 保洁人员id
-     */
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
     public Integer getHousekeeperId() {
         return housekeeperId;
     }
 
-    /**
-     * 设置保洁人员id
-     *
-     * @param housekeeperId 保洁人员id
-     */
     public void setHousekeeperId(Integer housekeeperId) {
         this.housekeeperId = housekeeperId;
     }
 
-    /**
-     * 获取保洁人员name
-     *
-     * @return housekeeper_name - 保洁人员name
-     */
     public String getHousekeeperName() {
         return housekeeperName;
     }
 
-    /**
-     * 设置保洁人员name
-     *
-     * @param housekeeperName 保洁人员name
-     */
     public void setHousekeeperName(String housekeeperName) {
         this.housekeeperName = housekeeperName;
     }
 
-    /**
-     * 获取入住时间
-     *
-     * @return check_in_date - 入住时间
-     */
     public Date getCheckInDate() {
         return checkInDate;
     }
 
-    /**
-     * 设置入住时间
-     *
-     * @param checkInDate 入住时间
-     */
     public void setCheckInDate(Date checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    /**
-     * 获取退房时间
-     *
-     * @return check_out_date - 退房时间
-     */
     public Date getCheckOutDate() {
         return checkOutDate;
     }
 
-    /**
-     * 设置退房时间
-     *
-     * @param checkOutDate 退房时间
-     */
     public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
-    /**
-     * 获取房客姓名
-     *
-     * @return guest_name - 房客姓名
-     */
     public String getGuestName() {
         return guestName;
     }
 
-    /**
-     * 设置房客姓名
-     *
-     * @param guestName 房客姓名
-     */
     public void setGuestName(String guestName) {
         this.guestName = guestName;
     }
 
-    /**
-     * 获取房客手机号
-     *
-     * @return guest_phone - 房客手机号
-     */
     public String getGuestPhone() {
         return guestPhone;
     }
 
-    /**
-     * 设置房客手机号
-     *
-     * @param guestPhone 房客手机号
-     */
     public void setGuestPhone(String guestPhone) {
         this.guestPhone = guestPhone;
     }
 
-    /**
-     * 获取房客备注
-     *
-     * @return remarks - 房客备注
-     */
     public String getRemarks() {
         return remarks;
     }
 
-    /**
-     * 设置房客备注
-     *
-     * @param remarks 房客备注
-     */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
-    /**
-     * 获取订单收入
-     *
-     * @return income - 订单收入
-     */
     public Float getIncome() {
         return income;
     }
 
-    /**
-     * 设置订单收入
-     *
-     * @param income 订单收入
-     */
     public void setIncome(Float income) {
         this.income = income;
     }
 
-    /**
-     * 获取订单状态   0：已完成   1：待退房   2：订单无效
-     *
-     * @return order_status - 订单状态   0：已完成   1：待退房   2：订单无效
-     */
     public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    /**
-     * 设置订单状态   0：已完成   1：待退房   2：订单无效
-     *
-     * @param orderStatus 订单状态   0：已完成   1：待退房   2：订单无效
-     */
     public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderVO{" +
+                "orderId=" + orderId +
+                ", merchantId=" + merchantId +
+                ", pensionId=" + pensionId +
+                ", roomId=" + roomId +
+                ", roomName='" + roomName + '\'' +
+                ", groupId=" + groupId +
+                ", groupName='" + groupName + '\'' +
+                ", sourceId=" + sourceId +
+                ", sourceName='" + sourceName + '\'' +
+                ", housekeeperId=" + housekeeperId +
+                ", housekeeperName='" + housekeeperName + '\'' +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", guestName='" + guestName + '\'' +
+                ", guestPhone='" + guestPhone + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", income=" + income +
+                ", orderStatus=" + orderStatus +
+                '}';
     }
 }

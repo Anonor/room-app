@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
-public class Order {
+public class Orders {
     /**
      * 订单id
      */
