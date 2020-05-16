@@ -271,8 +271,7 @@ public class PensionController {
         for (RoomGroupVO roomGroupVO : roomService.queryRoomGroupsByPensionId(pensionId)){
             RoomGroupVO groupVO=new RoomGroupVO();
             groupVO.setName(roomGroupVO.getName());
-            groupVO.setRoomId(roomGroupVO.getRoomId());
-            groupVO.setRoomStatus(roomGroupVO.getRoomStatus());
+            groupVO.setGroupId(roomGroupVO.getGroupId());
             roomGroupVOS.add(groupVO);
         }
         if (roomGroupVOS.isEmpty()){
@@ -295,8 +294,7 @@ public class PensionController {
         for (Room room : roomService.queryRoomsByGroupId(groupId)){
             RoomGroupVO roomVO=new RoomGroupVO();
             roomVO.setName(room.getName());
-            roomVO.setRoomId(room.getRoomId());
-            roomVO.setRoomStatus(room.getRoomStatus());
+            roomVO.setGroupId(room.getRoomId());
             roomVOS.add(roomVO);
         }
         if (roomVOS.isEmpty()){

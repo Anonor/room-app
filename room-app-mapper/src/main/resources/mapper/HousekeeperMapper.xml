@@ -6,6 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="housekeeper_id" property="housekeeperId" jdbcType="INTEGER" />
+    <result column="pension_id" property="pensionId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="wage" property="wage" jdbcType="REAL" />

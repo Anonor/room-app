@@ -12,6 +12,12 @@ public class Housekeeper {
     private Integer housekeeperId;
 
     /**
+     * 所属民宿id
+     */
+    @Column(name = "pension_id")
+    private Integer pensionId;
+
+    /**
      * 保洁人员姓名
      */
     private String name;
@@ -42,6 +48,24 @@ public class Housekeeper {
      */
     public void setHousekeeperId(Integer housekeeperId) {
         this.housekeeperId = housekeeperId;
+    }
+
+    /**
+     * 获取所属民宿id
+     *
+     * @return pension_id - 所属民宿id
+     */
+    public Integer getPensionId() {
+        return pensionId;
+    }
+
+    /**
+     * 设置所属民宿id
+     *
+     * @param pensionId 所属民宿id
+     */
+    public void setPensionId(Integer pensionId) {
+        this.pensionId = pensionId;
     }
 
     /**

@@ -25,6 +25,12 @@ public class Order {
     private Integer pensionId;
 
     /**
+     * 订单房间id
+     */
+    @Column(name = "room_id")
+    private Integer roomId;
+
+    /**
      * 客源id
      */
     @Column(name = "source_id")
@@ -128,6 +134,24 @@ public class Order {
      */
     public void setPensionId(Integer pensionId) {
         this.pensionId = pensionId;
+    }
+
+    /**
+     * 获取订单房间id
+     *
+     * @return room_id - 订单房间id
+     */
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    /**
+     * 设置订单房间id
+     *
+     * @param roomId 订单房间id
+     */
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     /**

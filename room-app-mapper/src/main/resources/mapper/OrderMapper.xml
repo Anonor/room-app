@@ -8,6 +8,7 @@
     <id column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
     <result column="pension_id" property="pensionId" jdbcType="INTEGER" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
     <result column="source_id" property="sourceId" jdbcType="INTEGER" />
     <result column="housekeeper_id" property="housekeeperId" jdbcType="INTEGER" />
     <result column="check_in_date" property="checkInDate" jdbcType="DATE" />

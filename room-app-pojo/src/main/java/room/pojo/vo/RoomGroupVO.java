@@ -1,16 +1,12 @@
 package room.pojo.vo;
 
-import room.pojo.Room;
-
-import java.util.List;
-
 //民宿房屋分组信息VO
 public class RoomGroupVO {
 
     /**
-     * 房间Id
+     * 房间分组Id
      */
-    private Integer roomId;
+    private Integer groupId;
 
     /**
      * 所属民宿id
@@ -22,30 +18,12 @@ public class RoomGroupVO {
      */
     private String name;
 
-    /*
-    * 房间（分组）状态 0：不可用；1：可用
-    * */
-    private Integer roomStatus;
-
-    /**
-     * 分组下房间信息
-     */
-    private List<Room> roomList;
-
-    public Integer getRoomStatus() {
-        return roomStatus;
+    public Integer getGroupId() {
+        return groupId;
     }
 
-    public void setRoomStatus(Integer roomStatus) {
-        this.roomStatus = roomStatus;
-    }
-
-    public Integer getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public Integer getPensionId() {
@@ -64,11 +42,4 @@ public class RoomGroupVO {
         this.name = name;
     }
 
-    public List<Room> getRoomList() {
-        return roomList;
-    }
-
-    public void setRoomList(List<Room> roomList) {
-        this.roomList = roomList;
-    }
 }
