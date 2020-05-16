@@ -14,6 +14,7 @@
     <result column="check_out_date" property="checkOutDate" jdbcType="DATE" />
     <result column="guest_name" property="guestName" jdbcType="VARCHAR" />
     <result column="guest_phone" property="guestPhone" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     <result column="income" property="income" jdbcType="REAL" />
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
   </resultMap>

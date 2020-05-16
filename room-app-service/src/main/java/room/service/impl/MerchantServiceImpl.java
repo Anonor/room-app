@@ -11,6 +11,7 @@ import room.service.MerchantService;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class MerchantServiceImpl implements MerchantService {
@@ -43,6 +44,19 @@ public class MerchantServiceImpl implements MerchantService {
         merchantCriteria.andEqualTo("account", account);
         Merchant merchant = merchantMapper.selectOneByExample(merchantExample);
         return merchant;
+    }
+
+    @Override
+    public List<Merchant> queryAll() {
+        return merchantMapper.selectAll();
+    }
+
+    @Override
+    public List<Merchant> queryByMerchantStatus(Integer merchantStatus) {
+        Example merchantExample = new Example(Merchant.class);
+        Example.Criteria merchantCriteria = merchantExample.createCriteria();
+        merchantCriteria.andEqualTo("merchantStatus", merchantStatus);
+        return merchantMapper.selectByExample(merchantExample);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

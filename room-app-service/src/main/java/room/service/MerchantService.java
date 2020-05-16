@@ -2,6 +2,8 @@ package room.service;
 
 import room.pojo.Merchant;
 
+import java.util.List;
+
 public interface MerchantService {
 
     //根据account查询id
@@ -12,6 +14,13 @@ public interface MerchantService {
 
     //根据account查询商家信息
     public Merchant queryMerchantByAccount(String account);
+
+    //查询所有商家信息（用于后端管理）
+    public List<Merchant> queryAll();
+
+    //根据状态查找所有的商家信息
+    public List<Merchant> queryByMerchantStatus(Integer merchantStatus);
+
 
     //判断account是否存在（true：存在）
     public boolean isAccountExist(String account);

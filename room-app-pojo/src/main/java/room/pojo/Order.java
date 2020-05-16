@@ -61,6 +61,11 @@ public class Order {
     private String guestPhone;
 
     /**
+     * 房客备注
+     */
+    private String remarks;
+
+    /**
      * 订单收入
      */
     private Float income;
@@ -231,6 +236,24 @@ public class Order {
      */
     public void setGuestPhone(String guestPhone) {
         this.guestPhone = guestPhone;
+    }
+
+    /**
+     * 获取房客备注
+     *
+     * @return remarks - 房客备注
+     */
+    public String getRemarks() {
+        return remarks;
+    }
+
+    /**
+     * 设置房客备注
+     *
+     * @param remarks 房客备注
+     */
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     /**
