@@ -22,6 +22,19 @@ public class HousekeeperBO {
      */
     private Float wage;
 
+    /*
+    * 门店Id
+    * */
+    private int pensionId;
+
+    public int getPensionId() {
+        return pensionId;
+    }
+
+    public void setPensionId(int pensionId) {
+        this.pensionId = pensionId;
+    }
+
     public Integer getHousekeeperId() {
         return housekeeperId;
     }

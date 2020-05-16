@@ -270,8 +270,9 @@ public class PensionController {
         List<RoomGroupVO> roomGroupVOS=new ArrayList<>();
         for (RoomGroupVO roomGroupVO : roomService.queryRoomGroupsByPensionId(pensionId)){
             RoomGroupVO groupVO=new RoomGroupVO();
-            groupVO.setGroupName(roomGroupVO.getName());
-            groupVO.setGroupId(roomGroupVO.getRoomId());
+            groupVO.setName(roomGroupVO.getName());
+            groupVO.setRoomId(roomGroupVO.getRoomId());
+            groupVO.setRoomStatus(roomGroupVO.getRoomStatus());
             roomGroupVOS.add(groupVO);
         }
         if (roomGroupVOS.isEmpty()){
@@ -293,8 +294,9 @@ public class PensionController {
         List<RoomGroupVO> roomVOS=new ArrayList<>();
         for (Room room : roomService.queryRoomsByGroupId(groupId)){
             RoomGroupVO roomVO=new RoomGroupVO();
-            roomVO.setRoomName(room.getName());
+            roomVO.setName(room.getName());
             roomVO.setRoomId(room.getRoomId());
+            roomVO.setRoomStatus(room.getRoomStatus());
             roomVOS.add(roomVO);
         }
         if (roomVOS.isEmpty()){

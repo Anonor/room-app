@@ -18,14 +18,27 @@ public class RoomGroupVO {
     private Integer pensionId;
 
     /**
-     * 分组名称
+     * 房间（分组）名称
      */
     private String name;
+
+    /*
+    * 房间（分组）状态 0：不可用；1：可用
+    * */
+    private Integer roomStatus;
 
     /**
      * 分组下房间信息
      */
     private List<Room> roomList;
+
+    public Integer getRoomStatus() {
+        return roomStatus;
+    }
+
+    public void setRoomStatus(Integer roomStatus) {
+        this.roomStatus = roomStatus;
+    }
 
     public Integer getRoomId() {
         return roomId;
