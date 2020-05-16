@@ -24,11 +24,8 @@ public interface PensionService {
     //根据民宿Id获取民宿信息
     public Pension queryByPensionId(Integer pensionId);
 
-    //根据商家Id删除所有民宿
+    //根据商家Id删除所有民宿（商家被禁用时候使用，更新所有状态正常的民宿状态为0（禁用））
     public void deletePensionByMerchantId(Integer merchantId);
-
-    //根据民宿Id删除民宿
-    public void deletePensionByPensionId(Integer pensionId);
 
     //修改民宿信息（民宿id必须存在，其它的选择性存在，要改的存在，注意商家id不能修改）
     public void updatePension(Pension pension);

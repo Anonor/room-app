@@ -1,69 +1,64 @@
-package room.pojo;
+package room.pojo.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
-public class Order {
+public class OrderVO {
     /**
      * 订单id
      */
     @Id
-    @Column(name = "order_id")
     private Integer orderId;
 
     /**
      * 订单商家id
      */
-    @Column(name = "merchant_id")
     private Integer merchantId;
 
     /**
      * 订单民宿id
      */
-    @Column(name = "pension_id")
     private Integer pensionId;
 
     /**
      * 订单房间id
      */
-    @Column(name = "room_id")
     private Integer roomId;
 
     /**
      * 客源id
      */
-    @Column(name = "source_id")
     private Integer sourceId;
 
     /**
      * 保洁人员id
      */
-    @Column(name = "housekeeper_id")
     private Integer housekeeperId;
+
+    /**
+     * 保洁人员name
+     */
+    private String housekeeperName;
 
     /**
      * 入住时间
      */
-    @Column(name = "check_in_date")
     private Date checkInDate;
 
     /**
      * 退房时间
      */
-    @Column(name = "check_out_date")
     private Date checkOutDate;
 
     /**
      * 房客姓名
      */
-    @Column(name = "guest_name")
     private String guestName;
 
     /**
      * 房客手机号
      */
-    @Column(name = "guest_phone")
     private String guestPhone;
 
     /**
@@ -79,7 +74,6 @@ public class Order {
     /**
      * 订单状态   0：已完成   1：待退房   2：订单无效
      */
-    @Column(name = "order_status")
     private Integer orderStatus;
 
     /**
@@ -188,6 +182,24 @@ public class Order {
      */
     public void setHousekeeperId(Integer housekeeperId) {
         this.housekeeperId = housekeeperId;
+    }
+
+    /**
+     * 获取保洁人员name
+     *
+     * @return housekeeper_name - 保洁人员name
+     */
+    public String getHousekeeperName() {
+        return housekeeperName;
+    }
+
+    /**
+     * 设置保洁人员name
+     *
+     * @param housekeeperName 保洁人员name
+     */
+    public void setHousekeeperName(String housekeeperName) {
+        this.housekeeperName = housekeeperName;
     }
 
     /**

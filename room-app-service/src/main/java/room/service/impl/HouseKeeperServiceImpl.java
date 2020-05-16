@@ -23,4 +23,19 @@ public class HouseKeeperServiceImpl implements HouseKeeperService {
         criteria.andEqualTo("pensionId", pensionId);
         return housekeeperMapper.selectByExample(example);
     }
+
+    @Override
+    public String queryHouseKeeperNameById(Integer housekeeperId) {
+        return housekeeperMapper.selectByPrimaryKey(housekeeperId).getName();
+    }
+
+    @Override
+    public void createHouseKeeper() {
+
+    }
+
+    @Override
+    public void deleteHouseKeeperByHouseKeeperId(Integer houseKeeperId) {
+
+    }
 }

@@ -87,6 +87,7 @@ public class MerchantServiceImpl implements MerchantService {
     public Merchant createMerchant(Merchant merchant) {
         merchant.setCreateTime(new Date());
         merchant.setUpdateTime(new Date());
+        merchant.setMerchantStatus(1);
         merchantMapper.insert(merchant);
         return queryMerchantByAccount(merchant.getAccount());
     }
