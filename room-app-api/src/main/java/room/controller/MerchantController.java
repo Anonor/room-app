@@ -287,7 +287,7 @@ public class MerchantController {
         System.out.println("商家已退出登录！");
     }
 
-    //商家注销账号（所有关联表置状态为2:）
+    //商家注销账号（所有关联表置状态为2:关闭）
     @RequestMapping(value = "logoff", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public void logoff(@RequestBody MerchantBO merchantBO){
         HttpSession session=MySessionContext.getSession(merchantBO.getSessionId());
@@ -299,7 +299,7 @@ public class MerchantController {
         //置pension表中该商家所属门店状态为2（待补）
         pensionService.deletePensionByMerchantId(id,2);
         //置room表中该商家所属房间状态为2（待补）
-        roomService.updateRoomStatusByMerchantId(id);
+        roomService.updateRoomStatusByMerchantId(id,2);
         //清空session
         MySessionContext.delSession(session);
         System.out.println("注销成功！");
