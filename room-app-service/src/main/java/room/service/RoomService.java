@@ -34,4 +34,7 @@ public interface RoomService {
 
     //根据房间Id修改房间状态
     public void updateRoomStatusByRoomId(Integer roomId, Integer roomStatus);
+
+    //选择性修改房间或分组信息（必须包含roomId）
+    public void updateRoomOrGroup(Room room);
 }

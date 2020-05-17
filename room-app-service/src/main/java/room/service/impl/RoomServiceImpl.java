@@ -79,7 +79,11 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void updateRoomStatusByMerchantId(Integer merchantId, Integer roomStatus) {
-
+        List<Room> rooms = roomMapper.selectRoomsByMerchantId(merchantId);
+        for (Room room : rooms) {
+            room.setRoomStatus(roomStatus);
+            updateRoomOrGroup(room);
+        }
     }
 
     @Override
@@ -87,6 +91,11 @@ public class RoomServiceImpl implements RoomService {
         Room room = new Room();
         room.setRoomId(roomId);
         room.setRoomStatus(roomStatus);
+        roomMapper.updateByPrimaryKeySelective(room);
+    }
+
+    @Override
+    public void updateRoomOrGroup(Room room) {
         roomMapper.updateByPrimaryKeySelective(room);
     }
 }

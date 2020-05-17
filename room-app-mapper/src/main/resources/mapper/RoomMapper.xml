@@ -41,4 +41,14 @@
         r.room_id = #{roomId}
         AND r.father_id = sub.room_id;
   </select>
+
+  <select id="selectRoomsByMerchantId" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT
+        r.*
+    FROM
+        room r
+        LEFT JOIN pension p ON r.pension_id = p.pension_id
+    WHERE
+        p.merchant_id = #{merchantId} AND r.father_id != 0;
+  </select>
 </mapper>
