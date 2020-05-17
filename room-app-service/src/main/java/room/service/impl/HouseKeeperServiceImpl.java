@@ -30,17 +30,17 @@ public class HouseKeeperServiceImpl implements HouseKeeperService {
     }
 
     @Override
-    public void createHouseKeeper() {
-
+    public void createHouseKeeper(Housekeeper housekeeper) {
+        housekeeperMapper.insert(housekeeper);
     }
 
     @Override
     public void updateHouseKeeper(Housekeeper housekeeper) {
-
+        housekeeperMapper.updateByPrimaryKeySelective(housekeeper);
     }
 
     @Override
     public void deleteHouseKeeperByHouseKeeperId(Integer houseKeeperId) {
-
+        housekeeperMapper.deleteByPrimaryKey(houseKeeperId);
     }
 }

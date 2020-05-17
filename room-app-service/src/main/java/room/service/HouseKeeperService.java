@@ -13,7 +13,7 @@ public interface HouseKeeperService {
     public String queryHouseKeeperNameById(Integer houseKeeperId);
 
     //创建保洁人员信息
-    public void createHouseKeeper();
+    public void createHouseKeeper(Housekeeper housekeeper);
 
     //修改保洁人员信息
     public void updateHouseKeeper(Housekeeper housekeeper);
