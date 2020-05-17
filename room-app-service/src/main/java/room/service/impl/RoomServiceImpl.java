@@ -29,7 +29,9 @@ public class RoomServiceImpl implements RoomService {
         List<RoomGroupVO> groups = new ArrayList<>();
         for (Room room : rooms) {
             RoomGroupVO roomGroupVO = new RoomGroupVO();
-            BeanUtils.copyProperties(room, roomGroupVO);
+            roomGroupVO.setPensionId(room.getPensionId());
+            roomGroupVO.setGroupId(room.getRoomId());
+            roomGroupVO.setGroupName(room.getName());
             groups.add(roomGroupVO);
         }
         return groups;
