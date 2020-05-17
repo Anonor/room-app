@@ -29,6 +29,9 @@ public interface RoomService {
     //根据民宿id和房间分组名称name查询房间是否存在（true：存在   false：不存在）
     public boolean isGroupExist(Integer pensionId, String groupName);
 
+    //根据民宿Id和房间名称name获取房间Id
+    public Integer getRoomIdByPensionIdAndRoomName(Integer pensionId, String roomName);
+
     //创建房间信息（默认设置房间状态为0）
     public void createRoom(Room room);
 

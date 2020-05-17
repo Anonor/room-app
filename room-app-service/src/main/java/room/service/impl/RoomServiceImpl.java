@@ -87,6 +87,15 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public Integer getRoomIdByPensionIdAndRoomName(Integer pensionId, String roomName) {
+        Example example = new Example(Room.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("pensionId", pensionId);
+        criteria.andEqualTo("roomName", roomName);
+        return roomMapper.selectOneByExample(example).getRoomId();
+    }
+
+    @Override
     public void createRoom(Room room) {
         room.setRoomStatus(0);
         roomMapper.insert(room);
