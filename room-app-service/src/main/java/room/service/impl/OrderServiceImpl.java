@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Object> map = new HashMap<>();
         map.put("pensionId", pensionId);
         map.put("orderStatus", orderStatus);
-        return orderMapper.queryOrderByPensionIdAndOrderStatus(map);
+        return orderMapper.selectOrderByPensionIdAndOrderStatus(map);
     }
 
     @Override
@@ -42,12 +42,12 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Object> map = new HashMap<>();
         map.put("roomId", roomId);
         map.put("orderStatus", orderStatus);
-        return orderMapper.queryOrderByRoomIdAndOrderStatus(map);
+        return orderMapper.selectOrderByRoomIdAndOrderStatus(map);
     }
 
     @Override
     public OrderVO queryByOrderId(Integer orderId) {
-        return orderMapper.queryOrderByOrderId(orderId);
+        return orderMapper.selectOrderByOrderId(orderId);
     }
 
     @Override

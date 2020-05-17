@@ -56,12 +56,37 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void updateRoomStatusByMerchantId(Integer merchantId) {
+    public boolean isRoomExist(Integer groupId, String roomName) {
+        Example example = new Example(Room.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("fatherId", groupId);
+        criteria.andEqualTo("roomName", roomName);
+        return roomMapper.selectOneByExample(example) == null ? false : true;
+    }
+
+    @Override
+    public void createRoom(Room room) {
+        room.setRoomStatus(0);
+        roomMapper.insert(room);
+    }
+
+    @Override
+    public void createRoomGroup(Room room) {
+        room.setRoomStatus(0);
+        room.setFatherId(0);
+        roomMapper.insert(room);
+    }
+
+    @Override
+    public void updateRoomStatusByMerchantId(Integer merchantId, Integer roomStatus) {
 
     }
 
     @Override
-    public void updateRoomStatusByRoomId(Integer roomId) {
-
+    public void updateRoomStatusByRoomId(Integer roomId, Integer roomStatus) {
+        Room room = new Room();
+        room.setRoomId(roomId);
+        room.setRoomStatus(roomStatus);
+        roomMapper.updateByPrimaryKeySelective(room);
     }
 }

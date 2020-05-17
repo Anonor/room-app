@@ -20,7 +20,7 @@
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
   </resultMap>
 
-  <select id="queryOrderByPensionIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
+  <select id="selectOrderByPensionIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
     SELECT
         o.order_id AS orderId,
         o.merchant_id AS merchantId,
@@ -60,7 +60,7 @@
         o.order_status = #{paramMap.orderStatus} AND o.pension_id = #{paramMap.pensionId};
   </select>
 
-  <select id="queryOrderByOrderId" parameterType="Integer" resultType="room.pojo.vo.OrderVO">
+  <select id="selectOrderByOrderId" parameterType="Integer" resultType="room.pojo.vo.OrderVO">
     SELECT
         o.order_id AS orderId,
         o.merchant_id AS merchantId,
@@ -100,7 +100,7 @@
         o.order_id = #{orderId};
   </select>
 
-    <select id="queryOrderByRoomIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
+    <select id="selectOrderByRoomIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
     SELECT
         o.order_id AS orderId,
         o.merchant_id AS merchantId,

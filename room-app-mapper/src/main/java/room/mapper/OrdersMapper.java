@@ -10,9 +10,9 @@ import java.util.Map;
 
 public interface OrdersMapper extends MyMapper<Orders> {
 
-    List<OrderVO> queryOrderByPensionIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
+    List<OrderVO> selectOrderByPensionIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
 
-    OrderVO queryOrderByOrderId(Integer orderId);
+    OrderVO selectOrderByOrderId(Integer orderId);
 
-    List<OrderVO> queryOrderByRoomIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
+    List<OrderVO> selectOrderByRoomIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
 }

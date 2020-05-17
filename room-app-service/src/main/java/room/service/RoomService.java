@@ -20,12 +20,18 @@ public interface RoomService {
     //根据房间Id获取分组和房间信息
     public RoomVO queryRoomInfoByRoomId(Integer roomId);
 
-    //创建房间信息
+    //根据分组id和房间名称name查询房间是否存在（true：存在   false：不存在）
+    public boolean isRoomExist(Integer groupId, String roomName);
 
+    //创建房间信息（默认设置房间状态为0）
+    public void createRoom(Room room);
+
+    //创建房间分组信息（默认fatherId设置状态为0）
+    public void createRoomGroup(Room room);
 
     //根据商家Id修改所有房间状态
-    public void updateRoomStatusByMerchantId(Integer merchantId);
+    public void updateRoomStatusByMerchantId(Integer merchantId, Integer roomStatus);
 
     //根据房间Id修改房间状态
-    public void updateRoomStatusByRoomId(Integer roomId);
+    public void updateRoomStatusByRoomId(Integer roomId, Integer roomStatus);
 }
