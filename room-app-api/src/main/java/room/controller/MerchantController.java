@@ -296,9 +296,9 @@ public class MerchantController {
         merchantService.updateMerchantStatus(id,2);
         //置order表中该商家所属订单状态为2（订单无效）
         orderService.deleteByMerchantId(id);
-        //置pension表中该商家所属门店状态为2（待补）
+        //置pension表中该商家所属门店状态为2
         pensionService.deletePensionByMerchantId(id,2);
-        //置room表中该商家所属房间状态为2（待补）
+        //置room表中该商家所属房间状态为2
         roomService.updateRoomStatusByMerchantId(id,2);
         //清空session
         MySessionContext.delSession(session);

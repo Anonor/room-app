@@ -72,7 +72,7 @@ public class RoomServiceImpl implements RoomService {
         Example example = new Example(Room.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("fatherId", groupId);
-        criteria.andEqualTo("roomName", roomName);
+        criteria.andEqualTo("name", roomName);
         return roomMapper.selectOneByExample(example) == null ? false : true;
     }
 
@@ -81,7 +81,7 @@ public class RoomServiceImpl implements RoomService {
         Example example = new Example(Room.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("pensionId", pensionId);
-        criteria.andEqualTo("groupName", groupName);
+        criteria.andEqualTo("name", groupName);
         criteria.andEqualTo("fatherId", 0);
         return roomMapper.selectOneByExample(example) == null ? false : true;
     }
@@ -91,7 +91,7 @@ public class RoomServiceImpl implements RoomService {
         Example example = new Example(Room.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("pensionId", pensionId);
-        criteria.andEqualTo("roomName", roomName);
+        criteria.andEqualTo("name", roomName);
         return roomMapper.selectOneByExample(example).getRoomId();
     }
 

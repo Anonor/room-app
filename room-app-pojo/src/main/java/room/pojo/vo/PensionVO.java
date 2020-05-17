@@ -47,6 +47,44 @@ public class PensionVO {
     * */
     private String detail;
 
+    /**
+     * 省
+     */
+    private String addressProvince;
+
+    /**
+     * 市
+     */
+    private String addressCity;
+
+    /**
+     * 区（县）
+     */
+    private String addressDistrict;
+
+    public String getAddressProvince() {
+        return addressProvince;
+    }
+
+    public void setAddressProvince(String addressProvince) {
+        this.addressProvince = addressProvince;
+    }
+
+    public String getAddressCity() {
+        return addressCity;
+    }
+
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
+
+    public String getAddressDistrict() {
+        return addressDistrict;
+    }
+
+    public void setAddressDistrict(String addressDistrict) {
+        this.addressDistrict = addressDistrict;
+    }
 
     public String getLocation() {
         return location;

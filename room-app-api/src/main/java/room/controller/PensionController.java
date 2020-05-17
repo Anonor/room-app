@@ -180,6 +180,9 @@ public class PensionController {
                 String location=pensions.get(i).getAddressProvince()+pensions.get(i).getAddressCity()
                         +pensions.get(i).getAddressDistrict();
                 String detail = pensions.get(i).getAddressDetail();
+                pensionVO.setAddressProvince(pensions.get(i).getAddressProvince());
+                pensionVO.setAddressCity(pensions.get(i).getAddressCity());
+                pensionVO.setAddressDistrict(pensions.get(i).getAddressDistrict());
                 pensionVO.setLocation(location);
                 pensionVO.setDetail(detail);
                 pensionVOs.add(pensionVO);
