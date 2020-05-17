@@ -11,7 +11,9 @@ import room.service.OrderService;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -28,29 +30,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderVO> queryByPensionId(Integer pensionId, Integer orderStatus) {
-        Example example = new Example(Orders.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("pensionId", pensionId);
-        criteria.andEqualTo("orderStatus", orderStatus);
-        List<Orders> orders = orderMapper.selectByExample(example);
-        List<OrderVO> result = new ArrayList<>();
-        for (Orders order : orders) {
-            OrderVO orderVO = new OrderVO();
-            BeanUtils.copyProperties(order, orderVO);
-            orderVO.setHousekeeperName(houseKeeperService.queryHouseKeeperNameById(orderVO.getHousekeeperId()));
-            result.add(orderVO);
-        }
-        return result;
+    public List<OrderVO> queryByPensionIdAndOrderStatus(Integer pensionId, Integer orderStatus) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("pensionId", pensionId);
+        map.put("orderStatus", orderStatus);
+        return orderMapper.queryOrderByPensionIdAndOrderStatus(map);
     }
 
     @Override
     public OrderVO queryByOrderId(Integer orderId) {
-        Orders order = orderMapper.selectByPrimaryKey(orderId);
-        OrderVO orderVO = new OrderVO();
-        BeanUtils.copyProperties(order, orderVO);
-        orderVO.setHousekeeperName(houseKeeperService.queryHouseKeeperNameById(orderVO.getHousekeeperId()));
-        return orderVO;
+        return orderMapper.queryOrderByOrderId(orderId);
     }
 
     @Override

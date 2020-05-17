@@ -11,7 +11,7 @@ public interface OrderService {
     public List<OrderVO> queryByMerchantId(Integer merchantId, Integer orderStatus);
 
     //根据民宿Id和订单状态status获取订单信息   0：已完成   1：待退房（前端想要的）   2：订单无效
-    public List<OrderVO> queryByPensionId(Integer pensionId, Integer orderStatus);
+    public List<OrderVO> queryByPensionIdAndOrderStatus(Integer pensionId, Integer orderStatus);
 
     //根据订单Id获取订单详情信息（返回OrderVO）
     public OrderVO queryByOrderId(Integer orderId);

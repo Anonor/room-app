@@ -19,4 +19,84 @@
     <result column="income" property="income" jdbcType="REAL" />
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
   </resultMap>
+
+  <select id="queryOrderByPensionIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
+    SELECT
+        o.order_id AS orderId,
+        o.merchant_id AS merchantId,
+        o.pension_id AS pensionId,
+        o.room_id AS roomId,
+        rr.room_name AS roomName,
+        rr.group_id AS groupId,
+        rr.group_name AS groupName,
+        o.source_id AS sourceId,
+        s.source_name AS sourceName,
+        o.housekeeper_id AS housekeeperId,
+        h.`name` AS housekeeperName,
+        o.check_in_date AS checkInDate,
+        o.check_out_date AS checkOutDate,
+        o.guest_name AS guestName,
+        o.guest_phone AS guestPhone,
+        o.remarks AS remarks,
+        o.income AS income,
+        o.order_status AS orderStatus
+    FROM
+        orders o
+        LEFT JOIN (
+                                SELECT
+                                    r.room_id AS room_id,
+                                    father_id AS group_id,
+                                    sub.`name` AS group_name,
+                                    r.`name` AS room_name
+                                FROM
+                                    room r,
+                                    ( SELECT room_id, `name` FROM room ) sub
+                                WHERE
+                                    r.father_id = sub.room_id
+                  ) rr ON rr.room_id = o.room_id
+        LEFT JOIN housekeeper h ON h.housekeeper_id = o.housekeeper_id
+        LEFT JOIN source s ON s.source_id = o.source_id
+    WHERE
+        o.order_status = #{paramMap.orderStatus} AND o.pension_id = #{paramMap.pensionId};
+  </select>
+
+  <select id="queryOrderByOrderId" parameterType="Integer" resultType="room.pojo.vo.OrderVO">
+    SELECT
+        o.order_id AS orderId,
+        o.merchant_id AS merchantId,
+        o.pension_id AS pensionId,
+        o.room_id AS roomId,
+        rr.room_name AS roomName,
+        rr.group_id AS groupId,
+        rr.group_name AS groupName,
+        o.source_id AS sourceId,
+        s.source_name AS sourceName,
+        o.housekeeper_id AS housekeeperId,
+        h.`name` AS housekeeperName,
+        o.check_in_date AS checkInDate,
+        o.check_out_date AS checkOutDate,
+        o.guest_name AS guestName,
+        o.guest_phone AS guestPhone,
+        o.remarks AS remarks,
+        o.income AS income,
+        o.order_status AS orderStatus
+    FROM
+        orders o
+        LEFT JOIN (
+                                SELECT
+                                    r.room_id AS room_id,
+                                    father_id AS group_id,
+                                    sub.`name` AS group_name,
+                                    r.`name` AS room_name
+                                FROM
+                                    room r,
+                                    ( SELECT room_id, `name` FROM room ) sub
+                                WHERE
+                                    r.father_id = sub.room_id
+                  ) rr ON rr.room_id = o.room_id
+        LEFT JOIN housekeeper h ON h.housekeeper_id = o.housekeeper_id
+        LEFT JOIN source s ON s.source_id = o.source_id
+    WHERE
+        o.order_id = #{orderId};
+  </select>
 </mapper>

@@ -48,4 +48,9 @@ public class TestFunc {
     public void getOrderVO() {
         System.out.println(orderService.queryByOrderId(1));
     }
+
+    @Test
+    public void getOrderVOs() {
+        System.out.println(orderService.queryByPensionIdAndOrderStatus(1, 1));
+    }
 }
