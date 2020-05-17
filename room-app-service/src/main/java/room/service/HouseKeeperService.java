@@ -15,6 +15,9 @@ public interface HouseKeeperService {
     //创建保洁人员信息
     public void createHouseKeeper();
 
+    //修改保洁人员信息
+    public void updateHouseKeeper(Housekeeper housekeeper);
+
     //删除保洁人员信息
     public void deleteHouseKeeperByHouseKeeperId(Integer houseKeeperId);
 

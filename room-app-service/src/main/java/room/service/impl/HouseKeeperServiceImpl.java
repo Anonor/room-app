@@ -35,6 +35,11 @@ public class HouseKeeperServiceImpl implements HouseKeeperService {
     }
 
     @Override
+    public void updateHouseKeeper(Housekeeper housekeeper) {
+
+    }
+
+    @Override
     public void deleteHouseKeeperByHouseKeeperId(Integer houseKeeperId) {
 
     }

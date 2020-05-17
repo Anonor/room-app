@@ -42,6 +42,16 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public List<Room> queryRoomsByPensionIdAndRoomStatus(Integer pensionId, Integer roomStatus) {
+        Example example = new Example(Room.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("pensionId", pensionId);
+        criteria.andEqualTo("roomStatus", roomStatus);
+        criteria.andNotEqualTo("fatherId", 0);
+        return roomMapper.selectByExample(example);
+    }
+
+    @Override
     public List<Room> queryRoomsByGroupIdAndRoomStatus(Integer groupId, Integer roomStatus) {
         Example example = new Example(Room.class);
         Example.Criteria criteria = example.createCriteria();
