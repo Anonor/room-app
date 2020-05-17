@@ -17,6 +17,7 @@ import room.pojo.Room;
 import room.pojo.bo.PensionBO;
 import room.pojo.vo.PensionVO;
 import room.pojo.vo.RoomGroupVO;
+import room.pojo.vo.RoomVO;
 import room.resource.FileUpload;
 import room.service.PensionService;
 import room.service.RoomService;
@@ -148,9 +149,6 @@ public class PensionController {
         if (pensionBO.getPensionImg()!=null){
             pension.setImage(pensionBO.getPensionImg());
         }
-        Date createTime = new Date(System.currentTimeMillis());
-        pension.setCreateTime(createTime);
-        pension.setUpdateTime(createTime);
         pensionService.createPension(pension);
         int pensionId = pensionService.getPensionId(Integer.parseInt(session.getAttribute("id").toString()),pensionBO.getPensionName());
         JSONObject result = new JSONObject();
@@ -242,8 +240,6 @@ public class PensionController {
         }
         pension.setLongitude(map.get("lng").toString());
         pension.setLatitude(map.get("lat").toString());
-        Date updateTime = new Date(System.currentTimeMillis());
-        pension.setUpdateTime(updateTime);
         pensionService.updatePension(pension);
         JSONObject result = new JSONObject();
         result.put("status", "success");
@@ -268,12 +264,13 @@ public class PensionController {
     public String getGroupsByPensionId(@RequestBody PensionBO pensionBO){
         int pensionId = pensionBO.getPensionId();
         List<RoomGroupVO> roomGroupVOS=new ArrayList<>();
-        for (RoomGroupVO roomGroupVO : roomService.queryRoomGroupsByPensionId(pensionId)){
+        for (RoomGroupVO roomGroupVO : roomService.queryValidRoomGroupsByPensionId(pensionId)){
             RoomGroupVO groupVO=new RoomGroupVO();
-            groupVO.setName(roomGroupVO.getName());
+            groupVO.setGroupName(roomGroupVO.getGroupName());
             groupVO.setGroupId(roomGroupVO.getGroupId());
             roomGroupVOS.add(groupVO);
         }
+
         if (roomGroupVOS.isEmpty()){
             JSONObject result = new JSONObject();
             result.put("status", "failure");
@@ -290,11 +287,12 @@ public class PensionController {
     @RequestMapping(value = "getRoomsByGroupId", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String getRoomsByGroupId(@RequestBody PensionBO pensionBO){
         int groupId = pensionBO.getGroupId();
-        List<RoomGroupVO> roomVOS=new ArrayList<>();
+        List<RoomVO> roomVOS=new ArrayList<>();
         for (Room room : roomService.queryRoomsByGroupIdAndRoomStatus(groupId, 0)){
-            RoomGroupVO roomVO=new RoomGroupVO();
-            roomVO.setName(room.getName());
-            roomVO.setGroupId(room.getRoomId());
+            RoomVO roomVO=new RoomVO();
+            roomVO.setRoomName(room.getName());
+            roomVO.setRoomId(room.getRoomId());
+            roomVO.setRoomStatus(room.getRoomStatus());
             roomVOS.add(roomVO);
         }
         if (roomVOS.isEmpty()){

@@ -14,6 +14,8 @@ public class OrderBO {
      */
     private Integer merchantId;
 
+    private String sessionId;
+
     /**
      * 订单民宿id
      */
@@ -58,6 +60,67 @@ public class OrderBO {
      * 订单状态   0：已退房   1：入住中
      */
     private Integer orderStatus;
+
+    /**
+     * 房客备注
+     */
+    private String remarks;
+
+    /*
+    * 该房客入住房间所属的组Id
+    * */
+    private int groupId;
+
+    /*
+    * 该房客入住房间的房间Id
+    * */
+    private int roomId;
+
+    /*
+    * 退房时，如果实离房时间比原离房时间早的退还金额
+    * */
+    private Float returnMoney;
+
+
+    public Float getReturnMoney() {
+        return returnMoney;
+    }
+
+    public void setReturnMoney(Float returnMoney) {
+        this.returnMoney = returnMoney;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
 
     public Integer getOrderId() {
         return orderId;

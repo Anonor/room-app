@@ -13,9 +13,10 @@ import room.pojo.Merchant;
 import room.pojo.bo.MerchantBO;
 import room.service.MerchantService;
 import room.service.OrderService;
+import room.service.PensionService;
+import room.service.RoomService;
 
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 import java.util.Random;
 
 @RestController
@@ -26,6 +27,10 @@ public class MerchantController {
     private MerchantService merchantService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private PensionService pensionService;
+    @Autowired
+    private RoomService roomService;
 
     //获取邮箱验证码
     @RequestMapping(value = "getEmailVerificationCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -100,23 +105,15 @@ public class MerchantController {
             merchant.setAccount(account);
             merchant.setBrandName(merchantBO.getBrandName());
             merchant.setPassword(merchantBO.getPwd());
-            merchant.setMerchantStatus(1);
             merchantService.createMerchant(merchant);
             result.put("status", "success");
             result.put("detail","账号注册成功！");
             //注册成功，清空session
-            MySessionContext.delSessionById(merchantBO.getSessionId());
-            /*Enumeration em = session.getAttributeNames();
-            while(em.hasMoreElements()){
-                session.removeAttribute(em.nextElement().toString());
-            }*/
+            MySessionContext.delSession(session);
             return result.toJSONString();
         }else if (System.currentTimeMillis()-codeTime>120000) {     //验证码输入错误且超时
             //验证码超时，清空session，验证码作废
-            Enumeration em = session.getAttributeNames();
-            while (em.hasMoreElements()) {
-                session.removeAttribute(em.nextElement().toString());
-            }
+            MySessionContext.delSession(session);
         }
 
         result.put("status", "failure");
@@ -177,10 +174,7 @@ public class MerchantController {
             return result.toJSONString();
         }else if (System.currentTimeMillis()-codeTime>120000) {     //验证码输入错误且超时
             //验证码超时，清空session，验证码作废
-            Enumeration em = session.getAttributeNames();
-            while (em.hasMoreElements()) {
-                session.removeAttribute(em.nextElement().toString());
-            }
+            MySessionContext.delSession(session);
         }
         result.put("status", "failure");
         result.put("detail","验证码错误或超过了2分钟才输入验证码,请在两分钟内重新输入验证码或重新获取验证码！");
@@ -230,19 +224,13 @@ public class MerchantController {
             merchant.setPassword(pwd);
             merchantService.updateMerchantById(merchant);
             //清空session
-            Enumeration em = session.getAttributeNames();
-            while(em.hasMoreElements()){
-                session.removeAttribute(em.nextElement().toString());
-            }
+            MySessionContext.delSession(session);
             result.put("status", "success");
             result.put("detail","修改密码成功！");
             return result.toJSONString();
         }else if (System.currentTimeMillis()-codeTime>120000) {     //验证码输入错误且超时
             //验证码超时，清空session，验证码作废
-            Enumeration em = session.getAttributeNames();
-            while (em.hasMoreElements()) {
-                session.removeAttribute(em.nextElement().toString());
-            }
+            MySessionContext.delSession(session);
         }
         result.put("status", "failure");
         result.put("detail","验证码错误或超过了2分钟才输入验证码,请在两分钟内重新输入验证码或重新获取验证码！");
@@ -299,19 +287,19 @@ public class MerchantController {
         System.out.println("商家已退出登录！");
     }
 
-    //商家注销账号
+    //商家注销账号（所有关联表置状态为2:）
     @RequestMapping(value = "logoff", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public void logoff(@RequestBody MerchantBO merchantBO){
         HttpSession session=MySessionContext.getSession(merchantBO.getSessionId());
         //置merchant表中该商家账号状态为2
         int id = Integer.parseInt(session.getAttribute("id").toString());
         merchantService.updateMerchantStatus(id,2);
-        //置order表中该商家所属订单状态为0（待补）
-
-        //置pension表中该商家所属门店状态为0（待补）
-
-        //置room表中该商家所属房间状态为0（待补）
-
+        //置order表中该商家所属订单状态为2（订单无效）
+        orderService.deleteByMerchantId(id);
+        //置pension表中该商家所属门店状态为2（待补）
+        //pensionService.deletePensionByMerchantId(id);
+        //置room表中该商家所属房间状态为2（待补）
+        //roomService.
         //清空session
         MySessionContext.delSession(session);
         System.out.println("注销成功！");

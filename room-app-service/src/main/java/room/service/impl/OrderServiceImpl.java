@@ -66,6 +66,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Orders queryOrdersByOrderId(Integer orderId) {
+        Orders order = orderMapper.selectByPrimaryKey(orderId);
+        return order;
+    }
+
+    @Override
     public void deleteByMerchantId(Integer merchantId) {
         Example example = new Example(Orders.class);
         Example.Criteria criteria = example.createCriteria();

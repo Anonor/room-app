@@ -14,9 +14,9 @@ public class RoomGroupVO {
     private Integer pensionId;
 
     /**
-     * 房间（分组）名称
+     * 分组名称
      */
-    private String name;
+    private String groupName;
 
     public Integer getGroupId() {
         return groupId;
@@ -34,12 +34,11 @@ public class RoomGroupVO {
         this.pensionId = pensionId;
     }
 
-    public String getName() {
-        return name;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
-
 }

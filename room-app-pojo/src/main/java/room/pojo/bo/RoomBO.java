@@ -20,7 +20,17 @@ public class RoomBO {
     /**
      * 房间名称
      */
-    private String name;
+    private String roomName;
+
+    /*
+    * 分组名称
+    * */
+    private String groupName;
+
+    /*
+    * 分组id
+    * */
+    private int groupId;
 
     /**
      * 房间价格
@@ -31,6 +41,30 @@ public class RoomBO {
      * 房间状态   0：空闲   1：入住
      */
     private Integer roomStatus;
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 
     public Integer getRoomId() {
         return roomId;
@@ -56,13 +90,6 @@ public class RoomBO {
         this.fatherId = fatherId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Float getPrice() {
         return price;

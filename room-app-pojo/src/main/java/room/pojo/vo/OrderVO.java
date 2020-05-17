@@ -1,7 +1,5 @@
 package room.pojo.vo;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.util.Date;
 
 public class OrderVO {
@@ -68,7 +66,17 @@ public class OrderVO {
     /**
      * 退房时间
      */
-    private Date checkOutDate;
+    private Date  checkOutDate;
+
+    /**
+     * 入住时间
+     */
+    private String checkInDate_;
+
+    /**
+     * 退房时间
+     */
+    private String  checkOutDate_;
 
     /**
      * 房客姓名
@@ -197,6 +205,22 @@ public class OrderVO {
 
     public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
+    }
+
+    public String getCheckInDate_() {
+        return checkInDate_;
+    }
+
+    public void setCheckInDate_(String checkInDate_) {
+        this.checkInDate_ = checkInDate_;
+    }
+
+    public String getCheckOutDate_() {
+        return checkOutDate_;
+    }
+
+    public void setCheckOutDate_(String checkOutDate_) {
+        this.checkOutDate_ = checkOutDate_;
     }
 
     public String getGuestName() {
