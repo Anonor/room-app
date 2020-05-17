@@ -77,6 +77,16 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public boolean isGroupExist(Integer pensionId, String groupName) {
+        Example example = new Example(Room.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("pensionId", pensionId);
+        criteria.andEqualTo("groupName", groupName);
+        criteria.andEqualTo("fatherId", 0);
+        return roomMapper.selectOneByExample(example) == null ? false : true;
+    }
+
+    @Override
     public void createRoom(Room room) {
         room.setRoomStatus(0);
         roomMapper.insert(room);
