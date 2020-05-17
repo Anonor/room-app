@@ -88,6 +88,12 @@ public class OrderController {
             result.put("detail","不存在该订单");
             return  result.toJSONString();
         }
+        if (orderVO.getRemarks()==null){
+            orderVO.setRemarks("无备注信息");
+        }
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        orderVO.setCheckInDate_(sdf.format(orderVO.getCheckInDate()));
+        orderVO.setCheckOutDate_(sdf.format(orderVO.getCheckOutDate()));
         JSONObject result = new JSONObject();
         result.put("status","success");
         result.put("detail",orderVO);

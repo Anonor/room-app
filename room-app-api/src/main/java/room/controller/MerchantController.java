@@ -297,9 +297,9 @@ public class MerchantController {
         //置order表中该商家所属订单状态为2（订单无效）
         orderService.deleteByMerchantId(id);
         //置pension表中该商家所属门店状态为2（待补）
-        //pensionService.deletePensionByMerchantId(id);
+        pensionService.deletePensionByMerchantId(id,2);
         //置room表中该商家所属房间状态为2（待补）
-        //roomService.
+        roomService.updateRoomStatusByMerchantId(id);
         //清空session
         MySessionContext.delSession(session);
         System.out.println("注销成功！");
