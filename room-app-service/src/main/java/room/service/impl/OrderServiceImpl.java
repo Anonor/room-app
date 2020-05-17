@@ -38,6 +38,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderVO> queryByRoomIdAndOrderStatus(Integer roomId, Integer orderStatus) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("roomId", roomId);
+        map.put("orderStatus", orderStatus);
+        return orderMapper.queryOrderByRoomIdAndOrderStatus(map);
+    }
+
+    @Override
     public OrderVO queryByOrderId(Integer orderId) {
         return orderMapper.queryOrderByOrderId(orderId);
     }

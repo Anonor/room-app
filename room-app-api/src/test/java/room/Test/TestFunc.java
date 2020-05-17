@@ -53,4 +53,9 @@ public class TestFunc {
     public void getOrderVOs() {
         System.out.println(orderService.queryByPensionIdAndOrderStatus(1, 1));
     }
+
+    @Test
+    public void getOrderVOs2() {
+        System.out.println(orderService.queryByRoomIdAndOrderStatus(2, 0));
+    }
 }

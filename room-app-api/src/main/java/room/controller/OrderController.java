@@ -53,7 +53,7 @@ public class OrderController {
     public String  getExistedOrdersByPensionId(@RequestBody OrderBO orderBO){
         int pensionId = orderBO.getPensionId();
         List<OrderVO> orderVOS=new ArrayList<>();
-        for (OrderVO orderVO:orderService.queryByPensionId(pensionId,1)){
+        for (OrderVO orderVO:orderService.queryByPensionIdAndOrderStatus(pensionId,1)){
             OrderVO orderVO1=new OrderVO();
             orderVO1.setOrderId(orderVO.getOrderId());
             orderVO1.setGuestName(orderVO.getGuestName());

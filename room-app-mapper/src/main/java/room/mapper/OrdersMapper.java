@@ -13,4 +13,6 @@ public interface OrdersMapper extends MyMapper<Orders> {
     List<OrderVO> queryOrderByPensionIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
 
     OrderVO queryOrderByOrderId(Integer orderId);
+
+    List<OrderVO> queryOrderByRoomIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
 }
