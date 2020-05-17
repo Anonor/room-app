@@ -19,4 +19,13 @@ public interface RoomService {
 
     //根据房间Id获取分组和房间信息
     public RoomVO queryRoomInfoByRoomId(Integer roomId);
+
+    //创建房间信息
+
+
+    //根据商家Id修改所有房间状态
+    public void updateRoomStatusByMerchantId(Integer merchantId);
+
+    //根据房间Id修改房间状态
+    public void updateRoomStatusByRoomId(Integer roomId);
 }

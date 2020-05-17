@@ -24,19 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderVO> queryByMerchantId(Integer merchantId, Integer orderStatus) {
-        Example example = new Example(Orders.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("merchantId", merchantId);
-        criteria.andEqualTo("orderStatus", orderStatus);
-        List<Orders> orders = orderMapper.selectByExample(example);
-        List<OrderVO> result = new ArrayList<>();
-        for (Orders order : orders) {
-            OrderVO orderVO = new OrderVO();
-            BeanUtils.copyProperties(order, orderVO);
-            orderVO.setHousekeeperName(houseKeeperService.queryHouseKeeperNameById(orderVO.getHousekeeperId()));
-            result.add(orderVO);
-        }
-        return result;
+        return null;
     }
 
     @Override

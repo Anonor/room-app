@@ -34,7 +34,7 @@ public class TestFunc {
 
     @Test
     public void getValidRoomGroup() {
-        List<RoomGroupVO> list = roomService.queryValidRoomGroupsByPensionId(1);
+        List<RoomGroupVO> list = roomService.queryRoomGroupsByPensionId(1);
         System.out.println(list);
     }
 

@@ -34,7 +34,7 @@ public class Room {
     private Float price;
 
     /**
-     * 房间状态   0：空闲   1：入住
+     * 房间状态   0：空闲   1：入住   2：关闭
      */
     @Column(name = "room_status")
     private Integer roomStatus;
@@ -130,18 +130,18 @@ public class Room {
     }
 
     /**
-     * 获取房间状态   0：空闲   1：入住
+     * 获取房间状态   0：空闲   1：入住   2：关闭
      *
-     * @return room_status - 房间状态   0：空闲   1：入住
+     * @return room_status - 房间状态   0：空闲   1：入住   2：关闭
      */
     public Integer getRoomStatus() {
         return roomStatus;
     }
 
     /**
-     * 设置房间状态   0：空闲   1：入住
+     * 设置房间状态   0：空闲   1：入住   2：关闭
      *
-     * @param roomStatus 房间状态   0：空闲   1：入住
+     * @param roomStatus 房间状态   0：空闲   1：入住   2：关闭
      */
     public void setRoomStatus(Integer roomStatus) {
         this.roomStatus = roomStatus;

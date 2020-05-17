@@ -38,7 +38,7 @@ public class RoomBO {
     private Float price;
 
     /**
-     * 房间状态   0：空闲   1：入住
+     * 房间状态   0：空闲   1：入住   2：关闭
      */
     private Integer roomStatus;
 

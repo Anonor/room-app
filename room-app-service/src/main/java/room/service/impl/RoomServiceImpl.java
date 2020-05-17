@@ -54,4 +54,14 @@ public class RoomServiceImpl implements RoomService {
     public RoomVO queryRoomInfoByRoomId(Integer roomId) {
         return roomMapper.selectRoomInfoByRoomId(roomId);
     }
+
+    @Override
+    public void updateRoomStatusByMerchantId(Integer merchantId) {
+
+    }
+
+    @Override
+    public void updateRoomStatusByRoomId(Integer roomId) {
+
+    }
 }

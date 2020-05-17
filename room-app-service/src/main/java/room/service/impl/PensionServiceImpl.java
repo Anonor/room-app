@@ -63,14 +63,14 @@ public class PensionServiceImpl implements PensionService {
     }
 
     @Override
-    public void deletePensionByMerchantId(Integer merchantId) {
+    public void deletePensionByMerchantId(Integer merchantId, Integer pensionStatus) {
         Example pensionExample = new Example(Pension.class);
         Example.Criteria criteria = pensionExample.createCriteria();
         criteria.andEqualTo("merchantId", merchantId);
         criteria.andEqualTo("pensionStatus", 1);
         List<Pension> pensions = pensionMapper.selectByExample(pensionExample);
         for (Pension pension : pensions) {
-            pension.setPensionStatus(0);
+            pension.setPensionStatus(pensionStatus);
             updatePension(pension);
         }
     }

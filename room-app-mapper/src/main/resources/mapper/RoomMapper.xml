@@ -17,7 +17,7 @@
     SELECT
         room_id AS groupId,
         pension_id AS pensionId,
-        name AS name
+        name AS groupName
     FROM
         room,
         ( SELECT father_id, count(*) FROM room WHERE pension_id = #{pensionId} AND father_id != 0 AND room_status = 0 GROUP BY father_id ) sub
