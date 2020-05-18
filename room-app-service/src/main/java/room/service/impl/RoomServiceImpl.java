@@ -74,6 +74,7 @@ public class RoomServiceImpl implements RoomService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("fatherId", groupId);
         criteria.andEqualTo("name", roomName);
+        criteria.andNotEqualTo("roomStatus", 2);
         return roomMapper.selectOneByExample(example) == null ? false : true;
     }
 

@@ -41,4 +41,13 @@ public class RoomGroupVO {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    @Override
+    public String toString() {
+        return "RoomGroupVO{" +
+                "groupId=" + groupId +
+                ", pensionId=" + pensionId +
+                ", groupName='" + groupName + '\'' +
+                '}';
+    }
 }

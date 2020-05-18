@@ -68,4 +68,9 @@ public class TestFunc {
         roomService.createRoomGroup(room);
     }
 
+    @Test
+    public void queryValidRoomGroup() {
+        System.out.println(roomService.queryValidRoomGroupsByPensionId(7));
+    }
+
 }
