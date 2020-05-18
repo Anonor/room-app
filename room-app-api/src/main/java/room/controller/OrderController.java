@@ -109,7 +109,10 @@ public class OrderController {
     public String  updateOrderInfo(@RequestBody OrderBO orderBO){
         Orders orders=new Orders();
         orders.setOrderId(orderBO.getOrderId());
+        //修改房间之后，将原入住房间状态置0，现入住房间状态置1
         orders.setRoomId(orderBO.getRoomId());
+        roomService.updateRoomStatusByRoomId(orderBO.getRoomId(),1);    //现入住房间
+        roomService.updateRoomStatusByRoomId(orderService.queryByOrderId(orderBO.getOrderId()).getRoomId(),0);     //原入住房间
         orders.setGuestName(orderBO.getGuestName());
         orders.setCheckInDate(orderBO.getCheckInDate());
         orders.setCheckOutDate(orderBO.getCheckOutDate());
@@ -150,7 +153,14 @@ public class OrderController {
     @RequestMapping(value = "deleteOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String  deleteOrder(@RequestBody OrderBO orderBO){
         int orderId = orderBO.getOrderId();
-        orderService.updateOrderStatus(orderId,2);
+        //删除订单，判断订单是否已完成
+        if (orderService.queryByOrderId(orderId).getOrderStatus()==0){  //如果该订单之前已经完成了
+            // ，说明房间状态已经为应该的样子，不需要置房间状态
+            orderService.updateOrderStatus(orderId,2);
+        }else { //该订单还没完成，删除订单后要置该房间为空闲状态
+            roomService.updateRoomStatusByRoomId(orderService.queryByOrderId(orderId).getRoomId(),0);
+            orderService.updateOrderStatus(orderId,2);
+        }
         JSONObject result = new JSONObject();
         result.put("status","success");
         result.put("detail","删除订单信息成功！");

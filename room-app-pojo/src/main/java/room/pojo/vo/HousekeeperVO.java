@@ -11,6 +11,32 @@ public class HousekeeperVO {
      */
     private String name;
 
+    /**
+     * 保洁人员电话
+     */
+    private String phone;
+
+    /**
+     * 保洁人员每次工资
+     */
+    private Float wage;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Float getWage() {
+        return wage;
+    }
+
+    public void setWage(Float wage) {
+        this.wage = wage;
+    }
+
     public Integer getHousekeeperId() {
         return housekeeperId;
     }

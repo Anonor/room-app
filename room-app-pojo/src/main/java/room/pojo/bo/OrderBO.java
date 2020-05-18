@@ -81,6 +81,19 @@ public class OrderBO {
     * */
     private Float returnMoney;
 
+    /*
+    * 前端参数
+    * 修改订单如果换房了，换房前的房间id
+    * */
+    private int oldRoomId;
+
+    public int getOldRoomId() {
+        return oldRoomId;
+    }
+
+    public void setOldRoomId(int oldRoomId) {
+        this.oldRoomId = oldRoomId;
+    }
 
     public Float getReturnMoney() {
         return returnMoney;

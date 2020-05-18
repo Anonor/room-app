@@ -302,7 +302,18 @@ public class MerchantController {
         roomService.updateRoomStatusByMerchantId(id,2);
         //清空session
         MySessionContext.delSession(session);
-        System.out.println("注销成功！");
+        System.out.println("商家注销成功！");
     }
 
+    //根据sessionId得到商家账号
+    @RequestMapping(value = "getAccountBySI", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String getAccountBySI(@RequestBody MerchantBO merchantBO){
+        String sessionId = merchantBO.getSessionId();
+        int id = Integer.parseInt(MySessionContext.getSession(sessionId).getAttribute("id").toString());
+        JSONObject result = new JSONObject();
+        result.put("status", "success");
+        result.put("detail","获取账号成功！");
+        result.put("account",merchantService.queryMerchantById(id).getAccount());
+        return result.toJSONString();
+    }
 }
