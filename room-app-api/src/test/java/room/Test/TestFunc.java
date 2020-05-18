@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import room.pojo.Room;
 import room.pojo.vo.RoomGroupVO;
 import room.pojo.vo.RoomVO;
 import room.service.OrderService;
@@ -57,5 +58,13 @@ public class TestFunc {
     @Test
     public void getOrderVOs2() {
         System.out.println(orderService.queryByRoomIdAndOrderStatus(2, 0));
+    }
+
+    @Test
+    public void addRoomGroup() {
+        Room room = new Room();
+        room.setName("qwerty");
+        room.setPensionId(1);
+        roomService.createRoomGroup(room);
     }
 }

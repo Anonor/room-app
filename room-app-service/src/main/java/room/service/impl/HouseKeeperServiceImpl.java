@@ -30,6 +30,15 @@ public class HouseKeeperServiceImpl implements HouseKeeperService {
     }
 
     @Override
+    public boolean isHouseKeeperExist(Integer pensionId, String houseKeeperName) {
+        Example example = new Example(Pension.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("pensionId", pensionId);
+        criteria.andEqualTo("name", houseKeeperName);
+        return housekeeperMapper.selectOneByExample(example) == null ? false : true;
+    }
+
+    @Override
     public void createHouseKeeper(Housekeeper housekeeper) {
         housekeeperMapper.insert(housekeeper);
     }
