@@ -305,15 +305,15 @@ public class MerchantController {
         System.out.println("商家注销成功！");
     }
 
-    //根据sessionId得到商家账号
-    @RequestMapping(value = "getAccountBySI", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String getAccountBySI(@RequestBody MerchantBO merchantBO){
+    //根据sessionId得到商家昵称（brandName）
+    @RequestMapping(value = "getBrandNameBySI", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String getBrandNameBySI(@RequestBody MerchantBO merchantBO){
         String sessionId = merchantBO.getSessionId();
         int id = Integer.parseInt(MySessionContext.getSession(sessionId).getAttribute("id").toString());
         JSONObject result = new JSONObject();
         result.put("status", "success");
         result.put("detail","获取账号成功！");
-        result.put("account",merchantService.queryMerchantById(id).getAccount());
+        result.put("brandName",merchantService.queryMerchantById(id).getBrandName());
         return result.toJSONString();
     }
 }
