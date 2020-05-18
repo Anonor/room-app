@@ -25,6 +25,7 @@ public class RoomServiceImpl implements RoomService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("pensionId", pensionId);
         criteria.andEqualTo("fatherId", 0);
+        criteria.andEqualTo("roomStatus", 0);
         List<Room> rooms = roomMapper.selectByExample(example);
         List<RoomGroupVO> groups = new ArrayList<>();
         for (Room room : rooms) {

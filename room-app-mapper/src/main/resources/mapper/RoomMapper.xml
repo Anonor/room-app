@@ -22,7 +22,7 @@
         room,
         ( SELECT father_id, count(*) FROM room WHERE pension_id = #{pensionId} AND father_id != 0 AND room_status = 0 GROUP BY father_id ) sub
     WHERE
-        room.room_id = sub.father_id;
+        room.room_id = sub.father_id AND room.room_status == 0;
   </select>
 
   <select id="selectRoomInfoByRoomId" resultType="room.pojo.vo.RoomVO" parameterType="Integer">

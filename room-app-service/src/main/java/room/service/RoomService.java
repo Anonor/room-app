@@ -41,7 +41,7 @@ public interface RoomService {
     //根据商家Id修改所有房间状态
     public void updateRoomStatusByMerchantId(Integer merchantId, Integer roomStatus);
 
-    //根据房间Id修改房间状态
+    //根据房间(房间分组)Id修改房间（房间分组）状态
     public void updateRoomStatusByRoomId(Integer roomId, Integer roomStatus);
 
     //选择性修改房间或分组信息（必须包含roomId）
