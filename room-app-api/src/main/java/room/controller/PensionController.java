@@ -219,35 +219,48 @@ public class PensionController {
         //查询该商家修改后的民宿信息是否存在
         HttpSession session = MySessionContext.getSession(pensionBO.getSessionId());
         int merchantId = Integer.parseInt(session.getAttribute("id").toString());
-        if (pensionService.isPensionExist(merchantId,pensionBO.getPensionName())){     //存在
+        int type = pensionBO.getType();
+        if (type==0){
+            if (pensionService.isPensionExist(merchantId,pensionBO.getPensionName())){     //存在
+                JSONObject result = new JSONObject();
+                result.put("status", "failure");
+                result.put("detail","修改后的民宿信息已存在或修改前后民宿名字没变，修改民宿信息失败！");
+                return result.toJSONString();
+            }else{
+                int pensionId = pensionBO.getPensionId();
+                Pension pension = pensionService.queryByPensionId(pensionId);
+                pension.setName(pensionBO.getPensionName());
+                pensionService.updatePension(pension);
+                JSONObject result = new JSONObject();
+                result.put("status", "success");
+                result.put("detail","修改民宿名称信息成功！");
+                return result.toJSONString();
+            }
+        }else {
+            int pensionId = pensionBO.getPensionId();
+            Pension pension = pensionService.queryByPensionId(pensionId);
+            pension.setName(pensionBO.getPensionName());
+            pension.setAddressProvince(pensionBO.getAddressProvince());
+            pension.setAddressCity(pensionBO.getAddressCity());
+            pension.setAddressDistrict(pensionBO.getAddressDistrict());
+            pension.setAddressDetail(pensionBO.getAddressDetail());
+            //拼接地址得到该地址的经纬度
+            String address = pensionBO.getAddressProvince()+pensionBO.getAddressCity()
+                    +pensionBO.getAddressDistrict()+ pensionBO.getAddressDetail();
+            Map<String, Double> map = new HashMap<String, Double>();
+            try {
+                map = GetLngAndLatUtil.getLngAndLat(address);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            pension.setLongitude(map.get("lng").toString());
+            pension.setLatitude(map.get("lat").toString());
+            pensionService.updatePension(pension);
             JSONObject result = new JSONObject();
-            result.put("status", "failure");
-            result.put("detail","修改后的民宿信息已存在，修改民宿信息失败！");
+            result.put("status", "success");
+            result.put("detail","修改民宿信息成功！");
             return result.toJSONString();
         }
-        int pensionId = pensionBO.getPensionId();
-        Pension pension = pensionService.queryByPensionId(pensionId);
-        pension.setName(pensionBO.getPensionName());
-        pension.setAddressProvince(pensionBO.getAddressProvince());
-        pension.setAddressCity(pensionBO.getAddressCity());
-        pension.setAddressDistrict(pensionBO.getAddressDistrict());
-        pension.setAddressDetail(pensionBO.getAddressDetail());
-        //拼接地址得到该地址的经纬度
-        String address = pensionBO.getAddressProvince()+pensionBO.getAddressCity()
-                +pensionBO.getAddressDistrict()+ pensionBO.getAddressDetail();
-        Map<String, Double> map = new HashMap<String, Double>();
-        try {
-            map = GetLngAndLatUtil.getLngAndLat(address);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        pension.setLongitude(map.get("lng").toString());
-        pension.setLatitude(map.get("lat").toString());
-        pensionService.updatePension(pension);
-        JSONObject result = new JSONObject();
-        result.put("status", "success");
-        result.put("detail","修改民宿信息成功！");
-        return result.toJSONString();
     }
 
     //删除这个民宿的信息
@@ -262,7 +275,7 @@ public class PensionController {
         return result.toJSONString();
     }
 
-    //根据民宿Id获得分组列表
+    //根据民宿Id获得空闲分组列表
     @RequestMapping(value = "getGroupsByPensionId", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String getGroupsByPensionId(@RequestBody PensionBO pensionBO){
         int pensionId = pensionBO.getPensionId();
@@ -286,12 +299,14 @@ public class PensionController {
         return result.toJSONString();
     }
 
-    //根据组Id获得房间列表
+    //根据组Id获得全部房间列表
     @RequestMapping(value = "getRoomsByGroupId", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String getRoomsByGroupId(@RequestBody PensionBO pensionBO){
         int groupId = pensionBO.getGroupId();
         List<RoomVO> roomVOS=new ArrayList<>();
-        for (Room room : roomService.queryRoomsByGroupIdAndRoomStatus(groupId, 0)){
+        List<Room> rooms = roomService.queryRoomsByGroupIdAndRoomStatus(groupId, 0);
+        rooms.addAll(roomService.queryRoomsByGroupIdAndRoomStatus(groupId,1));
+        for (Room room : rooms){
             RoomVO roomVO=new RoomVO();
             roomVO.setRoomName(room.getName());
             roomVO.setRoomId(room.getRoomId());

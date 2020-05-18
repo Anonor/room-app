@@ -11,6 +11,7 @@ import room.pojo.Orders;
 import room.pojo.bo.OrderBO;
 import room.pojo.vo.OrderVO;
 import room.service.OrderService;
+import room.service.RoomService;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,8 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private RoomService roomService;
 
     //商家添加订单
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -41,7 +44,8 @@ public class OrderController {
         orders.setRoomId(orderBO.getRoomId());
         orders.setSourceId(orderBO.getSourceId());
         orderService.createOrder(orders);
-
+        //设置被入住房间状态为1：被入住
+        roomService.updateRoomStatusByRoomId(orderBO.getRoomId(),1);
         JSONObject result = new JSONObject();
         result.put("status","success");
         result.put("detail","入住成功！");
@@ -131,7 +135,11 @@ public class OrderController {
         Float returnMoney = orderBO.getReturnMoney();
         Float income_ = income-returnMoney;
         orders.setIncome(income_);
+        //设置订单状态为0：已完成
+        orders.setOrderStatus(0);
         orderService.updateOrder(orders);
+        //设置房间状态为0：空闲
+        roomService.updateRoomStatusByRoomId(orders.getRoomId(),0);
         JSONObject result = new JSONObject();
         result.put("status","success");
         result.put("detail","退房成功！");

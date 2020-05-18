@@ -63,7 +63,20 @@ public class PensionBO {
     private String addressDetail;
 
 
+    /*
+    * 修改民宿信息的类型
+    * 0：修改name
+    * 1：修改其他信息
+    * */
+    private int type;
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public Integer getGroupId() {
         return groupId;
