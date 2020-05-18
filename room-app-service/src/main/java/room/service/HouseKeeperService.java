@@ -12,6 +12,9 @@ public interface HouseKeeperService {
     //根据保洁人员Id获取保洁人员名称
     public String queryHouseKeeperNameById(Integer houseKeeperId);
 
+    //根据民宿id和保洁人员name获取保洁人员id
+    public Integer queryHouseKeeperIdByName(Integer pensionId, String houseKeeperName);
+
     //根据民宿id和保洁人员名字name判断保洁人员是否存在（true：存在   false：不存在）
     public boolean isHouseKeeperExist(Integer pensionId, String houseKeeperName);
 

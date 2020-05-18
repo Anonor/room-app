@@ -29,7 +29,7 @@ public class TestFunc {
 
     @Test
     public void isPensionExist() {
-        boolean result = pensionService.isPensionExist(1, "「西西里」法式蓝-高端寓所/尊享品质3");
+        boolean result = pensionService.isPensionExist(32, "鼎济大酒店");
         System.out.println(result);
     }
 
@@ -67,4 +67,5 @@ public class TestFunc {
         room.setPensionId(1);
         roomService.createRoomGroup(room);
     }
+
 }
