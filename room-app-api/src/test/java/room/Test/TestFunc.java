@@ -62,10 +62,12 @@ public class TestFunc {
 
     @Test
     public void addRoomGroup() {
+        roomService.updateRoomStatusByRoomId(31, 2);
         Room room = new Room();
-        room.setName("qwerty");
-        room.setPensionId(1);
-        roomService.createRoomGroup(room);
+        room.setName("房间3-2");
+        room.setFatherId(13);
+        room.setPensionId(7);
+        roomService.createRoom(room);
     }
 
     @Test

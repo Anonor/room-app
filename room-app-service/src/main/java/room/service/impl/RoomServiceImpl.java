@@ -94,6 +94,7 @@ public class RoomServiceImpl implements RoomService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("pensionId", pensionId);
         criteria.andEqualTo("name", roomName);
+        criteria.andNotEqualTo("fatherId", 0);
         criteria.andNotEqualTo("roomStatus", 2);
         return roomMapper.selectOneByExample(example).getRoomId();
     }
