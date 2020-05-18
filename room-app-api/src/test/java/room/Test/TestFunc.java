@@ -70,7 +70,8 @@ public class TestFunc {
 
     @Test
     public void queryValidRoomGroup() {
-        System.out.println(roomService.queryValidRoomGroupsByPensionId(7));
+//        System.out.println(roomService.queryRoomGroupsByPensionId(7));
+        System.out.println(roomService.queryValidRoomGroupsByPensionId(1));
     }
 
 }
