@@ -5,13 +5,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import room.common.utils.DateUtils;
 import room.pojo.Room;
 import room.pojo.vo.RoomGroupVO;
 import room.pojo.vo.RoomVO;
+import room.service.IndexService;
 import room.service.OrderService;
 import room.service.PensionService;
 import room.service.RoomService;
+import room.service.impl.IndexServiceImpl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -26,6 +33,9 @@ public class TestFunc {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private IndexService indexService;
 
     @Test
     public void isPensionExist() {
@@ -76,4 +86,30 @@ public class TestFunc {
         System.out.println(roomService.queryValidRoomGroupsByPensionId(1));
     }
 
+    @Test
+    public void testDays() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse("2020-05-07");
+        Date endDate = sdf.parse("2020-05-07");
+        System.out.println(DateUtils.getDays(startDate, endDate));
+    }
+
+    @Test
+    public void testPensionIncome() {
+        System.out.println(indexService.queryPensionIncome(7));
+    }
+
+    @Test
+    public void testRoomIncome() {
+        System.out.println(indexService.queryRoomIncomesByPensionId(7));
+    }
+
+    @Test
+    public void testRate() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse("2020-05-08");
+        Date endDate = sdf.parse("2020-05-19");
+        float result = indexService.queryOccupancyRateByRoomIc(35, startDate, endDate);
+        System.out.println(result);
+    }
 }

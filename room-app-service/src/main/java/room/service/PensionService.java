@@ -40,5 +40,4 @@ public interface PensionService {
     //根据商家Id和民宿名称获取民宿Id
     public Integer getPensionId(Integer merchantId, String pensionName);
 
-
 }

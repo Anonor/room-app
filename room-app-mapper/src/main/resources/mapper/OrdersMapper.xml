@@ -139,4 +139,46 @@
     WHERE
         o.room_id = #{paramMap.roomId} and o.order_status = #{paramMap.orderStatus};
   </select>
+
+  <select id="selectPensionIncome" parameterType="Integer" resultType="room.pojo.vo.PensionIncomeVO">
+    SELECT
+        h.wage AS pay,
+        sum(income) AS income,
+        (sum(income) - h.wage) AS profit
+    FROM
+        orders o
+        LEFT JOIN housekeeper h ON o.housekeeper_id = h.housekeeper_id
+    WHERE
+        o.pension_id = #{pensionId} AND o.order_status != 2;
+  </select>
+
+  <select id="selectRoomIncome" parameterType="Integer" resultType="room.pojo.vo.RoomIncomeVO">
+    SELECT
+		room_id AS roomId,
+		(SELECT name FROM room WHERE room_id = orders.room_id) AS roomName,
+		SUM((SELECT TIMESTAMPDIFF(DAY, check_in_date, check_out_date))) AS days,
+		SUM(income) AS income
+	FROM
+		orders
+	WHERE
+		order_status != 2 AND pension_id = #{pensionId}
+	GROUP BY
+	    room_id;
+  </select>
+
+  <select id="selectByTime" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+      *
+    FROM
+      orders
+    WHERE
+      (check_in_date &gt;= #{paramMap.startTime}
+      AND check_in_date &lt;= #{paramMap.endTime}
+      OR
+      check_out_date &gt;= #{paramMap.startTime}
+      AND check_out_date &lt;= #{paramMap.endTime})
+      AND order_status != 2
+      AND room_id = #{paramMap.roomId};
+
+  </select>
 </mapper>

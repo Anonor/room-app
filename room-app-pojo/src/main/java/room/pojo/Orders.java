@@ -315,4 +315,23 @@ public class Orders {
     public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "orderId=" + orderId +
+                ", merchantId=" + merchantId +
+                ", pensionId=" + pensionId +
+                ", roomId=" + roomId +
+                ", sourceId=" + sourceId +
+                ", housekeeperId=" + housekeeperId +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", guestName='" + guestName + '\'' +
+                ", guestPhone='" + guestPhone + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", income=" + income +
+                ", orderStatus=" + orderStatus +
+                '}';
+    }
 }
