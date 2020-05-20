@@ -107,9 +107,9 @@ public class TestFunc {
     @Test
     public void testRate() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = sdf.parse("2020-05-08");
-        Date endDate = sdf.parse("2020-05-19");
-        float result = indexService.queryOccupancyRateByRoomIc(35, startDate, endDate);
+        Date startDate = sdf.parse("2020-05-18");
+        Date endDate = sdf.parse("2020-05-23");
+        float result = indexService.queryOccupancyRateByRoomIc(48, startDate, endDate);
         System.out.println(result);
     }
 }

@@ -72,7 +72,7 @@ public class IndexServiceImpl implements IndexService {
                 for (Orders o : ordersList) {
                     Date s = o.getCheckInDate();
                     Date e = o.getCheckOutDate();
-                    if (DateUtils.getDays(start, s) > 0) {
+                    if (DateUtils.getDays(start, s) >= 0) {
                         if (DateUtils.getDays(end, e) > 0) {
                             days += DateUtils.getDays(s, end);
                         } else {
