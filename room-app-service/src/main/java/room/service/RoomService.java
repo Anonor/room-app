@@ -32,6 +32,9 @@ public interface RoomService {
     //根据民宿Id和房间名称name获取房间Id
     public Integer getRoomIdByPensionIdAndRoomName(Integer pensionId, String roomName);
 
+    //根据民宿Id和房间分组名称name获取房间分组Id
+    public Integer getGroupIdByPensionIdAndGroupName(Integer pensionId, String groupName);
+
     //创建房间信息（默认设置房间状态为0）
     public void createRoom(Room room);
 

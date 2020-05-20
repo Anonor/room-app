@@ -85,6 +85,7 @@ public class RoomServiceImpl implements RoomService {
         criteria.andEqualTo("pensionId", pensionId);
         criteria.andEqualTo("name", groupName);
         criteria.andEqualTo("fatherId", 0);
+        criteria.andEqualTo("roomStatus", 0);
         return roomMapper.selectOneByExample(example) == null ? false : true;
     }
 
@@ -96,6 +97,17 @@ public class RoomServiceImpl implements RoomService {
         criteria.andEqualTo("name", roomName);
         criteria.andNotEqualTo("fatherId", 0);
         criteria.andNotEqualTo("roomStatus", 2);
+        return roomMapper.selectOneByExample(example).getRoomId();
+    }
+
+    @Override
+    public Integer getGroupIdByPensionIdAndGroupName(Integer pensionId, String groupName) {
+        Example example = new Example(Room.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("pensionId", pensionId);
+        criteria.andEqualTo("name", groupName);
+        criteria.andEqualTo("fatherId", 0);
+        criteria.andEqualTo("roomStatus", 0);
         return roomMapper.selectOneByExample(example).getRoomId();
     }
 

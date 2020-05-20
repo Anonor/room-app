@@ -262,7 +262,7 @@ public class RoomController {
             return result.toJSONString();
         }
         roomService.createRoomGroup(room);
-        int groupId = roomService.getRoomIdByPensionIdAndRoomName(pensionId,groupName);
+        int groupId = roomService.getGroupIdByPensionIdAndGroupName(pensionId,groupName);
         JSONObject result = new JSONObject();
         result.put("status", "success");
         result.put("detail","添加分组成功！");
