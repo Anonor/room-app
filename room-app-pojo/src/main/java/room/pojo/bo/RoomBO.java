@@ -1,5 +1,7 @@
 package room.pojo.bo;
 
+import java.util.Date;
+
 public class RoomBO {
 
     /**
@@ -53,6 +55,34 @@ public class RoomBO {
     * 0：只修改房间名称；1：移动了分组（包括只移动分组和即移动分组又修改名字）
     * */
     private int type;
+
+    /*
+    * 前端参数
+    * 计算入住率的开始时间
+    * */
+    private Date startDate;
+
+    /*
+    * 前端参数
+    * 计算入住率的结束时间
+    * */
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public int getType() {
         return type;
