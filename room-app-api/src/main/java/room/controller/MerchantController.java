@@ -65,9 +65,9 @@ public class MerchantController {
                     MySessionContext.delSession(session);
                     return result.toJSONString();
                 }else {     //账号存在
-                    //以防通过了邮箱验证的用户上述界面仍被拦截，故将id存入session，web时使用拦截器
-                    //int id = merchantService.queryIdByAccount(merchantBO.getAccount());
-                    //session.setAttribute("id",id);
+                    //存id
+                    int id = merchantService.queryIdByAccount(merchantBO.getAccount());
+                    session.setAttribute("id",id);
                     session.setAttribute("account",merchantBO.getAccount());
                 }
                 break;
@@ -126,11 +126,12 @@ public class MerchantController {
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String login(@RequestBody MerchantBO merchantBO,
                         HttpSession session){
-        //先判断该用户之前是否有sessionId
-        if (merchantBO.getSessionId()!=null){       //说明该用户之前已有session
-            MySessionContext.delSessionById(merchantBO.getSessionId());
+        //先判断该用户之前是否有sessionId，先删掉原来的session
+        if (MySessionContext.getSession(session.getId())!=null){       //说明该用户之前已有session
+            System.out.println("您已有session!且sessionId:"+session.getId());
+            MySessionContext.delSessionById(session.getId());
         }
-        //该用户之前没有session
+        //该用户之前没有session或已被删除了
         if(merchantService.isAccountExist(merchantBO.getAccount())) {
             if (merchantService.queryMerchantForLogin(merchantBO.getAccount(),merchantBO.getPwd())){
                 Merchant merchant = merchantService.queryMerchantByAccount(merchantBO.getAccount());
