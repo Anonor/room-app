@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="room.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="room.pojo.Orders" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="merchant_id" property="merchantId" jdbcType="INTEGER" />
+    <result column="pension_id" property="pensionId" jdbcType="INTEGER" />
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="source_id" property="sourceId" jdbcType="INTEGER" />
+    <result column="housekeeper_id" property="housekeeperId" jdbcType="INTEGER" />
+    <result column="check_in_date" property="checkInDate" jdbcType="DATE" />
+    <result column="check_out_date" property="checkOutDate" jdbcType="DATE" />
+    <result column="guest_name" property="guestName" jdbcType="VARCHAR" />
+    <result column="guest_phone" property="guestPhone" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="REAL" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectOrderByPensionIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
+    SELECT
+        o.order_id AS orderId,
+        o.merchant_id AS merchantId,
+        o.pension_id AS pensionId,
+        o.room_id AS roomId,
+        rr.room_name AS roomName,
+        rr.group_id AS groupId,
+        rr.group_name AS groupName,
+        o.source_id AS sourceId,
+        s.source_name AS sourceName,
+        o.housekeeper_id AS housekeeperId,
+        h.`name` AS housekeeperName,
+        o.check_in_date AS checkInDate,
+        o.check_out_date AS checkOutDate,
+        o.guest_name AS guestName,
+        o.guest_phone AS guestPhone,
+        o.remarks AS remarks,
+        o.income AS income,
+        o.order_status AS orderStatus
+    FROM
+        orders o
+        LEFT JOIN (
+            SELECT
+                r.room_id AS room_id,
+                father_id AS group_id,
+                sub.`name` AS group_name,
+                r.`name` AS room_name
+            FROM
+                room r,
+                ( SELECT room_id, `name` FROM room ) sub
+            WHERE
+                r.father_id = sub.room_id
+        ) rr ON rr.room_id = o.room_id
+        LEFT JOIN housekeeper h ON h.housekeeper_id = o.housekeeper_id
+        LEFT JOIN source s ON s.source_id = o.source_id
+    WHERE
+        o.order_status = #{paramMap.orderStatus} AND o.pension_id = #{paramMap.pensionId};
+  </select>
+
+  <select id="selectOrderByOrderId" parameterType="Integer" resultType="room.pojo.vo.OrderVO">
+    SELECT
+        o.order_id AS orderId,
+        o.merchant_id AS merchantId,
+        o.pension_id AS pensionId,
+        o.room_id AS roomId,
+        rr.room_name AS roomName,
+        rr.group_id AS groupId,
+        rr.group_name AS groupName,
+        o.source_id AS sourceId,
+        s.source_name AS sourceName,
+        o.housekeeper_id AS housekeeperId,
+        h.`name` AS housekeeperName,
+        o.check_in_date AS checkInDate,
+        o.check_out_date AS checkOutDate,
+        o.guest_name AS guestName,
+        o.guest_phone AS guestPhone,
+        o.remarks AS remarks,
+        o.income AS income,
+        o.order_status AS orderStatus
+    FROM
+        orders o
+        LEFT JOIN (
+            SELECT
+                r.room_id AS room_id,
+                father_id AS group_id,
+                sub.`name` AS group_name,
+                r.`name` AS room_name
+            FROM
+                room r,
+                ( SELECT room_id, `name` FROM room ) sub
+            WHERE
+                r.father_id = sub.room_id
+        ) rr ON rr.room_id = o.room_id
+        LEFT JOIN housekeeper h ON h.housekeeper_id = o.housekeeper_id
+        LEFT JOIN source s ON s.source_id = o.source_id
+    WHERE
+        o.order_id = #{orderId};
+  </select>
+
+    <select id="selectOrderByRoomIdAndOrderStatus" parameterType="Map" resultType="room.pojo.vo.OrderVO">
+    SELECT
+        o.order_id AS orderId,
+        o.merchant_id AS merchantId,
+        o.pension_id AS pensionId,
+        o.room_id AS roomId,
+        rr.room_name AS roomName,
+        rr.group_id AS groupId,
+        rr.group_name AS groupName,
+        o.source_id AS sourceId,
+        s.source_name AS sourceName,
+        o.housekeeper_id AS housekeeperId,
+        h.`name` AS housekeeperName,
+        o.check_in_date AS checkInDate,
+        o.check_out_date AS checkOutDate,
+        o.guest_name AS guestName,
+        o.guest_phone AS guestPhone,
+        o.remarks AS remarks,
+        o.income AS income,
+        o.order_status AS orderStatus
+    FROM
+        orders o
+        LEFT JOIN (
+            SELECT
+                r.room_id AS room_id,
+                father_id AS group_id,
+                sub.`name` AS group_name,
+                r.`name` AS room_name
+            FROM
+                room r,
+                ( SELECT room_id, `name` FROM room ) sub
+            WHERE
+                r.father_id = sub.room_id
+        ) rr ON rr.room_id = o.room_id
+        LEFT JOIN housekeeper h ON h.housekeeper_id = o.housekeeper_id
+        LEFT JOIN source s ON s.source_id = o.source_id
+    WHERE
+        o.room_id = #{paramMap.roomId} and o.order_status = #{paramMap.orderStatus};
+  </select>
+
+  <select id="selectPensionIncome" parameterType="Integer" resultType="room.pojo.vo.PensionIncomeVO">
+    SELECT
+        h.wage AS pay,
+        sum(income) AS income,
+        (sum(income) - h.wage) AS profit
+    FROM
+        orders o
+        LEFT JOIN housekeeper h ON o.housekeeper_id = h.housekeeper_id
+    WHERE
+        o.pension_id = #{pensionId} AND o.order_status != 2;
+  </select>
+
+  <select id="selectRoomIncome" parameterType="Integer" resultType="room.pojo.vo.RoomIncomeVO">
+    SELECT
+		room_id AS roomId,
+		(SELECT name FROM room WHERE room_id = orders.room_id) AS roomName,
+		SUM((SELECT TIMESTAMPDIFF(DAY, check_in_date, check_out_date))) AS days,
+		SUM(income) AS income
+	FROM
+		orders
+	WHERE
+		order_status != 2 AND pension_id = #{pensionId}
+	GROUP BY
+	    room_id;
+  </select>
+
+  <select id="selectByTime" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+      *
+    FROM
+      orders
+    WHERE
+      (check_in_date &gt;= #{paramMap.startTime}
+      AND check_in_date &lt;= #{paramMap.endTime}
+      OR
+      check_out_date &gt;= #{paramMap.startTime}
+      AND check_out_date &lt;= #{paramMap.endTime})
+      AND order_status != 2
+      AND room_id = #{paramMap.roomId};
+
+  </select>
+</mapper>

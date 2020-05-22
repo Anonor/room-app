@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="room.mapper.RoomMapper" >
+  <resultMap id="BaseResultMap" type="room.pojo.Room" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="pension_id" property="pensionId" jdbcType="INTEGER" />
+    <result column="father_id" property="fatherId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="room_status" property="roomStatus" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectValidRoomGroupsByPensionId" resultType="room.pojo.vo.RoomGroupVO" parameterType="Integer">
+    SELECT
+        room_id AS groupId,
+        pension_id AS pensionId,
+        name AS groupName
+    FROM
+        room,
+        ( SELECT father_id, count(*) FROM room WHERE pension_id = #{pensionId} AND father_id != 0 AND room_status = 0 GROUP BY father_id ) sub
+    WHERE
+        room.room_id = sub.father_id AND room.room_status = 0;
+  </select>
+
+  <select id="selectRoomInfoByRoomId" resultType="room.pojo.vo.RoomVO" parameterType="Integer">
+    SELECT
+        r.room_id AS roomId,
+        pension_id AS pensionId,
+        father_id AS groupId,
+        sub.name AS groupName,
+        r.name AS roomName,
+        price AS price,
+        room_status AS roomStatus
+    FROM
+        room r,
+        ( SELECT room_id, name FROM room ) sub
+    WHERE
+        r.room_id = #{roomId}
+        AND r.father_id = sub.room_id;
+  </select>
+
+  <select id="selectRoomsByMerchantId" resultMap="BaseResultMap" parameterType="Integer">
+    SELECT
+        r.*
+    FROM
+        room r
+        LEFT JOIN pension p ON r.pension_id = p.pension_id
+    WHERE
+        p.merchant_id = #{merchantId} AND r.father_id != 0;
+  </select>
+</mapper>

@@ -1,24 +1,38 @@
 package room.pojo;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.util.Date;
 
 public class Pension {
+    /**
+     * 民宿id
+     */
     @Id
     @Column(name = "pension_id")
     private Integer pensionId;
 
     /**
-     * 该民宿的商家id
+     * 民宿的商家id
      */
     @Column(name = "merchant_id")
     private Integer merchantId;
 
+    /**
+     * 民宿名称
+     */
     private String name;
 
     /**
-     * 民宿一天的价格
+     * 民宿图片地址
      */
-    private Float price;
+    private String image;
+
+    /**
+     * 民宿状态  0：禁用   1：正常   2：关闭
+     */
+    @Column(name = "pension_status")
+    private Integer pensionStatus;
 
     /**
      * 经度
@@ -55,67 +69,105 @@ public class Pension {
     private String addressDetail;
 
     /**
-     * @return pension_id
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    /**
+     * 获取民宿id
+     *
+     * @return pension_id - 民宿id
      */
     public Integer getPensionId() {
         return pensionId;
     }
 
     /**
-     * @param pensionId
+     * 设置民宿id
+     *
+     * @param pensionId 民宿id
      */
     public void setPensionId(Integer pensionId) {
         this.pensionId = pensionId;
     }
 
     /**
-     * 获取该民宿的商家id
+     * 获取民宿的商家id
      *
-     * @return merchant_id - 该民宿的商家id
+     * @return merchant_id - 民宿的商家id
      */
     public Integer getMerchantId() {
         return merchantId;
     }
 
     /**
-     * 设置该民宿的商家id
+     * 设置民宿的商家id
      *
-     * @param merchantId 该民宿的商家id
+     * @param merchantId 民宿的商家id
      */
     public void setMerchantId(Integer merchantId) {
         this.merchantId = merchantId;
     }
 
     /**
-     * @return name
+     * 获取民宿名称
+     *
+     * @return name - 民宿名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name
+     * 设置民宿图片地址
+     *
+     * @param image 民宿图片地址
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     * 获取民宿图片地址
+     *
+     * @return image - 民宿图片地址
+     */
+    public String getImage() {
+        return image;
+    }
+
+    /**
+     * 设置民宿名称
+     *
+     * @param name 民宿名称
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * 获取民宿一天的价格
+     * 获取民宿状态
      *
-     * @return price - 民宿一天的价格
+     * @return pension_status - 民宿状态
      */
-    public Float getPrice() {
-        return price;
+    public Integer getPensionStatus() {
+        return pensionStatus;
     }
 
     /**
-     * 设置民宿一天的价格
+     * 设置民宿状态
      *
-     * @param price 民宿一天的价格
+     * @param pensionStatus 民宿状态
      */
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setPensionStatus(Integer pensionStatus) {
+        this.pensionStatus = pensionStatus;
     }
 
     /**
@@ -224,5 +276,41 @@ public class Pension {
      */
     public void setAddressDetail(String addressDetail) {
         this.addressDetail = addressDetail;
+    }
+
+    /**
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * 获取修改时间
+     *
+     * @return update_time - 修改时间
+     */
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    /**
+     * 设置修改时间
+     *
+     * @param updateTime 修改时间
+     */
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
