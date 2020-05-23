@@ -17,12 +17,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/META-INF/resources/")     //映射swagger2
                 .addResourceLocations("file:/C:\\imageFile\\");    //映射本地静态资源
-//                .addResourceLocations("file:/root/project/foodie/");    //映射本地静态资源
-    }
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
     }
 
 }
