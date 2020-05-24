@@ -126,6 +126,7 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public void updateMerchantStatus(Integer merchantId, Integer status) {
         Merchant merchant = queryMerchantById(merchantId);
+        merchant.setMerchantStatus(status);
         updateMerchantById(merchant);
     }
 

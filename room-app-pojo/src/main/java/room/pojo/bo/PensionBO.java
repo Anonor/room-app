@@ -24,12 +24,12 @@ public class PensionBO {
     private Integer merchantId;
 
     /*
-    * 民宿民族
+    * 民宿名字
     * */
     private String pensionName;
 
     /**
-     * 房间是否被入住，默认为0，即未被入住；1表示已入住
+     * 民宿状态
      */
     private Integer status;
     /**
@@ -69,6 +69,59 @@ public class PensionBO {
     * 1：修改其他信息
     * */
     private int type;
+
+    /*
+    * 所属商家账号
+    * */
+    private String account;
+
+    /*
+    * 所属商家品牌名
+    * */
+    private String brandName;
+
+    /*
+    * 民宿创建时间
+    * */
+    private String createTime;
+
+    /*
+    * 民宿更新时间
+    * */
+    private String updateTime;
+
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
 
     public int getType() {
         return type;

@@ -24,7 +24,7 @@ public class SourceServiceImpl implements SourceService {
     public Integer querySourceIdBySourceName(String sourceName) {
         Example example = new Example(Source.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("source_name", sourceName);
+        criteria.andEqualTo("sourceName", sourceName);
         return sourceMapper.selectOneByExample(example).getSourceId();
     }
 
@@ -42,7 +42,7 @@ public class SourceServiceImpl implements SourceService {
     public boolean isSourceExist(String name) {
         Example example = new Example(Source.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("source_name", name);
+        criteria.andEqualTo("sourceName", name);
         return sourceMapper.selectOneByExample(example) == null ? false : true;
     }
 

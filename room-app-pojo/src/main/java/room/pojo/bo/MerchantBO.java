@@ -1,7 +1,10 @@
 package room.pojo.bo;
 
+import java.util.Date;
+
 public class MerchantBO {
     private Integer id;
+    private Integer merchantId;
 
     private String account;
 
@@ -19,6 +22,44 @@ public class MerchantBO {
     private String type;
     //请求的sessionId，防止session失效
     private String sessionId;
+    //商家状态
+    private int status;
+    //创建时间
+    private Date createTime;
+    //更新时间
+    private Date updateTime;
+
+    public Integer getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(Integer merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
