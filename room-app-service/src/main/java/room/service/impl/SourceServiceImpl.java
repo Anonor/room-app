@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import room.mapper.SourceMapper;
 import room.pojo.Source;
 import room.service.SourceService;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -17,5 +18,28 @@ public class SourceServiceImpl implements SourceService {
     @Override
     public List<Source> queryAllSource() {
         return sourceMapper.selectAll();
+    }
+
+    @Override
+    public void createSource(Source source) {
+        sourceMapper.insert(source);
+    }
+
+    @Override
+    public void updateNameBySourceId(Source source) {
+        sourceMapper.updateByPrimaryKeySelective(source);
+    }
+
+    @Override
+    public boolean isSourceExist(String name) {
+        Example example = new Example(Source.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("source_name", name);
+        return sourceMapper.selectOneByExample(example) == null ? false : true;
+    }
+
+    @Override
+    public void deleteSource(Integer sourceId) {
+        sourceMapper.deleteByPrimaryKey(sourceId);
     }
 }

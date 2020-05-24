@@ -12,7 +12,7 @@ public interface PensionService {
     //创建民宿（默认设置状态为1）
     public void createPension(Pension pension);
 
-    //获取所有民宿信息
+    //获取所有民宿信息（后台）
     public List<Pension> queryAll();
 
     //根据民宿状态获取民宿
