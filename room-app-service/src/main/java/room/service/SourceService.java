@@ -9,6 +9,9 @@ public interface SourceService {
     //获取所有房客来源
     public List<Source> queryAllSource();
 
+    //根据客源name获取客源id
+    public Integer querySourceIdBySourceName(String sourceName);
+
     //新建客源
     public void createSource(Source source);
 

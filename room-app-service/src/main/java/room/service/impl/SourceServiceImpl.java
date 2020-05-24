@@ -21,6 +21,14 @@ public class SourceServiceImpl implements SourceService {
     }
 
     @Override
+    public Integer querySourceIdBySourceName(String sourceName) {
+        Example example = new Example(Source.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("source_name", sourceName);
+        return sourceMapper.selectOneByExample(example).getSourceId();
+    }
+
+    @Override
     public void createSource(Source source) {
         sourceMapper.insert(source);
     }
