@@ -1,7 +1,5 @@
 package room.pojo.bo;
 
-import java.util.Date;
-
 public class MerchantBO {
     private Integer id;
     private Integer merchantId;
@@ -25,9 +23,9 @@ public class MerchantBO {
     //商家状态
     private int status;
     //创建时间
-    private Date createTime;
+    private String createTime;
     //更新时间
-    private Date updateTime;
+    private String updateTime;
 
     public Integer getMerchantId() {
         return merchantId;
@@ -37,19 +35,19 @@ public class MerchantBO {
         this.merchantId = merchantId;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

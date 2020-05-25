@@ -85,8 +85,9 @@ public class AdminController {
                     merchantBO.setId(merchant.getMerchantId());
                     merchantBO.setBrandName(merchant.getBrandName());
                     merchantBO.setAccount(merchant.getAccount());
-                    merchantBO.setCreateTime(merchant.getCreateTime());
-                    merchantBO.setUpdateTime(merchant.getUpdateTime());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    merchantBO.setCreateTime(sdf.format(merchant.getCreateTime()));
+                    merchantBO.setUpdateTime(sdf.format(merchant.getUpdateTime()));
                     merchantBO.setStatus(merchant.getMerchantStatus());
                     merchantBOList.add(merchantBO);
                 }
