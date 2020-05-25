@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import room.common.utils.MySessionContext;
 import room.pojo.Merchant;
 import room.pojo.Pension;
 import room.pojo.Source;
@@ -56,6 +57,13 @@ public class AdminController {
             result.put("detail", "该管理员账号不存在，登录失败！");
         }
         return result.toJSONString();
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public void logout(HttpSession session){
+        //清空session
+        MySessionContext.delSession(session);
+        System.out.println("管理员已退出登录！");
     }
 
     //获取商家列表

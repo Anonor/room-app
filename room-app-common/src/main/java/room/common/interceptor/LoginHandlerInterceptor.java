@@ -1,6 +1,7 @@
 package room.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,6 +11,7 @@ import room.common.utils.Result;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 //登录拦截器，未登录用户只能访问首页
 @Component
@@ -28,7 +30,15 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         Object id = request.getSession().getAttribute("id");
 
         if (id == null) {
-            setReturn(response,400,"用户未登录，请先登录");
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json; charset=utf-8");
+            PrintWriter out = null;
+            JSONObject result = new JSONObject();
+            result.put("status", "failure");
+            result.put("detail", "用户未登录，请先登录！");
+            out = response.getWriter();
+            out.append(result.toJSONString());
+            //setReturn(response,400,"用户未登录，请先登录");
             return false;
         }
         return true;
@@ -36,7 +46,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     //返回错误信息
     private static void setReturn(HttpServletResponse response, int status, String msg) throws IOException {
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpServletResponse httpResponse = response;
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
         httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtil.getOrigin());
         httpResponse.setCharacterEncoding("UTF-8");
