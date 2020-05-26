@@ -3,10 +3,13 @@ package room.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import room.mapper.PensionMapper;
+import room.pojo.Merchant;
 import room.pojo.Pension;
+import room.service.MerchantService;
 import room.service.PensionService;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +18,9 @@ public class PensionServiceImpl implements PensionService {
 
     @Autowired
     private PensionMapper pensionMapper;
+
+    @Autowired
+    private MerchantService merchantService;
 
     @Override
     public boolean isPensionExist(Integer merchantId, String pensionName) {
@@ -37,10 +43,12 @@ public class PensionServiceImpl implements PensionService {
 
     @Override
     public List<Pension> queryAll() {
-        Example pensionExample = new Example(Pension.class);
-        Example.Criteria criteria = pensionExample.createCriteria();
-        criteria.andNotEqualTo("pensionStatus", 2);
-        return pensionMapper.selectByExample(pensionExample);
+        List<Merchant> merchants = merchantService.queryAll();
+        List<Pension> result = new ArrayList<>();
+        for (Merchant merchant : merchants) {
+            result.addAll(queryByMerchantId(merchant.getMerchantId()));
+        }
+        return result;
     }
 
     @Override
