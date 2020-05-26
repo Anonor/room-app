@@ -207,7 +207,13 @@ public class PensionController {
         Pension pension = pensionService.queryByPensionId(pensionId);
         String longitude = pension.getLongitude();
         String latitude = pension.getLatitude();
+        String location=pension.getAddressProvince()+pension.getAddressCity()
+                +pension.getAddressDistrict();
+        String detail = pension.getAddressDetail();
+
         JSONObject result = new JSONObject();
+        result.put("location",location);
+        result.put("detail",detail);
         result.put("longitude",longitude);
         result.put("latitude",latitude);
         return result.toJSONString();
