@@ -10,6 +10,7 @@ public class SendEmail {
     public JavaMailSenderImpl JavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.qq.com");
+        mailSender.setPort(587);
         mailSender.setUsername("kurie_21@foxmail.com");
         mailSender.setPassword("aksmijdkgagkjjhc");
         return mailSender;
