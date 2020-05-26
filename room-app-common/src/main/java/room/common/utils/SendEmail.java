@@ -9,10 +9,10 @@ import java.util.Objects;
 public class SendEmail {
     public JavaMailSenderImpl JavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.qq.com");
-        mailSender.setPort(587);
-        mailSender.setUsername("kurie_21@foxmail.com");
-        mailSender.setPassword("aksmijdkgagkjjhc");
+        mailSender.setHost("smtp.163.com");
+        //mailSender.setPort(587);
+        mailSender.setUsername("kurie_21@163.com");
+        mailSender.setPassword("YXWEALYGXRFIWYFN");
         return mailSender;
     }
     //一个简单的邮件,只有text信息
