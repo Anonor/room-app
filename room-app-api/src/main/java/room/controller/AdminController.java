@@ -16,6 +16,7 @@ import room.pojo.bo.MerchantBO;
 import room.pojo.bo.PensionBO;
 import room.pojo.bo.SourceBO;
 import room.service.MerchantService;
+import room.service.OrderService;
 import room.service.PensionService;
 import room.service.SourceService;
 
@@ -34,6 +35,8 @@ public class AdminController {
     private MerchantService merchantService;
     @Autowired
     private SourceService sourceService;
+    @Autowired
+    private OrderService orderService;
 
     //商家通过账号密码登录
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -228,10 +231,32 @@ public class AdminController {
         int sourceId = sourceBO.getSourceId();
         JSONObject result = new JSONObject();
 
-        sourceService.deleteSource(sourceId);
-        result.put("status", "success");
-        result.put("detail", "删除客源成功！");
+        //查询该客源是否仍在未完成订单中
+        if (orderService.isUnfinishedOrderExistBySourceId(sourceId)){
+            result.put("status", "failure");
+            result.put("detail", "还有未完成的订单中使用了该客源，无法删除该客源！");
+        }else {
+            sourceService.deleteSource(sourceId);
+            result.put("status", "success");
+            result.put("detail", "删除客源成功！");
+        }
         return result.toJSONString();
+    }
+
+    //获取所有房源信息
+    @RequestMapping(value = "getAllSourcesInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String  getAllSourcesInfo(){
+        List<Source> sources = sourceService.queryAllSource();
+        if (sources.isEmpty()){
+            JSONObject result = new JSONObject();
+            result.put("status","failure");
+            result.put("detail","还没有客源信息");
+            return  result.toJSONString();
+        }
+        JSONObject result = new JSONObject();
+        result.put("status","success");
+        result.put("detail",sources);
+        return  result.toJSONString();
     }
 
 }
