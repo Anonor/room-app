@@ -25,6 +25,7 @@ public class MerchantServiceImpl implements MerchantService {
         Example merchantExample = new Example(Merchant.class);
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);
+        merchantCriteria.andEqualTo("merchantStatus", 1);
         Merchant merchant = merchantMapper.selectOneByExample(merchantExample);
         return merchant.getMerchantId();
     }
@@ -104,6 +105,7 @@ public class MerchantServiceImpl implements MerchantService {
         Example.Criteria merchantCriteria = merchantExample.createCriteria();
         merchantCriteria.andEqualTo("account", account);
         merchantCriteria.andEqualTo("password", password);
+        merchantCriteria.andEqualTo("merchantStatus", 1);
         Merchant merchant = merchantMapper.selectOneByExample(merchantExample);
         return merchant == null ? false : true;
     }
