@@ -4,13 +4,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Objects;
+import java.util.Properties;
 
 //发送邮件工具类
 public class SendEmail {
     public JavaMailSenderImpl JavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.163.com");
-        //mailSender.setPort(587);
+        mailSender.setPort(587);
+        Properties props = new Properties();
+        props.put("mail.smtp.ssl.enable", true);
+        mailSender.setJavaMailProperties(props);
         mailSender.setUsername("kurie_21@163.com");
         mailSender.setPassword("YXWEALYGXRFIWYFN");
         return mailSender;
