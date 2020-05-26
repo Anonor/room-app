@@ -55,6 +55,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public boolean isUnfinishedOrderExistBySourceId(Integer sourceId) {
+        Example example = new Example(Orders.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("sourceId", sourceId);
+        criteria.andEqualTo("orderStatus", 1);
+        return orderMapper.selectByExample(example).size() == 0 ? false : true;
+    }
+
+    @Override
     public Orders queryOrdersByOrderId(Integer orderId) {
         Orders order = orderMapper.selectByPrimaryKey(orderId);
         return order;

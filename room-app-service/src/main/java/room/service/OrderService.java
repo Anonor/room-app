@@ -19,6 +19,9 @@ public interface OrderService {
     //根据订单Id获取订单详情信息（返回OrderVO）
     public OrderVO queryByOrderId(Integer orderId);
 
+    //根据客源Id判断是否存在未完成订单（true：存在   false：不存在）
+    public boolean isUnfinishedOrderExistBySourceId(Integer sourceId);
+
     //根据订单Id获取订单详情信息（返回orders)
     public Orders queryOrdersByOrderId(Integer orderId);
 
