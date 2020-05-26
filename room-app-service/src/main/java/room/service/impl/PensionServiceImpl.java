@@ -37,7 +37,10 @@ public class PensionServiceImpl implements PensionService {
 
     @Override
     public List<Pension> queryAll() {
-        return pensionMapper.selectAll();
+        Example pensionExample = new Example(Pension.class);
+        Example.Criteria criteria = pensionExample.createCriteria();
+        criteria.andNotEqualTo("pensionStatus", 2);
+        return pensionMapper.selectByExample(pensionExample);
     }
 
     @Override

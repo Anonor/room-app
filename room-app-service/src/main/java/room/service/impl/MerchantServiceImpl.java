@@ -48,7 +48,10 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public List<Merchant> queryAll() {
-        return merchantMapper.selectAll();
+        Example merchantExample = new Example(Merchant.class);
+        Example.Criteria merchantCriteria = merchantExample.createCriteria();
+        merchantCriteria.andNotEqualTo("merchantStatus", 2);
+        return merchantMapper.selectByExample(merchantExample);
     }
 
     @Override
