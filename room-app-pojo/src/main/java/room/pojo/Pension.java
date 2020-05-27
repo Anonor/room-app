@@ -313,4 +313,23 @@ public class Pension {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Pension{" +
+                "pensionId=" + pensionId +
+                ", merchantId=" + merchantId +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", pensionStatus=" + pensionStatus +
+                ", longitude='" + longitude + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", addressProvince='" + addressProvince + '\'' +
+                ", addressCity='" + addressCity + '\'' +
+                ", addressDistrict='" + addressDistrict + '\'' +
+                ", addressDetail='" + addressDetail + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

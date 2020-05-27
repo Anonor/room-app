@@ -132,4 +132,9 @@ public class TestFunc {
     public void getRoomByRoomGroupId() {
         System.out.println(roomService.queryRoomsByGroupIdAndRoomStatus(86, 0));
     }
+
+    @Test
+    public void getAllPension() {
+        System.out.println(pensionService.queryAll());
+    }
 }
