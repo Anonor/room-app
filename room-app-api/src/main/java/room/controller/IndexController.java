@@ -21,12 +21,14 @@ public class IndexController {
     @Autowired
     IndexService indexService;
 
-    //根据民宿ID获取总营收
+    //根据民宿ID以及开始结束时间获取总营收
     @RequestMapping(value = "getPensionIncome", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String getPensionIncome(@RequestBody PensionBO pensionBO){
         int pensionId=pensionBO.getPensionId();
+        Date startDate = pensionBO.getStartDate();
+        Date endDate = pensionBO.getEndDate();
         JSONObject result = new JSONObject();
-        PensionIncomeVO pensionIncomeVO = indexService.queryPensionIncome(pensionId);
+        PensionIncomeVO pensionIncomeVO = indexService.queryPensionIncome(pensionId, startDate, endDate);
         if (pensionIncomeVO == null){
             result.put("status","failure");
             result.put("detail","您的民宿暂时还没有营收信息！");
@@ -37,12 +39,14 @@ public class IndexController {
         return result.toJSONString();
     }
 
-    //根据民宿ID，获取房间的营收列表
+    //根据民宿ID 以及开始结束时间获取(入住天数不为0的)房间的营收列表
     @RequestMapping(value = "getRoomIncomeList", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String getRoomIncomeList(@RequestBody PensionBO pensionBO){
         int pensionId=pensionBO.getPensionId();
+        Date startDate = pensionBO.getStartDate();
+        Date endDate = pensionBO.getEndDate();
         JSONObject result = new JSONObject();
-        List<RoomIncomeVO> roomIncomeVOS = indexService.queryRoomIncomesByPensionId(pensionId);
+        List<RoomIncomeVO> roomIncomeVOS = indexService.queryRoomIncomesByPensionId(pensionId, startDate, endDate);
         if (roomIncomeVOS.isEmpty()){
             result.put("status","failure");
             result.put("detail","您的民宿暂时还没有房间信息！");

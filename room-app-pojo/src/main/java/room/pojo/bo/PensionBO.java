@@ -1,5 +1,7 @@
 package room.pojo.bo;
 
+import java.util.Date;
+
 public class PensionBO {
 
     //民宿图片
@@ -90,6 +92,33 @@ public class PensionBO {
     * */
     private String updateTime;
 
+    /*
+    * 前端参数
+    * 查询营收的开始时间
+    * */
+    private Date startDate;
+
+    /*
+    * 前端参数
+    * 查询营收的结束时间
+    * */
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public String getCreateTime() {
         return createTime;

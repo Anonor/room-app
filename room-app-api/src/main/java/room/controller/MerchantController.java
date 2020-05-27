@@ -318,4 +318,18 @@ public class MerchantController {
         result.put("pwd",merchantService.queryMerchantById(id).getPassword());
         return result.toJSONString();
     }
+
+    //根据sessionId获取商家状态
+    @RequestMapping(value = "getMerchantStatusBySI", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String getMerchantStatusBySI(@RequestBody MerchantBO merchantBO){
+        String sessionId = merchantBO.getSessionId();
+        JSONObject result = new JSONObject();
+        result.put("status", "success");
+        result.put("detail","获取商家状态成功！");
+        result.put("merchantStatus",merchantService.queryMerchantById(
+                Integer.parseInt(MySessionContext.getSession(sessionId).getAttribute("id").toString())).getMerchantStatus());
+
+        return result.toJSONString();
+    }
+
 }
