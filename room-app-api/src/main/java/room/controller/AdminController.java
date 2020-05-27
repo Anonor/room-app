@@ -117,8 +117,6 @@ public class AdminController {
             result.put("status", "success");
             result.put("detail", "修改状态成功！");
         }
-
-
         return result.toJSONString();
     }
 
@@ -161,7 +159,6 @@ public class AdminController {
             result.put("status", "success");
             result.put("detail", pensionBOList);
         }
-
         return result.toJSONString();
     }
 
@@ -175,7 +172,7 @@ public class AdminController {
 
         if (pensionService.queryByPensionId(pensionId).getPensionStatus() == 2) {
             result.put("status", "failure");
-            result.put("detail", "该民宿所属商家已注销账户，管理员无法修改民宿状态！");
+            result.put("detail", "该民宿已关闭，管理员无法修改民宿状态！");
         } else {
             pensionService.updatePensionStatus(pensionId, status);
             result.put("status", "success");

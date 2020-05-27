@@ -180,7 +180,9 @@ public class RoomController {
         RoomVO roomVO = roomService.queryRoomInfoByRoomId(roomId);
         RoomVO roomVO1 = new RoomVO();
         roomVO1.setGroupId(roomVO.getGroupId());
-        roomVO1.setGroupName(roomVO.getGroupName());
+        String groupName = roomService.queryRoomGroupInfoByGroupId(roomVO.getGroupId()).getGroupName();
+        roomVO1.setGroupName(groupName);
+        roomVO1.setRoomName(roomVO.getRoomName());
         JSONObject result = new JSONObject();
         result.put("status", "success");
         result.put("detail",roomVO1);
