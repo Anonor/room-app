@@ -7,6 +7,7 @@ public class RoomIncomeVO {
     private String roomName;
     private Integer days;
     private float income;
+    private float occupancyRate;
 
     public Integer getRoomId() {
         return roomId;
@@ -40,6 +41,14 @@ public class RoomIncomeVO {
         this.income = income;
     }
 
+    public float getOccupancyRate() {
+        return occupancyRate;
+    }
+
+    public void setOccupancyRate(float occupancyRate) {
+        this.occupancyRate = occupancyRate;
+    }
+
     @Override
     public String toString() {
         return "RoomIncomeVO{" +
@@ -47,6 +56,7 @@ public class RoomIncomeVO {
                 ", roomName='" + roomName + '\'' +
                 ", days=" + days +
                 ", income=" + income +
+                ", occupancyRate=" + occupancyRate +
                 '}';
     }
 }

@@ -140,7 +140,7 @@
         o.room_id = #{paramMap.roomId} and o.order_status = #{paramMap.orderStatus};
   </select>
 
-  <select id="selectPensionIncome" parameterType="Integer" resultType="room.pojo.vo.PensionIncomeVO">
+  <select id="selectPensionIncome" parameterType="Map" resultType="room.pojo.vo.PensionIncomeVO">
     SELECT
         h.wage AS pay,
         sum(income) AS income,
@@ -149,10 +149,13 @@
         orders o
         LEFT JOIN housekeeper h ON o.housekeeper_id = h.housekeeper_id
     WHERE
-        o.pension_id = #{pensionId} AND o.order_status != 2;
+        o.pension_id = #{paramMap.pensionId}
+        AND o.order_status = 0
+        AND o.check_in_date &gt;= #{paramMap.startTime}
+        AND o.check_out_date &lt;= #{paramMap.endTime};
   </select>
 
-  <select id="selectRoomIncome" parameterType="Integer" resultType="room.pojo.vo.RoomIncomeVO">
+  <select id="selectRoomIncome" parameterType="Map" resultType="room.pojo.vo.RoomIncomeVO">
     SELECT
 		room_id AS roomId,
 		(SELECT name FROM room WHERE room_id = orders.room_id) AS roomName,
@@ -161,8 +164,13 @@
 	FROM
 		orders
 	WHERE
-		order_status != 2 AND pension_id = #{pensionId}
+		order_status = 0
+		AND pension_id = #{paramMap.pensionId}
+		AND check_in_date &gt;= #{paramMap.startTime}
+        AND check_out_date &lt;= #{paramMap.endTime}
 	GROUP BY
+	    room_id
+	ORDER BY
 	    room_id;
   </select>
 

@@ -95,13 +95,19 @@ public class TestFunc {
     }
 
     @Test
-    public void testPensionIncome() {
-        System.out.println(indexService.queryPensionIncome(7));
+    public void testPensionIncome() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse("2020-05-26");
+        Date endDate = sdf.parse("2020-05-29");
+        System.out.println(indexService.queryPensionIncome(24, startDate, endDate));
     }
 
     @Test
-    public void testRoomIncome() {
-        System.out.println(indexService.queryRoomIncomesByPensionId(7));
+    public void testRoomIncome() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse("2020-05-26");
+        Date endDate = sdf.parse("2020-05-29");
+        System.out.println(indexService.queryRoomIncomesByPensionId(24, startDate, endDate));
     }
 
     @Test
@@ -120,5 +126,10 @@ public class TestFunc {
         room.setName("hhh1");
         roomService.updateRoomOrGroup(room);
         System.out.println(roomService.queryRoomInfoByRoomId(77));
+    }
+
+    @Test
+    public void getRoomByRoomGroupId() {
+        System.out.println(roomService.queryRoomsByGroupIdAndRoomStatus(86, 0));
     }
 }

@@ -6,12 +6,9 @@ import room.common.utils.DateUtils;
 import room.mapper.OrdersMapper;
 import room.mapper.RoomMapper;
 import room.pojo.Orders;
-import room.pojo.Room;
 import room.pojo.vo.PensionIncomeVO;
 import room.pojo.vo.RoomIncomeVO;
 import room.service.IndexService;
-import room.service.RoomService;
-import tk.mybatis.mapper.entity.Example;
 
 import java.text.ParseException;
 import java.util.*;
@@ -26,34 +23,46 @@ public class IndexServiceImpl implements IndexService {
     private RoomMapper roomMapper;
 
     @Override
-    public PensionIncomeVO queryPensionIncome(Integer pensionId) {
-        return ordersMapper.selectPensionIncome(pensionId);
+    public PensionIncomeVO queryPensionIncome(Integer pensionId, Date start, Date end) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("pensionId", pensionId);
+        map.put("startTime", start);
+        map.put("endTime", end);
+        return ordersMapper.selectPensionIncome(map);
     }
 
     @Override
-    public List<RoomIncomeVO> queryRoomIncomesByPensionId(Integer pensionId) {
-        List<RoomIncomeVO> result = ordersMapper.selectRoomIncome(pensionId);
-        Set<Integer> set = new HashSet<>();
+    public List<RoomIncomeVO> queryRoomIncomesByPensionId(Integer pensionId, Date start, Date end) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("pensionId", pensionId);
+        map.put("startTime", start);
+        map.put("endTime", end);
+        List<RoomIncomeVO> result = ordersMapper.selectRoomIncome(map);
         for (RoomIncomeVO vo : result) {
-            set.add(vo.getRoomId());
+            vo.setOccupancyRate(queryOccupancyRateByRoomIc(vo.getRoomId(), start, end));
         }
-        Example example = new Example(Room.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("pensionId", pensionId);
-        criteria.andNotEqualTo("fatherId", 0);
-        criteria.andNotEqualTo("roomStatus", 2);
-        List<Room> rooms = roomMapper.selectByExample(example);
-        for (Room room : rooms) {
-            if (!set.contains(room.getRoomId())) {
-                RoomIncomeVO vo = new RoomIncomeVO();
-                vo.setRoomId(room.getRoomId());
-                vo.setRoomName(room.getName());
-                vo.setDays(0);
-                vo.setIncome(0);
-                set.add(room.getRoomId());
-                result.add(vo);
-            }
-        }
+        //添加天数为0的房间信息
+//        Set<Integer> set = new HashSet<>();
+//        for (RoomIncomeVO vo : result) {
+//            set.add(vo.getRoomId());
+//        }
+//        Example example = new Example(Room.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        criteria.andEqualTo("pensionId", pensionId);
+//        criteria.andNotEqualTo("fatherId", 0);
+//        criteria.andNotEqualTo("roomStatus", 2);
+//        List<Room> rooms = roomMapper.selectByExample(example);
+//        for (Room room : rooms) {
+//            if (!set.contains(room.getRoomId())) {
+//                RoomIncomeVO vo = new RoomIncomeVO();
+//                vo.setRoomId(room.getRoomId());
+//                vo.setRoomName(room.getName());
+//                vo.setDays(0);
+//                vo.setIncome(0);
+//                set.add(room.getRoomId());
+//                result.add(vo);
+//            }
+//        }
         return result;
     }
 

@@ -146,4 +146,16 @@ public class Room {
     public void setRoomStatus(Integer roomStatus) {
         this.roomStatus = roomStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomId=" + roomId +
+                ", pensionId=" + pensionId +
+                ", fatherId=" + fatherId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", roomStatus=" + roomStatus +
+                '}';
+    }
 }

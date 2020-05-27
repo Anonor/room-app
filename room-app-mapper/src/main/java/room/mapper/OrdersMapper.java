@@ -18,9 +18,9 @@ public interface OrdersMapper extends MyMapper<Orders> {
 
     List<OrderVO> selectOrderByRoomIdAndOrderStatus(@Param("paramMap") Map<String, Object> paramMap);
 
-    PensionIncomeVO selectPensionIncome(Integer pensionId);
+    PensionIncomeVO selectPensionIncome(@Param("paramMap") Map<String, Object> paramMap);
 
-    List<RoomIncomeVO> selectRoomIncome(Integer pensionId);
+    List<RoomIncomeVO> selectRoomIncome(@Param("paramMap") Map<String, Object> paramMap);
 
     List<Orders> selectByTime(@Param("paramMap") Map<String, Object> paramMap);
 }
