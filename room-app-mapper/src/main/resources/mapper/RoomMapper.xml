@@ -39,7 +39,18 @@
         ( SELECT room_id, name FROM room ) sub
     WHERE
         r.room_id = #{roomId}
-        AND r.room_id = sub.room_id;
+        AND r.father_id = sub.room_id;
+  </select>
+
+    <select id="selectRoomGroupInfoByGroupId" resultType="room.pojo.vo.RoomGroupVO" parameterType="Integer">
+    SELECT
+        room_id AS groupId,
+        pension_id AS pensionId,
+        name AS groupName
+    FROM
+        room
+    WHERE
+        room_id = #{groupId}
   </select>
 
   <select id="selectRoomsByMerchantId" resultMap="BaseResultMap" parameterType="Integer">

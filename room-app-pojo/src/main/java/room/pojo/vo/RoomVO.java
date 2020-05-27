@@ -94,4 +94,17 @@ public class RoomVO {
     public void setRoomStatus(Integer roomStatus) {
         this.roomStatus = roomStatus;
     }
+
+    @Override
+    public String toString() {
+        return "RoomVO{" +
+                "roomId=" + roomId +
+                ", pensionId=" + pensionId +
+                ", groupId=" + groupId +
+                ", groupName='" + groupName + '\'' +
+                ", roomName='" + roomName + '\'' +
+                ", price=" + price +
+                ", roomStatus=" + roomStatus +
+                '}';
+    }
 }

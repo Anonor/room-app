@@ -65,6 +65,7 @@ public class PensionServiceImpl implements PensionService {
         Example pensionExample = new Example(Pension.class);
         Example.Criteria criteria = pensionExample.createCriteria();
         criteria.andEqualTo("merchantId", merchantId);
+        criteria.andNotEqualTo("pensionStatus", 2);
         return pensionMapper.selectByExample(pensionExample);
     }
 

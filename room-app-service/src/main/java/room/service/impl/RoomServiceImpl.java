@@ -69,6 +69,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public RoomGroupVO queryRoomGroupInfoByGroupId(Integer groupId) {
+        return roomMapper.selectRoomGroupInfoByGroupId(groupId);
+    }
+
+    @Override
     public boolean isRoomExist(Integer groupId, String roomName) {
         Example example = new Example(Room.class);
         Example.Criteria criteria = example.createCriteria();

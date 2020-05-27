@@ -13,6 +13,8 @@ public interface RoomMapper extends MyMapper<Room> {
 
     public RoomVO selectRoomInfoByRoomId(Integer roomId);
 
+    public RoomGroupVO selectRoomGroupInfoByGroupId(Integer groupId);
+
     public List<Room> selectRoomsByMerchantId(Integer merchantId);
 
 }

@@ -125,7 +125,7 @@ public class TestFunc {
         room.setRoomId(77);
         room.setName("hhh1");
         roomService.updateRoomOrGroup(room);
-        System.out.println(roomService.queryRoomInfoByRoomId(77));
+        System.out.println(roomService.queryRoomGroupInfoByGroupId(77));
     }
 
     @Test

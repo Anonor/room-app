@@ -20,8 +20,11 @@ public interface RoomService {
     //根据分组Id和房间状态获取其下房间信息
     public List<Room> queryRoomsByGroupIdAndRoomStatus(Integer groupId, Integer roomStatus);
 
-    //根据房间Id获取分组和房间信息
+    //根据房间Id获取房间信息
     public RoomVO queryRoomInfoByRoomId(Integer roomId);
+
+    //根据房间分组Id获取房间分组信息
+    public RoomGroupVO queryRoomGroupInfoByGroupId(Integer groupId);
 
     //根据分组id和房间名称name查询房间是否存在（true：存在   false：不存在）
     public boolean isRoomExist(Integer groupId, String roomName);
