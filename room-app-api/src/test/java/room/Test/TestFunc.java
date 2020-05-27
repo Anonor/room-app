@@ -112,4 +112,13 @@ public class TestFunc {
         float result = indexService.queryOccupancyRateByRoomIc(48, startDate, endDate);
         System.out.println(result);
     }
+
+    @Test
+    public void updateRoomOrRoomGroup() {
+        Room room = new Room();
+        room.setRoomId(77);
+        room.setName("hhh1");
+        roomService.updateRoomOrGroup(room);
+        System.out.println(roomService.queryRoomInfoByRoomId(77));
+    }
 }

@@ -39,7 +39,7 @@
         ( SELECT room_id, name FROM room ) sub
     WHERE
         r.room_id = #{roomId}
-        AND r.father_id = sub.room_id;
+        AND r.room_id = sub.room_id;
   </select>
 
   <select id="selectRoomsByMerchantId" resultMap="BaseResultMap" parameterType="Integer">
