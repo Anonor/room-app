@@ -134,6 +134,7 @@ public class OrderController {
     public String  checkOut(@RequestBody OrderBO orderBO){
         int orderId = orderBO.getOrderId();
         Orders orders = orderService.queryOrdersByOrderId(orderId);
+        orders.setCheckOutDate(orderBO.getCheckOutDate());
         Float income = orders.getIncome();
         Float returnMoney = orderBO.getReturnMoney();
         Float income_ = income-returnMoney;
