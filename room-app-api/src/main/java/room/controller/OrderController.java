@@ -109,10 +109,12 @@ public class OrderController {
     public String  updateOrderInfo(@RequestBody OrderBO orderBO){
         Orders orders=new Orders();
         orders.setOrderId(orderBO.getOrderId());
-        //修改房间之后，将原入住房间状态置0，现入住房间状态置1
+        //如果更换了房间，将原入住房间状态置0，现入住房间状态置1
+        if (orderBO.getOldRoomId() != orderBO.getRoomId()){
+            roomService.updateRoomStatusByRoomId(orderBO.getRoomId(),1);    //现入住房间
+            roomService.updateRoomStatusByRoomId(orderService.queryByOrderId(orderBO.getOrderId()).getRoomId(),0);     //原入住房间
+        }
         orders.setRoomId(orderBO.getRoomId());
-        roomService.updateRoomStatusByRoomId(orderBO.getRoomId(),1);    //现入住房间
-        roomService.updateRoomStatusByRoomId(orderService.queryByOrderId(orderBO.getOrderId()).getRoomId(),0);     //原入住房间
         orders.setGuestName(orderBO.getGuestName());
         orders.setCheckInDate(orderBO.getCheckInDate());
         orders.setCheckOutDate(orderBO.getCheckOutDate());
