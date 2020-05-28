@@ -37,9 +37,14 @@ public class IndexServiceImpl implements IndexService {
         map.put("pensionId", pensionId);
         map.put("startTime", start);
         map.put("endTime", end);
-        List<RoomIncomeVO> result = ordersMapper.selectRoomIncome(map);
-        for (RoomIncomeVO vo : result) {
-            vo.setOccupancyRate(queryOccupancyRateByRoomIc(vo.getRoomId(), start, end));
+        List<RoomIncomeVO> vos = ordersMapper.selectRoomIncome(map);
+        List<RoomIncomeVO> result = new ArrayList<>();
+        for (RoomIncomeVO vo : vos) {
+            float rate = queryOccupancyRateByRoomId(vo.getRoomId(), start, end);
+            if (rate > 0) {
+                vo.setOccupancyRate(rate);
+                result.add(vo);
+            }
         }
         //添加天数为0的房间信息
 //        Set<Integer> set = new HashSet<>();
@@ -67,7 +72,7 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public float queryOccupancyRateByRoomIc(Integer roomId, Date start, Date end) {
+    public float queryOccupancyRateByRoomId(Integer roomId, Date start, Date end) {
         float rate = 0;
         try {
             int allDays = DateUtils.getDays(start, end);
@@ -91,8 +96,13 @@ public class IndexServiceImpl implements IndexService {
                         days += DateUtils.getDays(start, e);
                     }
                 }
-                rate = days / allDays;
+                if (days == 0) {
+                    rate = 0;
+                } else {
+                    rate = days / allDays;
+                }
             }
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

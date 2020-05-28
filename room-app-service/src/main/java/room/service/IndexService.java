@@ -19,6 +19,6 @@ public interface IndexService {
     public List<RoomIncomeVO> queryRoomIncomesByPensionId(Integer pensionId,  Date start, Date end);
 
     //根据房间id、开始时间和结束时间获取房间的入住率
-    public float queryOccupancyRateByRoomIc(Integer roomId, Date start, Date end);
+    public float queryOccupancyRateByRoomId(Integer roomId, Date start, Date end);
 
 }

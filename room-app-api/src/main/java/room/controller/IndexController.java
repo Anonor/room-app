@@ -64,7 +64,7 @@ public class IndexController {
         Date startDate = roomBO.getStartDate();
         Date endDate = roomBO.getEndDate();
         JSONObject result = new JSONObject();
-        Float occupancyRate = indexService.queryOccupancyRateByRoomIc(roomId,startDate,endDate);
+        Float occupancyRate = indexService.queryOccupancyRateByRoomId(roomId,startDate,endDate);
         result.put("status","success");
         result.put("occupancyRate",occupancyRate);
         return result.toJSONString();

@@ -113,10 +113,11 @@ public class TestFunc {
     @Test
     public void testRate() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = sdf.parse("2020-05-18");
-        Date endDate = sdf.parse("2020-05-23");
-        float result = indexService.queryOccupancyRateByRoomIc(48, startDate, endDate);
-        System.out.println(result);
+        Date startDate = sdf.parse("2020-05-28");
+        Date endDate = sdf.parse("2020-05-31");
+//        float result = indexService.queryOccupancyRateByRoomId(128, startDate, endDate);
+//        System.out.println(result);
+        System.out.println(indexService.queryRoomIncomesByPensionId(27, startDate, endDate));
     }
 
     @Test
